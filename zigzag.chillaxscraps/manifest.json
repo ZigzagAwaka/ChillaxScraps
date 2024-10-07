@@ -1,0 +1,10 @@
+{
+    "name": "ChillaxScraps",
+    "version_number": "1.0.0",
+    "website_url": "https://github.com/ZigzagAwaka/ChillaxScraps",
+    "description": "Adds several scrap items to mess with your friends and enhance gameplay experience!",
+    "dependencies": [
+        "Evaisa-LethalLib-0.16.1",
+        "BepInEx-BepInExPack-5.4.2100"
+    ]
+}
