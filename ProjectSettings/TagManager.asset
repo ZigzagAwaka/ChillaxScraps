@@ -3,37 +3,79 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - PhysicsProp
+  - InteractTrigger
+  - Catwalk
+  - PlayerVoice
+  - Bush
+  - Metal
+  - Concrete
+  - PoweredLight
+  - Battery
+  - BatteryPack
+  - PoweredLightsContainer
+  - Carpet
+  - MapCamera
+  - DungeonGenerator
+  - AnomalySpawn
+  - AnomalyObject
+  - MapProp
+  - EnemySpawn
+  - Puddle
+  - Gravel
+  - AINode
+  - EntranceA
+  - ScrapSpawn
+  - Aluminum
+  - MapPropsContainer
+  - PlayerRagdoll
+  - OutsideMeshes
+  - OutsideAINode
+  - Enemy
+  - DoNotSet
+  - GameOverCameraHandle
+  - Tiles
+  - Wood
+  - Snow
+  - Grass
+  - TemporaryEffect
+  - OutsideLevelNavMesh
+  - ItemShipLandingNode
+  - PoweredObject
+  - Rock
+  - PlaceableObject
+  - SpawnDenialPoint
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Props
+  - HelmetVisor
+  - Room
+  - InteractableObject
+  - Foliage
+  - Colliders
+  - PhysicsObject
+  - Triggers
+  - MapRadar
+  - NavigationSurface
+  - RoomLight
+  - Anomaly
+  - LineOfSight
+  - Enemies
+  - PlayerRagdoll
+  - MapHazards
+  - ScanNode
+  - EnemiesNotRendered
+  - MiscLevelGeometry
+  - Terrain
+  - PlaceableShipObjects
+  - PlacementBlocker
+  - Railing
   - 
   - 
   - 
