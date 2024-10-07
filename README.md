@@ -1,4 +1,4 @@
-# PremiumScraps
+# ChillaxScraps
 
 This is the repository for the updated "ChillaxScraps" Lethal Company mod.
 
