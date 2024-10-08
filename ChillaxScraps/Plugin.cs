@@ -43,13 +43,13 @@ namespace ChillaxScraps
 
             string directory = "Assets/Data/";
 
-            audioClips = new List<AudioClip>
-            {
-                //bundle.LoadAsset<AudioClip>(directory + "_audio/AirHorn1.ogg")
+            audioClips = new List<AudioClip> {
+                bundle.LoadAsset<AudioClip>(directory + "_audio/Page_Turn_Sound_Effect.wav"),
+                bundle.LoadAsset<AudioClip>(directory + "_audio/Death_Note_Heart_Attack_Sound_Effect.wav")
             };
 
             var scraps = new List<Scrap> {
-                new Scrap("DeathNote/DeathNoteItem.asset", 8, 1)
+                new Scrap("DeathNote/DeathNoteItem.asset", 6, 1)
             };
 
             int i = 0; config = new Config(base.Config, scraps);

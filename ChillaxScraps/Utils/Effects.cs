@@ -1,5 +1,6 @@
 ﻿using GameNetcodeStuff;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -18,6 +19,41 @@ namespace ChillaxScraps.Utils
             Fire,  // burned death
             CutInHalf,  // cut the body in half
             NoHead2  // same as NoHead but without sound
+        }
+
+        public static int NbOfPlayers()
+        {
+            return StartOfRound.Instance.connectedPlayersAmount + 1;
+        }
+
+        public static List<PlayerControllerB> GetPlayers(bool includeDead = false)
+        {
+            List<PlayerControllerB> rawList = Object.FindObjectsOfType<PlayerControllerB>().ToList();
+            List<PlayerControllerB> updatedList = new List<PlayerControllerB>(rawList);
+            foreach (var p in rawList)
+            {
+                if (p.playerSteamId <= 0 || (!includeDead && p.isPlayerDead))
+                {
+                    updatedList.Remove(p);
+                }
+            }
+            return updatedList;
+        }
+
+        public static List<EnemyAI> GetEnemies(bool includeDead = false, bool includeCanDie = false)
+        {
+            List<EnemyAI> rawList = Object.FindObjectsOfType<EnemyAI>().ToList();
+            List<EnemyAI> updatedList = new List<EnemyAI>(rawList);
+            if (includeDead)
+                return updatedList;
+            foreach (var e in rawList)
+            {
+                if (e.isEnemyDead || (!includeCanDie && !e.enemyType.canDie))
+                {
+                    updatedList.Remove(e);
+                }
+            }
+            return updatedList;
         }
 
         public static void Damage(PlayerControllerB player, int damageNb, CauseOfDeath cause = 0, int animation = 0, bool criticalBlood = true)
