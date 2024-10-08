@@ -53,6 +53,7 @@ namespace ChillaxScraps
             };
 
             int i = 0; config = new Config(base.Config, scraps);
+            SetupScript.Network();
 
             foreach (Scrap scrap in scraps)
             {
