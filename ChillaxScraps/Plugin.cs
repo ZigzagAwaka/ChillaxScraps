@@ -19,6 +19,7 @@ namespace ChillaxScraps
 
         public static Plugin instance;
         public static List<AudioClip> audioClips;
+        public static List<GameObject> gameObjects;
         internal static Config config { get; private set; } = null!;
 
         void LoadItemBehaviour(Item item, int behaviourId)
@@ -42,6 +43,10 @@ namespace ChillaxScraps
             AssetBundle bundle = AssetBundle.LoadFromFile(assetDir);
 
             string directory = "Assets/Data/";
+
+            gameObjects = new List<GameObject> {
+                bundle.LoadAsset<GameObject>(directory + "DeathNote/DeathNoteCanvas.prefab")
+            };
 
             audioClips = new List<AudioClip> {
                 bundle.LoadAsset<AudioClip>(directory + "_audio/Page_Turn_Sound_Effect.wav"),

@@ -14,26 +14,27 @@ namespace ChillaxScraps.CustomEffects
         public List<PlayerControllerB> playerList;
         public List<EnemyAI> enemyList;
         private DeathNoteCanvas canvas;
-        private GameObject canvasPrefab;  // to be loaded with asset.spawnPrefab
+        private readonly GameObject canvasPrefab;
 
         public DeathNote()
         {
             useCooldown = 2;
+            canvasPrefab = Plugin.gameObjects[0];
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void AudioServerRpc()
+        public void AudioServerRpc(int audioID, Vector3 clientPosition, float hostVolume, float clientVolume = default)
         {
-            AudioClientRpc();
+            AudioClientRpc(audioID, clientPosition, hostVolume, clientVolume == default ? hostVolume : clientVolume);
         }
 
         [ClientRpc]
-        private void AudioClientRpc()
+        public void AudioClientRpc(int audioID, Vector3 clientPosition, float hostVolume, float clientVolume)
         {
             if (IsHost)
-                Effects.Audio(0, 1f);
+                Effects.Audio(audioID, hostVolume);
             else
-                Effects.Audio(0, playerHeldBy.transform.position, 1f);
+                Effects.Audio(audioID, clientPosition, clientVolume);
         }
 
         [ServerRpc(RequireOwnership = false)]
@@ -54,9 +55,19 @@ namespace ChillaxScraps.CustomEffects
         private IEnumerator DeathNoteKill(PlayerControllerB player)
         {
             if (player.IsOwner)
-                Effects.Audio(1, 3f);
+                Effects.Audio(1, 2.5f);
             yield return new WaitForSeconds(3);
             Effects.Damage(player, 100, CauseOfDeath.Unknown, (int)Effects.DeathAnimation.Haunted);
+        }
+
+        public override void GrabItem()
+        {
+            base.GrabItem();
+            if (canUseDeathNote && !isOpened && itemProperties.toolTips[0] == "")
+            {
+                itemProperties.toolTips[0] = "Write a name : [RMB]";
+                base.SetControlTipsForItem();
+            }
         }
 
         public override void ItemActivate(bool used, bool buttonDown = true)
@@ -65,7 +76,7 @@ namespace ChillaxScraps.CustomEffects
             if (buttonDown && playerHeldBy != null && canUseDeathNote && !isOpened
                 && !StartOfRound.Instance.inShipPhase && StartOfRound.Instance.shipHasLanded)
             {
-                AudioServerRpc();  // page audio
+                AudioServerRpc(0, playerHeldBy.transform.position, 1f);  // page audio
                 playerList = Effects.GetPlayers();
                 enemyList = Effects.GetEnemies();
                 canvas = Instantiate(canvasPrefab, transform).GetComponent<DeathNoteCanvas>();
@@ -102,17 +113,20 @@ namespace ChillaxScraps.CustomEffects
 
         public void ActivateDeathNote(GameObject objectToKill)
         {
+            bool flag = true;
             CloseDeathNote();
-            if (objectToKill.transform.TryGetComponent(out IHittable component))
+            if (objectToKill.transform.TryGetComponent(out PlayerControllerB player))
             {
-                if (component.GetType() == typeof(PlayerControllerB))
-                {
-                    KillPlayerDeathNoteServerRpc(((PlayerControllerB)component).playerClientId, ((PlayerControllerB)component).OwnerClientId);
-                }
-                else if (component.GetType() == typeof(EnemyAI))
-                {
-                    ((EnemyAI)component).KillEnemyServerRpc(false);
-                }
+                KillPlayerDeathNoteServerRpc(player.playerClientId, player.OwnerClientId);
+            }
+            else if (objectToKill.transform.TryGetComponent(out EnemyAI enemy))
+            {
+                enemy.KillEnemyServerRpc(false);
+            }
+            else
+                flag = false;
+            if (flag)
+            {
                 canUseDeathNote = false;
                 itemProperties.toolTips[0] = "";
                 base.SetControlTipsForItem();

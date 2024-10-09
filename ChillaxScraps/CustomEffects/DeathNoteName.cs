@@ -20,17 +20,13 @@ namespace ChillaxScraps.CustomEffects
             _objectToKill = objectToKill;
             _deathNoteCanvas = deathNoteCanvas;
 
-            if (objectToKill.transform.TryGetComponent(out IHittable component))
+            if (objectToKill.transform.TryGetComponent(out PlayerControllerB player))
             {
-                if (component.GetType() == typeof(PlayerControllerB))
-                {
-                    nameText.text = ((PlayerControllerB)component).playerUsername;
-                }
-                else if (component.GetType() == typeof(EnemyAI))
-                {
-                    nameText.text = ((EnemyAI)component).enemyType.ToString();
-                }
-
+                nameText.text = player.playerUsername;
+            }
+            else if (objectToKill.transform.TryGetComponent(out EnemyAI enemy))
+            {
+                nameText.text = enemy.enemyType.ToString();
             }
 
             killButton.onClick.AddListener(Kill);
