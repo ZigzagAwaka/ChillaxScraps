@@ -71,7 +71,11 @@ You can post some suggestions or issues in the mod release page in the [modding 
 <details><summary>Item list (click to reveal)</summary>
 
 - Death Note
-- f
+- Boink
+- Eevee
+- Cup Noodle
+- Moai
+- Uno Reverse Card
 
 </details>
 

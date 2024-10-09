@@ -28,6 +28,7 @@ namespace ChillaxScraps
             switch (behaviourId)
             {
                 case 1: script = item.spawnPrefab.AddComponent<DeathNote>(); break;
+                case 2: script = item.spawnPrefab.AddComponent<Boink>(); break;
                 default: return;
             }
             script.grabbable = true;
@@ -50,11 +51,14 @@ namespace ChillaxScraps
 
             audioClips = new List<AudioClip> {
                 bundle.LoadAsset<AudioClip>(directory + "_audio/Page_Turn_Sound_Effect.wav"),
-                bundle.LoadAsset<AudioClip>(directory + "_audio/Death_Note_Heart_Attack_Sound_Effect.wav")
+                bundle.LoadAsset<AudioClip>(directory + "_audio/Death_Note_Heart_Attack_Sound_Effect.wav"),
+                bundle.LoadAsset<AudioClip>(directory + "_audio/Boink.wav")
             };
 
             var scraps = new List<Scrap> {
-                new Scrap("DeathNote/DeathNoteItem.asset", 6, 1)
+                new Scrap("DeathNote/DeathNoteItem.asset", 5, 1),
+                new Scrap("Boink/BoinkItem.asset", 12, 2),
+                new Scrap("Eevee/EeveeItem.asset", 10)
             };
 
             int i = 0; config = new Config(base.Config, scraps);
