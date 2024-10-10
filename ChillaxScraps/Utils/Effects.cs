@@ -69,6 +69,15 @@ namespace ChillaxScraps.Utils
             Damage(player, damageNb, cause, animation, criticalBlood);
         }
 
+        public static void Heal(ulong playerID, int health)
+        {
+            var player = StartOfRound.Instance.allPlayerScripts[playerID];
+            player.health = health;
+            player.criticallyInjured = false;
+            player.bleedingHeavily = false;
+            player.playerBodyAnimator.SetBool("Limp", false);
+        }
+
         public static void Teleportation(PlayerControllerB player, Vector3 position, bool exterior = false, bool interior = false)
         {
             if (position == StartOfRound.Instance.middleOfShipNode.position)
@@ -101,11 +110,6 @@ namespace ChillaxScraps.Utils
             Landmine.SpawnExplosion(position, false, 0, range, damage, physicsForce);
         }
 
-        public static void DropItem(bool destroy = false, Vector3 placingPosition = default)
-        {
-            GameNetworkManager.Instance.localPlayerController.DiscardHeldObject(true, placePosition: destroy ? RoundManager.Instance.insideAINodes[^1].transform.position - (Vector3.up * 100) : placingPosition);
-        }
-
         public static void Audio(int audioID, float volume)
         {
             RoundManager.PlayRandomClip(HUDManager.Instance.UIAudio, new AudioClip[] { Plugin.audioClips[audioID] }, randomize: false, oneShotVolume: volume);
@@ -134,21 +138,6 @@ namespace ChillaxScraps.Utils
             audioSource.pitch = pitch;
             audioSource.Play();
             Object.Destroy(gameObject, clip.length * ((Time.timeScale < 0.01f) ? 0.01f : Time.timeScale));
-        }
-
-        public static void Audio(int[] audioIDs, Vector3 position, float volume, bool adjust = true)
-        {
-            var clips = audioIDs.Select(id => Plugin.audioClips[id]).ToArray();
-            var finalPosition = position;
-            if (adjust)
-                finalPosition += (Vector3.up * 2);
-            GameObject gameObject = new GameObject("One shot audio");
-            gameObject.transform.position = finalPosition;
-            AudioSource audioSource = (AudioSource)gameObject.AddComponent(typeof(AudioSource));
-            audioSource.spatialBlend = 1f;
-            audioSource.volume = volume;
-            RoundManager.PlayRandomClip(audioSource, clips, randomize: true, oneShotVolume: volume);
-            Object.Destroy(gameObject, clips[^1].length * ((Time.timeScale < 0.01f) ? 0.01f : Time.timeScale));
         }
 
         public static void Message(string title, string bottom, bool warning = false)

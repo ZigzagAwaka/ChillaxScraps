@@ -22,44 +22,6 @@ namespace ChillaxScraps.CustomEffects
             canvasPrefab = Plugin.gameObjects[0];
         }
 
-        [ServerRpc(RequireOwnership = false)]
-        public void AudioServerRpc(int audioID, Vector3 clientPosition, float hostVolume, float clientVolume = default)
-        {
-            AudioClientRpc(audioID, clientPosition, hostVolume, clientVolume == default ? hostVolume : clientVolume);
-        }
-
-        [ClientRpc]
-        public void AudioClientRpc(int audioID, Vector3 clientPosition, float hostVolume, float clientVolume)
-        {
-            if (IsHost)
-                Effects.Audio(audioID, hostVolume);
-            else
-                Effects.Audio(audioID, clientPosition, clientVolume);
-        }
-
-        [ServerRpc(RequireOwnership = false)]
-        private void KillPlayerDeathNoteServerRpc(ulong playerId, ulong clientId)
-        {
-            var player = StartOfRound.Instance.allPlayerObjects[playerId].GetComponent<PlayerControllerB>();
-            var clientRpcParams = new ClientRpcParams() { Send = new ClientRpcSendParams() { TargetClientIds = new[] { clientId } } };
-            KillPlayerDeathNoteClientRpc(player.playerClientId, clientRpcParams);
-        }
-
-        [ClientRpc]
-        private void KillPlayerDeathNoteClientRpc(ulong playerId, ClientRpcParams clientRpcParams = default)
-        {
-            var player = StartOfRound.Instance.allPlayerObjects[playerId].GetComponent<PlayerControllerB>();
-            StartCoroutine(DeathNoteKill(player));
-        }
-
-        private IEnumerator DeathNoteKill(PlayerControllerB player)
-        {
-            if (player.IsOwner)
-                Effects.Audio(1, 2.5f);
-            yield return new WaitForSeconds(3);
-            Effects.Damage(player, 100, CauseOfDeath.Unknown, (int)Effects.DeathAnimation.Haunted);
-        }
-
         public override void GrabItem()
         {
             base.GrabItem();
@@ -131,6 +93,44 @@ namespace ChillaxScraps.CustomEffects
                 itemProperties.toolTips[0] = "";
                 base.SetControlTipsForItem();
             }
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void AudioServerRpc(int audioID, Vector3 clientPosition, float hostVolume, float clientVolume = default)
+        {
+            AudioClientRpc(audioID, clientPosition, hostVolume, clientVolume == default ? hostVolume : clientVolume);
+        }
+
+        [ClientRpc]
+        private void AudioClientRpc(int audioID, Vector3 clientPosition, float hostVolume, float clientVolume)
+        {
+            if (IsHost)
+                Effects.Audio(audioID, hostVolume);
+            else
+                Effects.Audio(audioID, clientPosition, clientVolume);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void KillPlayerDeathNoteServerRpc(ulong playerId, ulong clientId)
+        {
+            var player = StartOfRound.Instance.allPlayerObjects[playerId].GetComponent<PlayerControllerB>();
+            var clientRpcParams = new ClientRpcParams() { Send = new ClientRpcSendParams() { TargetClientIds = new[] { clientId } } };
+            KillPlayerDeathNoteClientRpc(player.playerClientId, clientRpcParams);
+        }
+
+        [ClientRpc]
+        private void KillPlayerDeathNoteClientRpc(ulong playerId, ClientRpcParams clientRpcParams = default)
+        {
+            var player = StartOfRound.Instance.allPlayerObjects[playerId].GetComponent<PlayerControllerB>();
+            StartCoroutine(DeathNoteKill(player));
+        }
+
+        private IEnumerator DeathNoteKill(PlayerControllerB player)
+        {
+            if (player.IsOwner)
+                Effects.Audio(1, 2.5f);
+            yield return new WaitForSeconds(3);
+            Effects.Damage(player, 100, CauseOfDeath.Unknown, (int)Effects.DeathAnimation.Haunted);
         }
     }
 }

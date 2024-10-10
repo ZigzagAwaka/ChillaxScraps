@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c30496d6ae6d6f907456e10a94e01ec6, type: 3}
-  m_Name: EeveeItem
+  m_Name: CupNoodleItem
   m_EditorClassIdentifier: 
   itemId: 0
-  itemName: Eevee
+  itemName: Cup Noodle
   spawnPositionTypes: []
   twoHanded: 0
-  twoHandedAnimation: 1
+  twoHandedAnimation: 0
   canBeGrabbedBeforeGameStart: 1
-  weight: 1.08
+  weight: 1
   itemIsTrigger: 0
   holdButtonUse: 0
   itemSpawnsOnGround: 1
@@ -27,37 +27,37 @@ MonoBehaviour:
   creditsWorth: 0
   lockedInDemo: 0
   highestSalePercentage: 0
-  maxValue: 90
-  minValue: 60
-  spawnPrefab: {fileID: 8180712069639204787, guid: 986c94f617616f144bba7956150fcb2d,
+  maxValue: 200
+  minValue: 20
+  spawnPrefab: {fileID: 8242664483568612272, guid: 416deb3be1b51ac4283487101f31ae4b,
     type: 3}
   requiresBattery: 0
   batteryUsage: 0
   automaticallySetUsingPower: 0
-  itemIcon: {fileID: 21300000, guid: 0ee9c9025887f2943aa6db6f64c237f5, type: 3}
-  grabAnim: HoldForward
+  itemIcon: {fileID: 21300000, guid: 27eaafe3e46f9234097e102e723f54da, type: 3}
+  grabAnim: 
   useAnim: 
   pocketAnim: 
   throwAnim: 
   grabAnimationTime: 0
-  grabSFX: {fileID: 8300000, guid: c635f93f761cc274ca4e6db396f88ac2, type: 3}
-  dropSFX: {fileID: 8300000, guid: abdd11e9fe4358147946d04d482a2ee4, type: 3}
+  grabSFX: {fileID: 8300000, guid: 94952a052ad5a92428eb446aad66d238, type: 3}
+  dropSFX: {fileID: 8300000, guid: 7640b656abb7c1744be9c113eee0f332, type: 3}
   pocketSFX: {fileID: 0}
   throwSFX: {fileID: 0}
   syncGrabFunction: 0
-  syncUseFunction: 1
+  syncUseFunction: 0
   syncDiscardFunction: 0
   syncInteractLRFunction: 0
   saveItemVariable: 0
   isDefensiveWeapon: 0
   toolTips:
-  - 'Squeeze : [RMB]'
+  - 'Eat Mama : [RMB]'
   verticalOffset: 0
   floorYOffset: 90
   allowDroppingAheadOfPlayer: 1
   restingRotation: {x: 0, y: 0, z: 0}
-  rotationOffset: {x: 0, y: 100, z: 5}
-  positionOffset: {x: 0.15, y: -0.33, z: 0.37}
+  rotationOffset: {x: 90, y: 0, z: -90}
+  positionOffset: {x: -0.1, y: 0.1, z: -0.1}
   meshOffset: 0
   meshVariants: []
   materialVariants: []
