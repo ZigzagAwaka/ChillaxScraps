@@ -61,7 +61,8 @@ namespace ChillaxScraps
                 new Scrap("DeathNote/DeathNoteItem.asset", 5, 1),
                 new Scrap("Boink/BoinkItem.asset", 12, 2),
                 new Scrap("Eevee/EeveeItem.asset", 10),
-                new Scrap("CupNoodle/CupNoodleItem.asset", 12, 3)
+                new Scrap("CupNoodle/CupNoodleItem.asset", 12, 3),
+                new Scrap("Moai/MoaiItem.asset", 10)
             };
 
             int i = 0; config = new Config(base.Config, scraps);
