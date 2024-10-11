@@ -78,9 +78,9 @@ namespace ChillaxScraps.Utils
             player.playerBodyAnimator.SetBool("Limp", false);
         }
 
-        public static void Teleportation(PlayerControllerB player, Vector3 position, bool exterior = false, bool interior = false)
+        public static void Teleportation(PlayerControllerB player, Vector3 position, bool ship = false, bool exterior = false, bool interior = false)
         {
-            if (position == StartOfRound.Instance.middleOfShipNode.position)
+            if (ship)
             {
                 player.isInElevator = true;
                 player.isInHangarShipRoom = true;

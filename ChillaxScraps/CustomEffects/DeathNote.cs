@@ -24,12 +24,17 @@ namespace ChillaxScraps.CustomEffects
 
         public override void GrabItem()
         {
-            base.GrabItem();
             if (canUseDeathNote && !isOpened && itemProperties.toolTips[0] == "")
             {
                 itemProperties.toolTips[0] = "Write a name : [RMB]";
                 base.SetControlTipsForItem();
             }
+            else if (!canUseDeathNote && itemProperties.toolTips[0] != "")
+            {
+                itemProperties.toolTips[0] = "";
+                base.SetControlTipsForItem();
+            }
+            base.GrabItem();
         }
 
         public override void ItemActivate(bool used, bool buttonDown = true)
