@@ -36,7 +36,7 @@ Compatible with v64 of Lethal Company.
 ![Preview]()
 
 ### Classic items
-- Scraps with no special effects, but they come with custom audio.
+- Scraps with no special effects, but they come with custom audio or color variations.
 
 ![Preview]()
 
