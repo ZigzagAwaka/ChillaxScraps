@@ -9,42 +9,44 @@ You can check the Changelog file to see the list of improvements that I made... 
 Compatible with v64 of Lethal Company.
 
 ### Death Note
-- todo
-- todo
+- This forbidden book can be used to write someone's name in...
+- The fate of the chosen player is uncertain but rumors told that [insert creepy thing about death].
+- Can also be used on ennemies.
 
-![Preview]()
+![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-deathnote.PNG)
 
 ### Uno Reverse Card
-- todo
-- todo
+- This classic card can be used to swap your position with a random player.
+- You are not going to use it badly, right? .... right?
 
-![Preview]()
+![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-uno.PNG)
 
 ### Custom effect items
-- todo
+- **Boink**, watch out for this classic red bird as he wants to bo *boink boink* with you ! Also do you want free Robux?
+- **Cup Noodle**, a tasty food from Thailand, can be eaten to heal a small part of your total health and stamina.
 
-![Preview]()
+![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-effects.PNG)
 
+<!--
 ### Weapons
 - todo
 
 ![Preview]()
+-->
 
 ### Noisy items
-- todo
+- **Eevee** can be used to make some funny sounds !
 
-![Preview]()
+![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-audio.PNG)
 
 ### Classic items
 - Scraps with no special effects, but they come with custom audio or color variations.
 
-![Preview]()
+![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-preview1.PNG)
 
 <details><summary>Want to see some more images? (click to reveal)</summary>
 
-![Preview]()
-
-![Preview]()
+![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-variant.PNG)
 
 </details>
 
@@ -88,7 +90,7 @@ You can post some suggestions or issues in the mod release page in the [modding 
 
 - Thanks **Leaucard** for helping with some things!
 
-- Custom made 3D models are imported from the [original ChillaxScraps mod](https://thunderstore.io/c/lethal-company/p/CHILLAX/ChillaxSCRAPS/)
+- Some assets are imported from the [original ChillaxScraps mod](https://thunderstore.io/c/lethal-company/p/CHILLAX/ChillaxSCRAPS/)
 
 - Some assets are ripped from various games and imported thanks to https://www.models-resource.com/, you can check the list [here](https://github.com/ZigzagAwaka/ChillaxScraps/blob/main/models-resource-credits.txt)
 
