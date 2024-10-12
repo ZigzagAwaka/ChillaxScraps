@@ -10,57 +10,61 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c30496d6ae6d6f907456e10a94e01ec6, type: 3}
-  m_Name: BoinkItem
+  m_Name: FroggyChairItem
   m_EditorClassIdentifier: 
   itemId: 0
-  itemName: Boink
+  itemName: Froggy Chair
   spawnPositionTypes: []
   twoHanded: 0
   twoHandedAnimation: 0
   canBeGrabbedBeforeGameStart: 1
-  weight: 1
+  weight: 1.16
   itemIsTrigger: 0
   holdButtonUse: 0
   itemSpawnsOnGround: 1
-  isConductiveMetal: 0
+  isConductiveMetal: 1
   isScrap: 1
   creditsWorth: 0
   lockedInDemo: 0
   highestSalePercentage: 0
-  maxValue: 110
-  minValue: 70
-  spawnPrefab: {fileID: 3411995531352418481, guid: 1745e01bea6920d45aa2cffa85ebbd85,
+  maxValue: 100
+  minValue: 60
+  spawnPrefab: {fileID: 6770636324726683080, guid: b74ba9fca0b006a4bbb4f9cd814acf82,
     type: 3}
   requiresBattery: 0
   batteryUsage: 0
   automaticallySetUsingPower: 0
-  itemIcon: {fileID: 21300000, guid: 0d27d13aaf0a63245a452656ce18de13, type: 3}
+  itemIcon: {fileID: 21300000, guid: 0ee9c9025887f2943aa6db6f64c237f5, type: 3}
   grabAnim: 
   useAnim: 
   pocketAnim: 
   throwAnim: 
   grabAnimationTime: 0
-  grabSFX: {fileID: 8300000, guid: e45b7f99e2b0b634e830a5ca8c2b373b, type: 3}
-  dropSFX: {fileID: 8300000, guid: 791b83739d00aa145824759147832697, type: 3}
+  grabSFX: {fileID: 8300000, guid: 8bddd19754ccd6d4facab968707208f1, type: 3}
+  dropSFX: {fileID: 8300000, guid: 872cd32f30df02948854b455059b8b7a, type: 3}
   pocketSFX: {fileID: 0}
   throwSFX: {fileID: 0}
   syncGrabFunction: 0
-  syncUseFunction: 1
+  syncUseFunction: 0
   syncDiscardFunction: 0
   syncInteractLRFunction: 0
   saveItemVariable: 0
   isDefensiveWeapon: 0
-  toolTips:
-  - 'Free Robux : [ALT + F4]'
-  - 'Boink : [RMB]'
+  toolTips: []
   verticalOffset: 0
   floorYOffset: 90
   allowDroppingAheadOfPlayer: 1
-  restingRotation: {x: 0, y: 0, z: 0}
-  rotationOffset: {x: 90, y: 0, z: -90}
-  positionOffset: {x: -0.05, y: 0.15, z: -0.11}
+  restingRotation: {x: -90, y: 0, z: 0}
+  rotationOffset: {x: 0, y: 90, z: 0}
+  positionOffset: {x: -0.18, y: 0.34, z: -0.2}
   meshOffset: 0
   meshVariants: []
-  materialVariants: []
+  materialVariants:
+  - {fileID: 2100000, guid: e030ae7a4cd0b5641a02a6f851f7dadf, type: 2}
+  - {fileID: 2100000, guid: 81715d372acc07e43acd821d33f25578, type: 2}
+  - {fileID: 2100000, guid: e63b135bc5eb9704ea7030d25f654c11, type: 2}
+  - {fileID: 2100000, guid: 697a90e31bdfc334fb05682c05dc5b8f, type: 2}
+  - {fileID: 2100000, guid: 49d397e85eaf8ed4fa38cd514890df57, type: 2}
+  - {fileID: 2100000, guid: 73da1fb2c4d0fa34589745539ce948b0, type: 2}
   usableInSpecialAnimations: 0
   canBeInspected: 0
