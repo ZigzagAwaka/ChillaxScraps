@@ -9,21 +9,20 @@ You can check the Changelog file to see the list of improvements that I made... 
 Compatible with v64 of Lethal Company.
 
 ### Death Note
-- This forbidden book can be used to write someone's name in...
-- The fate of the chosen player is uncertain but rumors told that [insert creepy thing about death].
-- Can also be used on ennemies.
+- This otherwordly notebook can be used to write a person's name and have *something* happen to them.
+- The names of monsters can also be written in it.
 
 ![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-deathnote.PNG)
 
 ### Uno Reverse Card
-- This classic card can be used to swap your position with a random player.
-- You are not going to use it badly, right? .... right?
+- The thing that turns your friends into your haters, can swap your position with that of a random player.
+- You want to use it soooooo badly and especially when standing on a landmine.
 
 ![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-uno.PNG)
 
 ### Custom effect items
-- **Boink**, watch out for this classic red bird as he wants to bo *boink boink* with you ! Also do you want free Robux?
-- **Cup Noodle**, a tasty food from Thailand, can be eaten to heal a small part of your total health and stamina.
+- **Boink**, this red bird just wants to go *boink boink* with you ! Also, do you want free Robux?
+- **Cup Noodle**, a tasty dish from Thailand, can be eaten to heal a small amount of health and stamina.
 
 ![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-effects.PNG)
 
