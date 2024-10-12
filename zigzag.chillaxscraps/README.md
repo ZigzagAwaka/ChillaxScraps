@@ -40,8 +40,6 @@ Compatible with v64 of Lethal Company.
 
 ![Preview]()
 
-<!---
-
 <details><summary>Want to see some more images? (click to reveal)</summary>
 
 ![Preview]()
@@ -49,8 +47,6 @@ Compatible with v64 of Lethal Company.
 ![Preview]()
 
 </details>
-
--->
 
 ##
 
@@ -85,6 +81,18 @@ You can post some suggestions or issues in the mod release page in the [modding 
 # Credits
 
 - Thanks [BogBog](https://twitter.com/benbogbog) for letting me taking over the ChillaxScraps mod ! All credits goes to him, you can check his link tree here : https://linktr.ee/benbogbog
+
 - The original developers for the ChillaxScraps mod : [BogBog](https://twitter.com/benbogbog), [Namsom](https://twitter.com/NamsomXD) and [OptimusGorilla](https://twitter.com/DanielSuPery)
+
 - Thanks [GlitchedNPC](https://www.twitch.tv/a_glitched_npc) for various bug reports and some ideas!
-- The original mod can be found here : https://thunderstore.io/c/lethal-company/p/CHILLAX/ChillaxSCRAPS/
+
+- Thanks **Leaucard** for helping with some things!
+
+- Custom made 3D models are imported from the [original ChillaxScraps mod](https://thunderstore.io/c/lethal-company/p/CHILLAX/ChillaxSCRAPS/)
+
+- Some assets are ripped from various games and imported thanks to https://www.models-resource.com/, you can check the list [here](https://github.com/ZigzagAwaka/ChillaxScraps/blob/main/models-resource-credits.txt)
+
+- Free 3D models used are licensed under Creative Commons Attribution, all credits goes to their respective creators. Support them if you like this mod!
+
+    - [pedrohmm123](https://sketchfab.com/3d-models/death-note-anime-book-fanart-970248251f124cddbfc2b4999c43b713)
+    - [SandWich34](https://sketchfab.com/3d-models/uno-reverse-card-e15ee883deb14fbe8a476cce325c2983)

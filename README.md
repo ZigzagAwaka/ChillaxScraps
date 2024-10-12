@@ -1,6 +1,6 @@
 # ChillaxScraps
 
-This is the repository for the updated "ChillaxScraps" Lethal Company mod.
+This is the repository for the updated ChillaxScraps Lethal Company mod.
 
 You can post some suggestions or issues in the 'Issues' tab.
 
