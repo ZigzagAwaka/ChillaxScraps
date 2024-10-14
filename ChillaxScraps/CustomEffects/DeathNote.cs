@@ -109,10 +109,7 @@ namespace ChillaxScraps.CustomEffects
         [ClientRpc]
         private void AudioClientRpc(int audioID, Vector3 clientPosition, float hostVolume, float clientVolume)
         {
-            if (IsHost)
-                Effects.Audio(audioID, hostVolume);
-            else
-                Effects.Audio(audioID, clientPosition, clientVolume);
+            Effects.Audio(audioID, clientPosition, hostVolume, clientVolume, playerHeldBy);
         }
 
         [ServerRpc(RequireOwnership = false)]

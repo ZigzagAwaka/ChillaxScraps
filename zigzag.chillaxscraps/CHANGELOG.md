@@ -1,3 +1,7 @@
+## 1.0.1
+- **Fixed**
+    - Fixed Death Note and Cup Noodle audio beeing played on the host player instead of the local player
+
 # 1.0.0 Initial release
 - **Added**
     - Imported from the original ChillaxScraps mod: Death Note, Boink, Eevee, Cup Noodle, Moai, Uno Reverse Card and Froggy Chair

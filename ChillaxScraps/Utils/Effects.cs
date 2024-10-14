@@ -123,6 +123,14 @@ namespace ChillaxScraps.Utils
             AudioSource.PlayClipAtPoint(Plugin.audioClips[audioID], finalPosition, volume);
         }
 
+        public static void Audio(int audioID, Vector3 clientPosition, float hostVolume, float clientVolume, PlayerControllerB player)
+        {
+            if (player != null && GameNetworkManager.Instance.localPlayerController.playerClientId == player.playerClientId)
+                Audio(audioID, hostVolume);
+            else
+                Audio(audioID, clientPosition, clientVolume);
+        }
+
         public static void Audio(int audioID, Vector3 position, float volume, float pitch, bool adjust = true)
         {
             var clip = Plugin.audioClips[audioID];
