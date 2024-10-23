@@ -1,10 +1,30 @@
+# 1.1.0 New scraps
+- **Added**
+    - Imported from the original ChillaxScraps mod: Emergency meeting, Super Sneakers, The Master Sword and Ocarina
+- **Updated**
+    - Emergency meeting
+        - Using it in orbit or if there is no players in the facility will cancel the effect and display a message
+    - Super Sneakers
+        - f
+    - The Master Sword
+        - f
+    - Ocarina
+        - f
+    - All new items
+        - Various fix
+    - Moai Statue
+        - Changed materials values to make it look better
+- **Fixed**
+    - All new imported scraps received the same various fix as the last scrap update, as well as other things
+    - Fixed Death Note control tips beeing delayed when displayed to the local player
+
 ## 1.0.1
 - **Fixed**
     - Fixed Death Note and Cup Noodle audio beeing played on the host player instead of the local player
 
 # 1.0.0 Initial release
 - **Added**
-    - Imported from the original ChillaxScraps mod: Death Note, Boink, Eevee, Cup Noodle, Moai, Uno Reverse Card and Froggy Chair
+    - Imported from the original ChillaxScraps mod: Death Note, Boink, Eevee, Cup Noodle, Moai Statue, Uno Reverse Card and Froggy Chair
 - **Updated**
     - Death Note
         - Can be used multiple times, one use per player, so watch out for your friends 🤫
@@ -15,7 +35,7 @@
         - Now with a special animation when used
         - Healing effect is now visually synchronized to all players
         - If used in orbit, will have no effect but will not be consumed
-    - Moai
+    - Moai Statue
         - It's now VERY BIG !
         - Updated grab animation
         - Can spawn using one of the 4 new color variations (1 common, 2 rares and 1 ultra rare)

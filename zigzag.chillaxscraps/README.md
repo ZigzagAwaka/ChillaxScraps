@@ -2,7 +2,7 @@
 
 This mod is an updated version of the [original ChillaxScraps mod](https://thunderstore.io/c/lethal-company/p/CHILLAX/ChillaxSCRAPS/). BogBog, the original author, has stopped working on the mod and gave me permission to update and improve all the scraps.
 
-This mod currently adds **7 scrap items** to the game but each original scraps are planed to be imported, improved and fixed.
+This mod currently adds **11 scrap items** to the game but each original scraps are planed to be imported, improved and fixed.
 
 You can check the Changelog file to see the list of improvements that I made... and let's just say that some are crazy ! 😏
 
@@ -26,12 +26,10 @@ Compatible with v64 of Lethal Company.
 
 ![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-effects.PNG)
 
-<!--
 ### Weapons
 - todo
 
 ![Preview]()
--->
 
 ### Noisy items
 - **Eevee** can be used to make some funny sounds !
@@ -71,9 +69,13 @@ You can post some suggestions or issues in the mod release page in the [modding 
 - Boink
 - Eevee
 - Cup Noodle
-- Moai
+- Moai Statue
 - Uno Reverse Card
 - Froggy Chair
+- Emergency meeting
+- Super Sneakers
+- The Master Sword
+- Ocarina
 
 </details>
 
@@ -87,7 +89,7 @@ You can post some suggestions or issues in the mod release page in the [modding 
 
 - Thanks [GlitchedNPC](https://www.twitch.tv/a_glitched_npc) for various bug reports and some ideas!
 
-- Thanks **Leaucard** for helping with some things!
+- Thanks **Leaucard** for helping with some messages, tool tips and stuff!
 
 - Some assets are imported from the [original ChillaxScraps mod](https://thunderstore.io/c/lethal-company/p/CHILLAX/ChillaxSCRAPS/)
 

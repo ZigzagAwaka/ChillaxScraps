@@ -26,13 +26,13 @@ namespace ChillaxScraps.Utils
             return StartOfRound.Instance.connectedPlayersAmount + 1;
         }
 
-        public static List<PlayerControllerB> GetPlayers(bool includeDead = false)
+        public static List<PlayerControllerB> GetPlayers(bool includeDead = false, bool excludeOutsideFactory = false)
         {
             List<PlayerControllerB> rawList = Object.FindObjectsOfType<PlayerControllerB>().ToList();
             List<PlayerControllerB> updatedList = new List<PlayerControllerB>(rawList);
             foreach (var p in rawList)
             {
-                if (p.playerSteamId <= 0 || (!includeDead && p.isPlayerDead))
+                if (p.playerSteamId <= 0 || (!includeDead && p.isPlayerDead) || (excludeOutsideFactory && !p.isInsideFactory))
                 {
                     updatedList.Remove(p);
                 }

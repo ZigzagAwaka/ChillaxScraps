@@ -22,39 +22,55 @@ namespace ChillaxScraps.CustomEffects
             canvasPrefab = Plugin.gameObjects[0];
         }
 
-        public override void GrabItem()
+        public override void EquipItem()
         {
-            if (canUseDeathNote && !isOpened && itemProperties.toolTips[0] == "")
+            SetControlTips();
+            EnableItemMeshes(enable: true);
+            isPocketed = false;
+            if (!hasBeenHeld)
             {
-                itemProperties.toolTips[0] = "Write a name : [RMB]";
-                base.SetControlTipsForItem();
+                hasBeenHeld = true;
+                if (!isInShipRoom && !StartOfRound.Instance.inShipPhase && StartOfRound.Instance.currentLevel.spawnEnemiesAndScrap)
+                {
+                    RoundManager.Instance.valueOfFoundScrapItems += scrapValue;
+                }
             }
-            else if (!canUseDeathNote && itemProperties.toolTips[0] != "")
+        }
+
+        public override void SetControlTipsForItem()
+        {
+            SetControlTips();
+        }
+
+        private void SetControlTips()
+        {
+            string[] allLines = (canUseDeathNote ? new string[1] { "Write a name : [RMB]" } : new string[1] { "" });
+            if (IsOwner)
             {
-                itemProperties.toolTips[0] = "";
-                base.SetControlTipsForItem();
+                HUDManager.Instance.ChangeControlTipMultiple(allLines, holdingItem: true, itemProperties);
             }
-            base.GrabItem();
         }
 
         public override void ItemActivate(bool used, bool buttonDown = true)
         {
             base.ItemActivate(used, buttonDown);
-            if (buttonDown && playerHeldBy != null && canUseDeathNote && !isOpened
-                && !StartOfRound.Instance.inShipPhase && StartOfRound.Instance.shipHasLanded)
+            if (buttonDown && playerHeldBy != null && canUseDeathNote && !isOpened)
             {
-                AudioServerRpc(0, playerHeldBy.transform.position, 1f);  // page audio
-                playerList = Effects.GetPlayers();
-                enemyList = Effects.GetEnemies();
-                canvas = Instantiate(canvasPrefab, transform).GetComponent<DeathNoteCanvas>();
-                canvas.Initialize(this);  // open death note
-                isOpened = true;
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-                canvas.onExit += CloseDeathNote;
+                if (!StartOfRound.Instance.inShipPhase && StartOfRound.Instance.shipHasLanded)
+                {
+                    AudioServerRpc(0, playerHeldBy.transform.position, 1f);  // page audio
+                    playerList = Effects.GetPlayers();
+                    enemyList = Effects.GetEnemies();
+                    canvas = Instantiate(canvasPrefab, transform).GetComponent<DeathNoteCanvas>();
+                    canvas.Initialize(this);  // open death note
+                    isOpened = true;
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
+                    canvas.onExit += CloseDeathNote;
+                }
+                else
+                    Effects.Message("Can't be used at the moment", "");
             }
-            else if (buttonDown && playerHeldBy != null && canUseDeathNote && !isOpened)
-                Effects.Message("Can't be used at the moment", "");
         }
 
         private void CloseDeathNote()
@@ -95,8 +111,7 @@ namespace ChillaxScraps.CustomEffects
             if (flag)
             {
                 canUseDeathNote = false;
-                itemProperties.toolTips[0] = "";
-                base.SetControlTipsForItem();
+                SetControlTips();
             }
         }
 
