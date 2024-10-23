@@ -10,38 +10,38 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c30496d6ae6d6f907456e10a94e01ec6, type: 3}
-  m_Name: EmergencyMeetingItem
+  m_Name: SuperSneakersItem
   m_EditorClassIdentifier: 
   itemId: 0
-  itemName: Emergency meeting
+  itemName: Super Sneakers
   spawnPositionTypes: []
   twoHanded: 0
   twoHandedAnimation: 0
   canBeGrabbedBeforeGameStart: 1
-  weight: 1.11
+  weight: 1.07
   itemIsTrigger: 0
   holdButtonUse: 0
   itemSpawnsOnGround: 1
-  isConductiveMetal: 1
+  isConductiveMetal: 0
   isScrap: 1
   creditsWorth: 0
   lockedInDemo: 0
-  highestSalePercentage: 0
-  maxValue: 100
-  minValue: 50
-  spawnPrefab: {fileID: 2825113355657568729, guid: ad2c34ecb6759ef4f9031343503b2ba2,
+  highestSalePercentage: 80
+  maxValue: 110
+  minValue: 80
+  spawnPrefab: {fileID: 3052963734814967149, guid: 4be51e7e87fd4384a9d3be34d50f55fa,
     type: 3}
-  requiresBattery: 0
-  batteryUsage: 0
-  automaticallySetUsingPower: 0
-  itemIcon: {fileID: 21300000, guid: e57040123b1712749a56ee7bd6595529, type: 3}
+  requiresBattery: 1
+  batteryUsage: 30
+  automaticallySetUsingPower: 1
+  itemIcon: {fileID: 21300000, guid: 0b4e9affeea260b4796018f10868e061, type: 3}
   grabAnim: 
   useAnim: 
   pocketAnim: 
   throwAnim: 
   grabAnimationTime: 0
-  grabSFX: {fileID: 8300000, guid: d48302e166c79064eac9d0f109ad6bc1, type: 3}
-  dropSFX: {fileID: 8300000, guid: 85419bec3558bfd49bbc712dffcb3f63, type: 3}
+  grabSFX: {fileID: 8300000, guid: f721cfdd79afabd40b964424567a8db0, type: 3}
+  dropSFX: {fileID: 8300000, guid: 872cd32f30df02948854b455059b8b7a, type: 3}
   pocketSFX: {fileID: 0}
   throwSFX: {fileID: 0}
   syncGrabFunction: 0
@@ -51,13 +51,13 @@ MonoBehaviour:
   saveItemVariable: 0
   isDefensiveWeapon: 0
   toolTips:
-  - 'START MEETING : [RMB]'
+  - 'Jump boost : [RMB]'
   verticalOffset: 0
-  floorYOffset: 0
+  floorYOffset: 90
   allowDroppingAheadOfPlayer: 1
   restingRotation: {x: 0, y: 0, z: 0}
-  rotationOffset: {x: 5, y: 0, z: -100}
-  positionOffset: {x: 0.03, y: 0.15, z: -0.19}
+  rotationOffset: {x: 90, y: 0, z: -100}
+  positionOffset: {x: -0.2, y: 0.3, z: -0.28}
   meshOffset: 0
   meshVariants: []
   materialVariants: []

@@ -4,8 +4,10 @@
 - **Updated**
     - Emergency meeting
         - Using it in orbit or if there is no players in the facility will cancel the effect and display a message
+        - Updated material texture
     - Super Sneakers
-        - f
+        - You can now activate or deactivate the jump boost effect by using the item : this consumes battery over time but can be charged in the ship
+        - When activated, putting the item in your pocket will keep the effect active, this will only reset when droped, deactivated, when out of batteries, or on certain conditions
     - The Master Sword
         - f
     - Ocarina
@@ -36,8 +38,8 @@
         - Healing effect is now visually synchronized to all players
         - If used in orbit, will have no effect but will not be consumed
     - Moai Statue
-        - It's now VERY BIG !
-        - Updated grab animation
+        - It's now BIG !
+        - Updated grab animation and material texture
         - Can spawn using one of the 4 new color variations (1 common, 2 rares and 1 ultra rare)
     - Uno Reverse Card
         - Completly removed the red variant in the code (it was supposed to be already removed but was still spawning in game), in the future I will go back to this and rework this specific variant, but for now only the blue card can be found
