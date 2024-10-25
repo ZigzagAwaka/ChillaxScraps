@@ -4,21 +4,27 @@
 - **Updated**
     - Emergency meeting
         - Using it in orbit or if there is no players in the facility will cancel the effect and display a message
-        - Updated material texture
+        - Updated material values
     - Super Sneakers
         - You can now activate or deactivate the jump boost effect by using the item : this consumes battery over time but can be charged in the ship
         - When activated, putting the item in your pocket will keep the effect active, this will only reset when droped, deactivated, when out of batteries, or on certain conditions
     - The Master Sword
-        - f
+        - Now with a custom effect : only the hero can grab and use the sword 🙂
+        - It's supposed to be the sword that banished evil so it now deals more damage
+        - Changed sound to be the ones from Zelda OoT
+        - Updated material values
     - Ocarina
-        - f
+        - Now with a special animation when playing music with it
     - All new items
         - Various fix
+    - Death Note
+        - Changed how control tips are displayed to the local player and modified some messages
+        - If you try to use it in orbit, you will now be punished
+        - Removed daytime entities from the targetable enemies list
     - Moai Statue
-        - Changed materials values to make it look better
+        - Updated material values to make it look better
 - **Fixed**
     - All new imported scraps received the same various fix as the last scrap update, as well as other things
-    - Fixed Death Note control tips beeing delayed when displayed to the local player
 
 ## 1.0.1
 - **Fixed**
@@ -39,7 +45,7 @@
         - If used in orbit, will have no effect but will not be consumed
     - Moai Statue
         - It's now BIG !
-        - Updated grab animation and material texture
+        - Updated grab animation
         - Can spawn using one of the 4 new color variations (1 common, 2 rares and 1 ultra rare)
     - Uno Reverse Card
         - Completly removed the red variant in the code (it was supposed to be already removed but was still spawning in game), in the future I will go back to this and rework this specific variant, but for now only the blue card can be found

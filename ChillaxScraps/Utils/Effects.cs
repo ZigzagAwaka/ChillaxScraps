@@ -40,7 +40,7 @@ namespace ChillaxScraps.Utils
             return updatedList;
         }
 
-        public static List<EnemyAI> GetEnemies(bool includeDead = false, bool includeCanDie = false)
+        public static List<EnemyAI> GetEnemies(bool includeDead = false, bool includeCanDie = false, bool excludeDaytime = false)
         {
             List<EnemyAI> rawList = Object.FindObjectsOfType<EnemyAI>().ToList();
             List<EnemyAI> updatedList = new List<EnemyAI>(rawList);
@@ -48,7 +48,7 @@ namespace ChillaxScraps.Utils
                 return updatedList;
             foreach (var e in rawList)
             {
-                if (e.isEnemyDead || (!includeCanDie && !e.enemyType.canDie))
+                if (e.isEnemyDead || (!includeCanDie && !e.enemyType.canDie) || (excludeDaytime && e.enemyType.isDaytimeEnemy))
                 {
                     updatedList.Remove(e);
                 }
@@ -108,6 +108,11 @@ namespace ChillaxScraps.Utils
         public static void Knockback(Vector3 position, float range, int damage = 0, float physicsForce = 30)
         {
             Landmine.SpawnExplosion(position, false, 0, range, damage, physicsForce);
+        }
+
+        public static void DropItem(Vector3 placingPosition = default)
+        {
+            GameNetworkManager.Instance.localPlayerController.DiscardHeldObject(true, placePosition: placingPosition);
         }
 
         public static void Audio(int audioID, float volume)

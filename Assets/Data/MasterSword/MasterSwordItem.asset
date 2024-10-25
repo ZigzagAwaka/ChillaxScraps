@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c30496d6ae6d6f907456e10a94e01ec6, type: 3}
+  m_Name: MasterSwordItem
+  m_EditorClassIdentifier: 
+  itemId: 0
+  itemName: Master Sword
+  spawnPositionTypes: []
+  twoHanded: 0
+  twoHandedAnimation: 1
+  canBeGrabbedBeforeGameStart: 1
+  weight: 1.18
+  itemIsTrigger: 0
+  holdButtonUse: 1
+  itemSpawnsOnGround: 1
+  isConductiveMetal: 1
+  isScrap: 1
+  creditsWorth: 0
+  lockedInDemo: 0
+  highestSalePercentage: 0
+  maxValue: 250
+  minValue: 200
+  spawnPrefab: {fileID: 753248714967173659, guid: da44b81760b8e4c40b2d9a473f8deb75,
+    type: 3}
+  requiresBattery: 0
+  batteryUsage: 0
+  automaticallySetUsingPower: 0
+  itemIcon: {fileID: 21300000, guid: 5fa0256e9c91f134b87c1be3a750e743, type: 3}
+  grabAnim: HoldLung
+  useAnim: 
+  pocketAnim: 
+  throwAnim: 
+  grabAnimationTime: 0
+  grabSFX: {fileID: 8300000, guid: 783f3341c070e1947932d126fc185fce, type: 3}
+  dropSFX: {fileID: 8300000, guid: 1e935eec8ac9434439955201cd650986, type: 3}
+  pocketSFX: {fileID: 8300000, guid: e3ac64edbb2ae654bbd4c6130ec55eb3, type: 3}
+  throwSFX: {fileID: 0}
+  syncGrabFunction: 0
+  syncUseFunction: 0
+  syncDiscardFunction: 0
+  syncInteractLRFunction: 0
+  saveItemVariable: 0
+  isDefensiveWeapon: 1
+  toolTips:
+  - 'Swing sword : [RMB]'
+  verticalOffset: 0
+  floorYOffset: -90
+  allowDroppingAheadOfPlayer: 1
+  restingRotation: {x: 0, y: 0, z: 0}
+  rotationOffset: {x: 90, y: 0, z: 67}
+  positionOffset: {x: 0.25, y: -0.11, z: 0.3}
+  meshOffset: 0
+  meshVariants: []
+  materialVariants: []
+  usableInSpecialAnimations: 0
+  canBeInspected: 0

@@ -54,22 +54,31 @@ namespace ChillaxScraps.CustomEffects
         public override void ItemActivate(bool used, bool buttonDown = true)
         {
             base.ItemActivate(used, buttonDown);
-            if (buttonDown && playerHeldBy != null && canUseDeathNote && !isOpened)
+            if (buttonDown && playerHeldBy != null && !isOpened)
             {
-                if (!StartOfRound.Instance.inShipPhase && StartOfRound.Instance.shipHasLanded)
+                if (canUseDeathNote)
                 {
-                    AudioServerRpc(0, playerHeldBy.transform.position, 1f);  // page audio
-                    playerList = Effects.GetPlayers();
-                    enemyList = Effects.GetEnemies();
-                    canvas = Instantiate(canvasPrefab, transform).GetComponent<DeathNoteCanvas>();
-                    canvas.Initialize(this);  // open death note
-                    isOpened = true;
-                    Cursor.visible = true;
-                    Cursor.lockState = CursorLockMode.None;
-                    canvas.onExit += CloseDeathNote;
+                    if (!StartOfRound.Instance.inShipPhase)
+                    {
+                        AudioServerRpc(0, playerHeldBy.transform.position, 1f);  // page audio
+                        playerList = Effects.GetPlayers();
+                        enemyList = Effects.GetEnemies(excludeDaytime: true);
+                        canvas = Instantiate(canvasPrefab, transform).GetComponent<DeathNoteCanvas>();
+                        canvas.Initialize(this);  // open death note
+                        isOpened = true;
+                        Cursor.visible = true;
+                        Cursor.lockState = CursorLockMode.None;
+                        canvas.onExit += CloseDeathNote;
+                    }
+                    else
+                    {
+                        Effects.Message("Wow...", "That's one way of wasting death's powers", true);
+                        canUseDeathNote = false;
+                        SetControlTips();
+                    }
                 }
                 else
-                    Effects.Message("Can't be used at the moment", "");
+                    Effects.Message("?", "The book doesn't acknowledge you as one of its owners anymore");
             }
         }
 

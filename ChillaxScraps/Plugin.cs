@@ -33,6 +33,7 @@ namespace ChillaxScraps
                 case 4: script = item.spawnPrefab.AddComponent<UnoReverse>(); break;
                 case 5: script = item.spawnPrefab.AddComponent<EmergencyMeeting>(); break;
                 case 6: script = item.spawnPrefab.AddComponent<SuperSneakers>(); break;
+                case 7: script = item.spawnPrefab.AddComponent<MasterSword>(); SetupScript.Copy((Shovel)script, item); break;
                 default: return;
             }
             script.grabbable = true;
@@ -63,7 +64,8 @@ namespace ChillaxScraps
                 bundle.LoadAsset<AudioClip>(directory + "_audio/uno-reverse-biaatch.wav"),
                 bundle.LoadAsset<AudioClip>(directory + "_audio/emergencymeeting.wav"),
                 bundle.LoadAsset<AudioClip>(directory + "_audio/sneakers-activate.wav"),
-                bundle.LoadAsset<AudioClip>(directory + "_audio/sneakers-deactivate.wav")
+                bundle.LoadAsset<AudioClip>(directory + "_audio/sneakers-deactivate.wav"),
+                bundle.LoadAsset<AudioClip>(directory + "_audio/OOT_Fanfare_Item.wav")
             };
 
             var scraps = new List<Scrap> {
@@ -75,7 +77,8 @@ namespace ChillaxScraps
                 new Scrap("UnoReverseCard/UnoReverseCardItem.asset", 8, 4),
                 new Scrap("FroggyChair/FroggyChairItem.asset", 10),
                 new Scrap("EmergencyMeeting/EmergencyMeetingItem.asset", 6, 5),
-                new Scrap("SuperSneakers/SuperSneakersItem.asset", 10, 6)
+                new Scrap("SuperSneakers/SuperSneakersItem.asset", 10, 6),
+                new Scrap("MasterSword/MasterSwordItem.asset", 7, 7)
             };
 
             int i = 0; config = new Config(base.Config, scraps);

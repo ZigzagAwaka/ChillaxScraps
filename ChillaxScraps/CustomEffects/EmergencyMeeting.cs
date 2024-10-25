@@ -30,7 +30,7 @@ namespace ChillaxScraps.CustomEffects
                     playerList.Remove(playerHeldBy);
                     if (playerList.Count <= 0)
                     {
-                        Effects.Message("Huh ?", "No players");
+                        Effects.Message("?", "The button has been pushed, yet your crewmates are nowhere to be seen.");
                         return;
                     }
                     hasBeenUsed = true;
@@ -40,7 +40,7 @@ namespace ChillaxScraps.CustomEffects
                     DestroyObjectServerRpc(StartOfRound.Instance.localPlayerController.playerClientId);
                 }
                 else
-                    Effects.Message("Can't be used at the moment", "");
+                    Effects.Message("Meetings can only be held inside the facility", "");
             }
         }
 
