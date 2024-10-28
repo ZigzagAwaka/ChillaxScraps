@@ -7,7 +7,7 @@ namespace ChillaxScraps.CustomEffects
     internal class MasterSword : Shovel
     {
         public bool heroIsSelected = false;
-        public ulong heroClientId = 0;
+        public ulong heroSteamId = 0;
         private bool firstTimeGrab = false;
 
         public MasterSword() { }
@@ -22,7 +22,7 @@ namespace ChillaxScraps.CustomEffects
         public override void GrabItem()
         {
             base.GrabItem();
-            if (heroIsSelected && GameNetworkManager.Instance.localPlayerController.OwnerClientId != heroClientId)
+            if (heroIsSelected && GameNetworkManager.Instance.localPlayerController.playerSteamId != heroSteamId)
             {
                 Effects.DropItem(playerHeldBy.transform.position);
                 Effects.Message("You aren't the one who's worthy of holding that blade", "");
@@ -34,7 +34,6 @@ namespace ChillaxScraps.CustomEffects
             }
         }
 
-
         [ServerRpc(RequireOwnership = false)]
         private void SelectHeroServerRpc()
         {
@@ -43,17 +42,17 @@ namespace ChillaxScraps.CustomEffects
                 var playersList = Effects.GetPlayers(includeDead: true);
                 if (playersList.Count == 0) return;
                 var hero = playersList[Random.Range(0, playersList.Count)];
-                SelectHeroClientRpc(hero.OwnerClientId);
+                SelectHeroClientRpc(hero.playerSteamId);
             }
             else
-                SelectHeroClientRpc(heroClientId);
+                SelectHeroClientRpc(heroSteamId);
         }
 
         [ClientRpc]
         private void SelectHeroClientRpc(ulong heroId)
         {
             heroIsSelected = true;
-            heroClientId = heroId;
+            heroSteamId = heroId;
         }
 
         [ServerRpc(RequireOwnership = false)]

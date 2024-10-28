@@ -15,16 +15,18 @@
         - Updated material values
     - Ocarina
         - Now with a special animation when playing music with it
-    - All new items
-        - Various fix
+        - You can now select what song to play (small music notes if none are selected)
+        - Tweaked sounds volume and added new ones
+        - Model and texture have been reworked
     - Death Note
         - Changed how control tips are displayed to the local player and modified some messages
         - If you try to use it in orbit, you will now be punished
         - Removed daytime entities from the targetable enemies list
     - Moai Statue
         - Updated material values to make it look better
-- **Fixed**
-    - All new imported scraps received the same various fix as the last scrap update, as well as other things
+    - Misc
+        - Updated to v65/v66
+        - All new items have received some various fix (similarly to the last update)
 
 ## 1.0.1
 - **Fixed**

@@ -6,7 +6,7 @@ This mod currently adds **11 scrap items** to the game but each original scraps 
 
 You can check the Changelog file to see the list of improvements that I made... and let's just say that some are crazy ! 😏
 
-Compatible with v64 of Lethal Company.
+Compatible with v64/v65/v66 of Lethal Company.
 
 ### Death Note
 - This otherwordly notebook can be used to write a person's name and have *something* happen to them.

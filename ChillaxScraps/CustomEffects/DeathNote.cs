@@ -72,13 +72,13 @@ namespace ChillaxScraps.CustomEffects
                     }
                     else
                     {
-                        Effects.Message("Wow...", "That's one way of wasting death's powers", true);
+                        Effects.Message("Wow...", "That's one way of wasting death's powers.", true);
                         canUseDeathNote = false;
                         SetControlTips();
                     }
                 }
                 else
-                    Effects.Message("?", "The book doesn't acknowledge you as one of its owners anymore");
+                    Effects.Message("?", "The book doesn't acknowledge you as one of its owners anymore.");
             }
         }
 

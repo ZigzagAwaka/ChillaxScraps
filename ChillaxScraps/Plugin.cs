@@ -34,6 +34,7 @@ namespace ChillaxScraps
                 case 5: script = item.spawnPrefab.AddComponent<EmergencyMeeting>(); break;
                 case 6: script = item.spawnPrefab.AddComponent<SuperSneakers>(); break;
                 case 7: script = item.spawnPrefab.AddComponent<MasterSword>(); SetupScript.Copy((Shovel)script, item); break;
+                case 8: script = item.spawnPrefab.AddComponent<Ocarina>(); SetupScript.Copy((NoisemakerProp)script, item); break;
                 default: return;
             }
             script.grabbable = true;
@@ -78,7 +79,8 @@ namespace ChillaxScraps
                 new Scrap("FroggyChair/FroggyChairItem.asset", 10),
                 new Scrap("EmergencyMeeting/EmergencyMeetingItem.asset", 6, 5),
                 new Scrap("SuperSneakers/SuperSneakersItem.asset", 10, 6),
-                new Scrap("MasterSword/MasterSwordItem.asset", 7, 7)
+                new Scrap("MasterSword/MasterSwordItem.asset", 7, 7),
+                new Scrap("Ocarina/OcarinaItem.asset", 10, 8)
             };
 
             int i = 0; config = new Config(base.Config, scraps);
