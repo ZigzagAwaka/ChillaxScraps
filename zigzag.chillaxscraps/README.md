@@ -23,16 +23,20 @@ Compatible with v64/v65/v66 of Lethal Company.
 ### Custom effect items
 - **Boink**, this red bird just wants to go *boink boink* with you ! Also, do you want free Robux?
 - **Cup Noodle**, a tasty dish from Thailand, can be eaten to heal a small amount of health and stamina.
+- **Emergency meeting**, this sussy red button will call your fellow crewmates once pressed, even if used with malicious intent...
+- **Super Sneakers**, these strange shoes allow those who have them in their possession to jump higher than before. Perfect for avoiding weirdly obsessed cops.
 
 ![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-effects.PNG)
 
-### Weapons
-- todo
+### The Master Sword
+- This legendary blade will decimate its owner's foes, but it can only be wielded by the chosen one.
+- Are you really the one that is destined to lift this blade?
 
-![Preview]()
+![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-mastersword.PNG)
 
 ### Noisy items
-- **Eevee** can be used to make some funny sounds !
+- **Eevee** can be used to make some funny sounds.
+- **Ocarina**, this instrument will play emblematic tunes from Zelda !
 
 ![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-audio.PNG)
 
