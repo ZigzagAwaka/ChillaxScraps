@@ -1,4 +1,5 @@
-﻿using GameNetcodeStuff;
+﻿using ChillaxScraps.Utils;
+using GameNetcodeStuff;
 using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace ChillaxScraps.CustomEffects
         public int selectedAudioID = 0;
         public Vector3? originalPosition = null;
         public Vector3? originalRotation = null;
+        private Coroutine? ocarinaCoroutine;
         private readonly string[] audioTitles = new string[14] {
             "", "Zelda's Lullaby", "Epona's Song", "Sun's Song", "Saria's Song", "Song of Time", "Song of Storms",
             "Song of Healing", "Song of Soaring", "Sonata of Awakening", "Goron Lullaby", "New Wave Bossa Nova",
@@ -57,7 +59,15 @@ namespace ChillaxScraps.CustomEffects
                 UpdatePosRotServerRpc(new Vector3(-0.12f, 0.15f, 0.01f), new Vector3(60, 0, -50));
                 playerHeldBy.activatingItem = buttonDown;
                 playerHeldBy.playerBodyAnimator.SetBool("useTZPItem", buttonDown);  // start playing music animation
-                StartCoroutine(PlayOcarina(playerHeldBy));
+                ocarinaCoroutine = StartCoroutine(PlayOcarina(playerHeldBy));
+            }
+            else if (!buttonDown && playerHeldBy != null && playerHeldBy.activatingItem && ocarinaCoroutine != null)
+            {
+                StopOcarinaAudioServerRpc();
+                StopCoroutine(ocarinaCoroutine);
+                UpdatePosRotServerRpc(originalPosition != null ? originalPosition.Value : default, originalRotation != null ? originalRotation.Value : default);
+                playerHeldBy.playerBodyAnimator.SetBool("useTZPItem", false);  // stop playing music animation
+                playerHeldBy.activatingItem = false;
             }
         }
 
@@ -66,9 +76,9 @@ namespace ChillaxScraps.CustomEffects
             yield return new WaitForSeconds(0.9f);
             OcarinaAudioServerRpc(selectedAudioID);
             yield return new WaitForSeconds(0.1f);
-            yield return new WaitUntil(() => !noiseAudio.isPlaying && !noiseAudio.isPlaying);
+            yield return new WaitUntil(() => !noiseAudio.isPlaying && !noiseAudioFar.isPlaying);  // stop playing music when song ends
             UpdatePosRotServerRpc(originalPosition != null ? originalPosition.Value : default, originalRotation != null ? originalRotation.Value : default);
-            player.playerBodyAnimator.SetBool("useTZPItem", false);  // stop playing music animation
+            player.playerBodyAnimator.SetBool("useTZPItem", false);
             player.activatingItem = false;
         }
 
@@ -131,6 +141,21 @@ namespace ChillaxScraps.CustomEffects
             {
                 playerHeldBy.timeSinceMakingLoudNoise = 0f;
             }
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void StopOcarinaAudioServerRpc()
+        {
+            StopOcarinaAudioClientRpc();
+        }
+
+        [ClientRpc]
+        private void StopOcarinaAudioClientRpc()
+        {
+            if (noiseAudio.isPlaying)
+                StartCoroutine(Effects.FadeOutAudio(noiseAudio, 0.1f));
+            if (noiseAudioFar.isPlaying)
+                StartCoroutine(Effects.FadeOutAudio(noiseAudioFar, 0.1f));
         }
 
         [ServerRpc(RequireOwnership = false)]

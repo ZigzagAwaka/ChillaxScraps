@@ -1,3 +1,9 @@
+## 1.1.1
+- **Updated**
+    - Added a config to set The Master Sword's damage
+    - Added custom scrap icons to Eevee, Froggy Chair and Moai Statue
+    - Changed how music is played with the Ocarina: you now have to hold the button to play a sound and it will be stopped when you release it
+
 # 1.1.0 New scraps
 - **Added**
     - Imported from the original ChillaxScraps mod: Emergency meeting, Super Sneakers, The Master Sword and Ocarina

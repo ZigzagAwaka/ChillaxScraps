@@ -15,6 +15,7 @@ namespace ChillaxScraps.CustomEffects
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
+            shovelHitForce = Plugin.config.masterSwordDmg.Value;
             if (!heroIsSelected)
                 SelectHeroServerRpc();
         }

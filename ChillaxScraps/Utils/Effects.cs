@@ -153,6 +153,19 @@ namespace ChillaxScraps.Utils
             Object.Destroy(gameObject, clip.length * ((Time.timeScale < 0.01f) ? 0.01f : Time.timeScale));
         }
 
+        public static IEnumerator FadeOutAudio(AudioSource source, float time)
+        {
+            yield return new WaitForEndOfFrame();
+            var volume = source.volume;
+            while (source.volume > 0)
+            {
+                source.volume -= volume * Time.deltaTime / time;
+                yield return null;
+            }
+            source.Stop();
+            source.volume = volume;
+        }
+
         public static void Message(string title, string bottom, bool warning = false)
         {
             HUDManager.Instance.DisplayTip(title, bottom, warning);
