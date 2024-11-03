@@ -1,6 +1,7 @@
 ﻿using BepInEx;
 using ChillaxScraps.CustomEffects;
 using ChillaxScraps.Utils;
+using HarmonyLib;
 using LethalLib.Modules;
 using System.Collections.Generic;
 using System.IO;
@@ -15,12 +16,18 @@ namespace ChillaxScraps
     {
         const string GUID = "zigzag.chillaxscraps";
         const string NAME = "ChillaxScraps";
-        const string VERSION = "1.1.1";
+        const string VERSION = "1.2.0";
 
         public static Plugin instance;
         public static List<AudioClip> audioClips;
         public static List<GameObject> gameObjects;
+        private readonly Harmony harmony = new Harmony(GUID);
         internal static Config config { get; private set; } = null!;
+
+        void HarmonyPatchAll()
+        {
+            harmony.CreateClassProcessor(typeof(TotemItemPlayerControllerBPatch), true).Patch();  // totem patch
+        }
 
         void LoadItemBehaviour(Item item, int behaviourId)
         {
@@ -35,6 +42,7 @@ namespace ChillaxScraps
                 case 6: script = item.spawnPrefab.AddComponent<SuperSneakers>(); break;
                 case 7: script = item.spawnPrefab.AddComponent<MasterSword>(); SetupScript.Copy((Shovel)script, item); break;
                 case 8: script = item.spawnPrefab.AddComponent<Ocarina>(); SetupScript.Copy((NoisemakerProp)script, item); break;
+                case 9: script = item.spawnPrefab.AddComponent<TotemOfUndying>(); break;
                 default: return;
             }
             script.grabbable = true;
@@ -66,7 +74,8 @@ namespace ChillaxScraps
                 bundle.LoadAsset<AudioClip>(directory + "_audio/emergencymeeting.wav"),
                 bundle.LoadAsset<AudioClip>(directory + "_audio/sneakers-activate.wav"),
                 bundle.LoadAsset<AudioClip>(directory + "_audio/sneakers-deactivate.wav"),
-                bundle.LoadAsset<AudioClip>(directory + "_audio/OOT_Fanfare_Item.wav")
+                bundle.LoadAsset<AudioClip>(directory + "_audio/OOT_Fanfare_Item.wav"),
+                bundle.LoadAsset<AudioClip>(directory + "_audio/undying.wav")
             };
 
             var scraps = new List<Scrap> {
@@ -80,7 +89,8 @@ namespace ChillaxScraps
                 new Scrap("EmergencyMeeting/EmergencyMeetingItem.asset", 6, 5),
                 new Scrap("SuperSneakers/SuperSneakersItem.asset", 10, 6),
                 new Scrap("MasterSword/MasterSwordItem.asset", 7, 7),
-                new Scrap("Ocarina/OcarinaItem.asset", 10, 8)
+                new Scrap("Ocarina/OcarinaItem.asset", 10, 8),
+                new Scrap("TotemOfUndying/TotemOfUndyingItem.asset", 6, 9)
             };
 
             int i = 0; config = new Config(base.Config, scraps);
@@ -95,6 +105,7 @@ namespace ChillaxScraps
                 Items.RegisterScrap(item, config.entries[i++].Value, Levels.LevelTypes.All);
             }
 
+            HarmonyPatchAll();
             Logger.LogInfo("ChillaxScraps is loaded !");
         }
     }

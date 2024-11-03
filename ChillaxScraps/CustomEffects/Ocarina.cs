@@ -9,8 +9,8 @@ namespace ChillaxScraps.CustomEffects
     internal class Ocarina : NoisemakerProp
     {
         public int selectedAudioID = 0;
-        public Vector3? originalPosition = null;
-        public Vector3? originalRotation = null;
+        public Vector3 originalPosition = new Vector3(0.03f, 0.22f, -0.09f);
+        public Vector3 originalRotation = new Vector3(180, 5, -5);
         private Coroutine? ocarinaCoroutine;
         private readonly string[] audioTitles = new string[14] {
             "", "Zelda's Lullaby", "Epona's Song", "Sun's Song", "Saria's Song", "Song of Time", "Song of Storms",
@@ -54,8 +54,6 @@ namespace ChillaxScraps.CustomEffects
         {
             if (buttonDown && playerHeldBy != null && !playerHeldBy.activatingItem && !noiseAudio.isPlaying && !noiseAudioFar.isPlaying)
             {
-                originalPosition = itemProperties.positionOffset;
-                originalRotation = itemProperties.rotationOffset;
                 UpdatePosRotServerRpc(new Vector3(-0.12f, 0.15f, 0.01f), new Vector3(60, 0, -50));
                 playerHeldBy.activatingItem = buttonDown;
                 playerHeldBy.playerBodyAnimator.SetBool("useTZPItem", buttonDown);  // start playing music animation
@@ -65,7 +63,7 @@ namespace ChillaxScraps.CustomEffects
             {
                 StopOcarinaAudioServerRpc();
                 StopCoroutine(ocarinaCoroutine);
-                UpdatePosRotServerRpc(originalPosition != null ? originalPosition.Value : default, originalRotation != null ? originalRotation.Value : default);
+                UpdatePosRotServerRpc(originalPosition, originalRotation);
                 playerHeldBy.playerBodyAnimator.SetBool("useTZPItem", false);  // stop playing music animation
                 playerHeldBy.activatingItem = false;
             }
@@ -77,7 +75,7 @@ namespace ChillaxScraps.CustomEffects
             OcarinaAudioServerRpc(selectedAudioID);
             yield return new WaitForSeconds(0.1f);
             yield return new WaitUntil(() => !noiseAudio.isPlaying && !noiseAudioFar.isPlaying);  // stop playing music when song ends
-            UpdatePosRotServerRpc(originalPosition != null ? originalPosition.Value : default, originalRotation != null ? originalRotation.Value : default);
+            UpdatePosRotServerRpc(originalPosition, originalRotation);
             player.playerBodyAnimator.SetBool("useTZPItem", false);
             player.activatingItem = false;
         }
@@ -104,14 +102,14 @@ namespace ChillaxScraps.CustomEffects
 
         public override void DiscardItem()
         {
-            if (playerHeldBy != null)
+            if (playerHeldBy != null && !isPocketed)
                 playerHeldBy.equippedUsableItemQE = false;
             base.DiscardItem();
         }
 
         public override void OnNetworkDespawn()
         {
-            if (playerHeldBy != null)
+            if (playerHeldBy != null && !isPocketed)
                 playerHeldBy.equippedUsableItemQE = false;
             base.OnNetworkDespawn();
         }

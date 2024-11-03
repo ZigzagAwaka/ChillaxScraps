@@ -10,8 +10,8 @@ namespace ChillaxScraps.CustomEffects
     {
         public int healPower = 50;
         public float staminaPower = 0.5f;
-        public Vector3? originalPosition = null;
-        public Vector3? originalRotation = null;
+        public Vector3 originalPosition = new Vector3(-0.1f, 0.1f, -0.1f);
+        public Vector3 originalRotation = new Vector3(90, 0, -90);
 
         public Food() { }
 
@@ -20,8 +20,6 @@ namespace ChillaxScraps.CustomEffects
             base.ItemActivate(used, buttonDown);
             if (playerHeldBy != null && !playerHeldBy.activatingItem)
             {
-                originalPosition = itemProperties.positionOffset;
-                originalRotation = itemProperties.rotationOffset;
                 UpdatePosRotServerRpc(new Vector3(0.1f, 0.1f, 0), new Vector3(90, 90, -90));
                 playerHeldBy.activatingItem = buttonDown;
                 playerHeldBy.playerBodyAnimator.SetBool("useTZPItem", buttonDown);  // start eat animation
@@ -33,7 +31,7 @@ namespace ChillaxScraps.CustomEffects
         {
             yield return new WaitForSeconds(0.8f);
             AudioServerRpc(3, player.transform.position, 1f, 1.5f);
-            UpdatePosRotServerRpc(originalPosition != null ? originalPosition.Value : default, originalRotation != null ? originalRotation.Value : default);
+            UpdatePosRotServerRpc(originalPosition, originalRotation);
             player.playerBodyAnimator.SetBool("useTZPItem", false);  // stop eat animation
             player.activatingItem = false;
             if (!player.isPlayerDead && !StartOfRound.Instance.inShipPhase)

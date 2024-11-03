@@ -2,11 +2,11 @@
 
 This mod is an updated version of the [original ChillaxScraps mod](https://thunderstore.io/c/lethal-company/p/CHILLAX/ChillaxSCRAPS/). BogBog, the original author, has stopped working on the mod and gave me permission to update and improve all the scraps.
 
-This mod currently adds **11 scrap items** to the game but each original scraps are planed to be imported, improved and fixed.
+This mod currently adds **12 scrap items** to the game but each original scraps are planed to be imported, improved and fixed.
 
 You can check the Changelog file to see the list of improvements that I made... and let's just say that some are crazy ! 😏
 
-Compatible with v64/v65/v66 of Lethal Company.
+Compatible with v64/v65/v66/v67/v68 of Lethal Company.
 
 ### Death Note
 - This otherwordly notebook can be used to write a person's name and have *something* happen to them.
@@ -19,6 +19,12 @@ Compatible with v64/v65/v66 of Lethal Company.
 - You want to use it soooooo badly and especially when standing on a landmine.
 
 ![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-uno.PNG)
+
+### Totem of Undying
+- This squared totem can help you cheat death, but only works one time.
+- Don't fell on a pit with this, as you will survive the fall... but will now be stuck!
+
+![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-totem.PNG)
 
 ### Custom effect items
 - **Boink**, this red bird just wants to go *boink boink* with you ! Also, do you want free Robux?
@@ -80,6 +86,7 @@ You can post some suggestions or issues in the mod release page in the [modding 
 - Super Sneakers
 - The Master Sword
 - Ocarina
+- Totem of Undying
 
 </details>
 

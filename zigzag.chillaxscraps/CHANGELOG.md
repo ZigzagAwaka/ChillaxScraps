@@ -1,3 +1,17 @@
+# 1.2.0 Improvements
+- **Added**
+    - Imported from the original ChillaxScraps mod: Totem of Undying
+- **Updated**
+    - Totem of Undying
+        - The code for this item is completly new, it now works exactly like in Minecraft
+        - Multiple fix that I can't remember but trust me there is no issues 😎
+    - Boink
+        - Now requires battery to be used
+        - Have a small chance of launching you in the wrong direction
+        - Audio is now properly assigned to the item
+- **Fixed**
+    - I tried a fix for Cup Noodle and Ocarina animation (in particular, the rotation of the item when you use it)
+
 ## 1.1.1
 - **Updated**
     - Added a config to set The Master Sword's damage
