@@ -54,7 +54,7 @@ namespace ChillaxScraps.CustomEffects
         public override void ItemActivate(bool used, bool buttonDown = true)
         {
             base.ItemActivate(used, buttonDown);
-            if (buttonDown && playerHeldBy != null && !isOpened)
+            if (buttonDown && playerHeldBy != null && IsOwner && !isOpened)
             {
                 if (canUseDeathNote)
                 {

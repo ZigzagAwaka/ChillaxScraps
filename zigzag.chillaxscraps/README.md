@@ -98,7 +98,7 @@ You can post some suggestions or issues in the mod release page in the [modding 
 
 - The original developers for the ChillaxScraps mod : [BogBog](https://twitter.com/benbogbog), [Namsom](https://twitter.com/NamsomXD) and [OptimusGorilla](https://twitter.com/DanielSuPery)
 
-- Thanks [GlitchedNPC](https://www.twitch.tv/a_glitched_npc) for various bug reports and some ideas!
+- Thanks [a_glitched_npc](https://www.twitch.tv/a_glitched_npc) for various bug reports and some ideas!
 
 - Thanks **Leaucard** for helping with some messages, tool tips and stuff!
 

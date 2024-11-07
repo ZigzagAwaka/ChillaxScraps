@@ -1,3 +1,12 @@
+## 1.2.1
+- **Updated**
+    - The feature of the Boink added in the last update *"Have a small chance of launching you in the wrong direction"* has been reverted by default, but can be re-enabled with the newly added "Evil Boink" config
+- **Fixed**
+    - Fixed The Master Sword dropping all your items when you are not the chosen one
+    - [a_glitched_npc](https://www.twitch.tv/a_glitched_npc) has reported that the Death Note UI is displayed for other players when the item is used by the host, I didn't find a way to replicate this issue but I still modified the code to hopefully fix it (but it's probably a mod incompatibility thing)
+- **Information**
+    - It appears that the jump boost effect given by Super Sneakers does not work when you have [BetterStamina](https://thunderstore.io/c/lethal-company/p/FlipMods/BetterStamina/) installed, I'm still searching a way to fix that
+
 # 1.2.0 Improvements
 - **Added**
     - Imported from the original ChillaxScraps mod: Totem of Undying

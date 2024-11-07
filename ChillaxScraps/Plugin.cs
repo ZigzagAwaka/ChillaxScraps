@@ -16,7 +16,7 @@ namespace ChillaxScraps
     {
         const string GUID = "zigzag.chillaxscraps";
         const string NAME = "ChillaxScraps";
-        const string VERSION = "1.2.0";
+        const string VERSION = "1.2.1";
 
         public static Plugin instance;
         public static List<AudioClip> audioClips;

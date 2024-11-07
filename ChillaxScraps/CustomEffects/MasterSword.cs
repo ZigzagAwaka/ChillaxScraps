@@ -1,4 +1,5 @@
 ﻿using ChillaxScraps.Utils;
+using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -25,14 +26,20 @@ namespace ChillaxScraps.CustomEffects
             base.GrabItem();
             if (heroIsSelected && GameNetworkManager.Instance.localPlayerController.playerSteamId != heroSteamId)
             {
-                Effects.DropItem(playerHeldBy.transform.position);
-                Effects.Message("You aren't the one who's worthy of holding that blade", "");
+                StartCoroutine(DropSword());
             }
             else if (!firstTimeGrab)
             {
                 firstTimeGrab = true;
                 AudioServerRpc(8, playerHeldBy.transform.position, 0.8f, 1.2f);
             }
+        }
+
+        private IEnumerator DropSword()
+        {
+            yield return new WaitForEndOfFrame();
+            Effects.DropItem(playerHeldBy.transform.position);
+            Effects.Message("You aren't the one who's worthy of holding that blade", "");
         }
 
         [ServerRpc(RequireOwnership = false)]

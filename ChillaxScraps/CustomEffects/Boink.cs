@@ -28,7 +28,7 @@ namespace ChillaxScraps.CustomEffects
             if (playerHeldBy != null && insertedBattery != null && insertedBattery.charge > 0)
             {
                 var direction = GetDirection() + Vector3.up;
-                BoinkServerRpc(direction.normalized * 500f, 0.5f, 2, playerHeldBy.transform.position, 0.9f, 2.9f);
+                BoinkServerRpc(direction.normalized * 500f, 0.5f, 2, playerHeldBy.transform.position, 0.8f, 2.7f);
             }
         }
 
@@ -46,6 +46,8 @@ namespace ChillaxScraps.CustomEffects
 
         private Vector3 GetDirection()
         {
+            if (!Plugin.config.evilBoink.Value)
+                return -transform.forward;
             var r = Random.Range(0, 10);
             if (r <= 7)
                 return -transform.forward;
