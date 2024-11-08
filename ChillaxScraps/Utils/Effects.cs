@@ -32,7 +32,7 @@ namespace ChillaxScraps.Utils
             List<PlayerControllerB> updatedList = new List<PlayerControllerB>(rawList);
             foreach (var p in rawList)
             {
-                if (p.playerSteamId <= 0 || (!includeDead && p.isPlayerDead) || (excludeOutsideFactory && !p.isInsideFactory))
+                if (p.playerSteamId <= 0 || !p.IsSpawned || !p.isPlayerControlled || (!includeDead && p.isPlayerDead) || (excludeOutsideFactory && !p.isInsideFactory))
                 {
                     updatedList.Remove(p);
                 }
@@ -48,7 +48,7 @@ namespace ChillaxScraps.Utils
                 return updatedList;
             foreach (var e in rawList)
             {
-                if (e.isEnemyDead || (!includeCanDie && !e.enemyType.canDie) || (excludeDaytime && e.enemyType.isDaytimeEnemy))
+                if (!e.IsSpawned || e.isEnemyDead || (!includeCanDie && !e.enemyType.canDie) || (excludeDaytime && e.enemyType.isDaytimeEnemy))
                 {
                     updatedList.Remove(e);
                 }

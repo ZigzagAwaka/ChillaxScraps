@@ -9,8 +9,13 @@ namespace ChillaxScraps.CustomEffects
     internal class Ocarina : NoisemakerProp
     {
         public int selectedAudioID = 0;
+        public bool isOcarinaUnique = false;
         public Vector3 originalPosition = new Vector3(0.03f, 0.22f, -0.09f);
         public Vector3 originalRotation = new Vector3(180, 5, -5);
+        public Vector3 animationPosition = new Vector3(-0.12f, 0.15f, 0.01f);
+        public Vector3 animationRotation = new Vector3(60, 0, -50);
+        private Vector3 position;
+        private Vector3 rotation;
         private Coroutine? ocarinaCoroutine;
         private readonly string[] audioTitles = new string[14] {
             "", "Zelda's Lullaby", "Epona's Song", "Sun's Song", "Saria's Song", "Song of Time", "Song of Storms",
@@ -18,7 +23,19 @@ namespace ChillaxScraps.CustomEffects
             "Elegy of Emptiness", "Oath of Order"
         };
 
-        public Ocarina() { }
+        public Ocarina()
+        {
+            position = originalPosition;
+            rotation = originalRotation;
+            isOcarinaUnique = Plugin.config.ocarinaUniqueSongs.Value;
+        }
+
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+            if (isOcarinaUnique)
+                selectedAudioID = Random.Range(0, audioTitles.Length);
+        }
 
         public override void EquipItem()
         {
@@ -43,7 +60,8 @@ namespace ChillaxScraps.CustomEffects
 
         private void SetControlTips()
         {
-            string[] allLines = new string[3] { "Play sound : [RMB]", "Select audio : [Q]", audioTitles[selectedAudioID] };
+            string[] allLines = (isOcarinaUnique ? new string[2] { "Play sound : [RMB]", audioTitles[selectedAudioID] } :
+                new string[3] { "Play sound : [RMB]", "Select audio : [Q]", audioTitles[selectedAudioID] });
             if (IsOwner)
             {
                 HUDManager.Instance.ChangeControlTipMultiple(allLines, holdingItem: true, itemProperties);
@@ -54,7 +72,7 @@ namespace ChillaxScraps.CustomEffects
         {
             if (buttonDown && playerHeldBy != null && !playerHeldBy.activatingItem && !noiseAudio.isPlaying && !noiseAudioFar.isPlaying)
             {
-                UpdatePosRotServerRpc(new Vector3(-0.12f, 0.15f, 0.01f), new Vector3(60, 0, -50));
+                UpdatePosRotServerRpc(animationPosition, animationRotation);
                 playerHeldBy.activatingItem = buttonDown;
                 playerHeldBy.playerBodyAnimator.SetBool("useTZPItem", buttonDown);  // start playing music animation
                 ocarinaCoroutine = StartCoroutine(PlayOcarina(playerHeldBy));
@@ -83,7 +101,7 @@ namespace ChillaxScraps.CustomEffects
         public override void ItemInteractLeftRight(bool right)
         {
             base.ItemInteractLeftRight(right);
-            if (!right && playerHeldBy != null && !playerHeldBy.activatingItem && !noiseAudio.isPlaying && !noiseAudioFar.isPlaying)
+            if (!right && playerHeldBy != null && !isOcarinaUnique && !playerHeldBy.activatingItem && !noiseAudio.isPlaying && !noiseAudioFar.isPlaying)
             {
                 if (selectedAudioID < audioTitles.Length - 1)
                     selectedAudioID++;
@@ -112,6 +130,23 @@ namespace ChillaxScraps.CustomEffects
             if (playerHeldBy != null && !isPocketed)
                 playerHeldBy.equippedUsableItemQE = false;
             base.OnNetworkDespawn();
+        }
+
+        public override void LateUpdate()
+        {
+            if (parentObject != null)
+            {
+                base.transform.rotation = parentObject.rotation;
+                base.transform.Rotate(rotation);
+                base.transform.position = parentObject.position;
+                Vector3 positionOffset = position;
+                positionOffset = parentObject.rotation * positionOffset;
+                base.transform.position += positionOffset;
+            }
+            if (radarIcon != null)
+            {
+                radarIcon.position = base.transform.position;
+            }
         }
 
         [ServerRpc(RequireOwnership = false)]
@@ -165,8 +200,8 @@ namespace ChillaxScraps.CustomEffects
         [ClientRpc]
         private void UpdatePosRotClientRpc(Vector3 newPos, Vector3 newRot)
         {
-            itemProperties.positionOffset = newPos;
-            itemProperties.rotationOffset = newRot;
+            position = newPos;
+            rotation = newRot;
         }
     }
 }

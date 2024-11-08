@@ -107,11 +107,11 @@ namespace ChillaxScraps.CustomEffects
         {
             bool flag = true;
             CloseDeathNote();
-            if (objectToKill.transform.TryGetComponent(out PlayerControllerB player))
+            if (objectToKill.transform.TryGetComponent(out PlayerControllerB player) && player != null && !player.isPlayerDead && player.IsSpawned && player.isPlayerControlled)
             {
                 KillPlayerDeathNoteServerRpc(player.playerClientId, player.OwnerClientId);
             }
-            else if (objectToKill.transform.TryGetComponent(out EnemyAI enemy))
+            else if (objectToKill.transform.TryGetComponent(out EnemyAI enemy) && enemy != null && !enemy.isEnemyDead && enemy.IsSpawned)
             {
                 enemy.KillEnemyServerRpc(false);
             }

@@ -1,3 +1,10 @@
+## 1.2.2
+- **Updated**
+    - Added a new config "Ocarina unique songs", false by default. You can activate it to give every player a randomly selected song assigned to them (note that with this enabled, it's not possible to select other songs anymore)
+- **Fixed**
+    - I tried another fix for the Ocarina animation, but this time it's stronger
+    - [lunxara](https://www.twitch.tv/lunxara) has reported that it's possible to use the Death Note on players that are no longer in the lobby, I didn't find a way to replicate this issue but I still modified the code to hopefully fix it
+
 ## 1.2.1
 - **Updated**
     - The feature of the Boink added in the last update *"Have a small chance of launching you in the wrong direction"* has been reverted by default, but can be re-enabled with the newly added "Evil Boink" config
@@ -19,7 +26,7 @@
         - Have a small chance of launching you in the wrong direction
         - Audio is now properly assigned to the item
 - **Fixed**
-    - I tried a fix for Cup Noodle and Ocarina animation (in particular, the rotation of the item when you use it)
+    - I tried a fix for the Ocarina animation (in particular, the rotation of the item when you use it)
 
 ## 1.1.1
 - **Updated**
