@@ -21,8 +21,8 @@ Compatible with v64/v65/v66/v67/v68 of Lethal Company.
 ![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-uno.PNG)
 
 ### Totem of Undying
-- This squared totem can help you cheat death, but only works one time.
-- Don't fell on a pit with this, as you will survive the fall... but will now be stuck!
+- This totem made of strange squares has the power to cheat death when you hold it in your hands, but it can only do so once.
+- Beware to not fall into a pit with this in your hand, or else you're going to spend the rest of the day stuck at the bottom of it...!
 
 ![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-totem.PNG)
 
