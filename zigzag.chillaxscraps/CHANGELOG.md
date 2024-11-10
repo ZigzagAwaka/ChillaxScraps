@@ -1,3 +1,7 @@
+## 1.2.3
+- **Updated**
+    - Changed how The Master Sword reacts to unworthy players
+
 ## 1.2.2
 - **Updated**
     - Added a new config "Ocarina unique songs", false by default. You can activate it to give every player a randomly selected song assigned to them (note that with this enabled, it's not possible to select other songs anymore)
@@ -9,7 +13,7 @@
 - **Updated**
     - The feature of the Boink added in the last update *"Have a small chance of launching you in the wrong direction"* has been reverted by default, but can be re-enabled with the newly added "Evil Boink" config
 - **Fixed**
-    - Fixed The Master Sword dropping all your items when you are not the chosen one
+    - Fixed The Master Sword dropping all your items when you are unworthy
     - [a_glitched_npc](https://www.twitch.tv/a_glitched_npc) has reported that the Death Note UI is displayed for other players when the item is used by the host, I didn't find a way to replicate this issue but I still modified the code to hopefully fix it (but it's probably a mod incompatibility thing)
 - **Information**
     - It appears that the jump boost effect given by Super Sneakers does not work when you have [BetterStamina](https://thunderstore.io/c/lethal-company/p/FlipMods/BetterStamina/) installed, I'm still searching a way to fix that

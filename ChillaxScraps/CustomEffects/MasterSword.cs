@@ -1,5 +1,4 @@
 ﻿using ChillaxScraps.Utils;
-using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -10,8 +9,14 @@ namespace ChillaxScraps.CustomEffects
         public bool heroIsSelected = false;
         public ulong heroSteamId = 0;
         private bool firstTimeGrab = false;
+        private float unworthyWeight = 3f;
 
         public MasterSword() { }
+
+        private bool IsUnworthy()
+        {
+            return heroIsSelected && GameNetworkManager.Instance.localPlayerController.playerSteamId != heroSteamId;
+        }
 
         public override void OnNetworkSpawn()
         {
@@ -21,12 +26,42 @@ namespace ChillaxScraps.CustomEffects
                 SelectHeroServerRpc();
         }
 
+        public override void EquipItem()
+        {
+            SetControlTips();
+            EnableItemMeshes(enable: true);
+            isPocketed = false;
+            if (!hasBeenHeld)
+            {
+                hasBeenHeld = true;
+                if (!isInShipRoom && !StartOfRound.Instance.inShipPhase && StartOfRound.Instance.currentLevel.spawnEnemiesAndScrap)
+                {
+                    RoundManager.Instance.valueOfFoundScrapItems += scrapValue;
+                }
+            }
+        }
+
+        public override void SetControlTipsForItem()
+        {
+            SetControlTips();
+        }
+
+        private void SetControlTips()
+        {
+            string[] allLines = (IsUnworthy() ? new string[1] { "" } : new string[1] { "Swing sword : [RMB]" });
+            if (IsOwner)
+            {
+                HUDManager.Instance.ChangeControlTipMultiple(allLines, holdingItem: true, itemProperties);
+            }
+        }
+
         public override void GrabItem()
         {
             base.GrabItem();
-            if (heroIsSelected && GameNetworkManager.Instance.localPlayerController.playerSteamId != heroSteamId)
+            if (IsUnworthy())
             {
-                StartCoroutine(DropSword());
+                Effects.Message("You aren't the one who's worthy of holding that blade", "");
+                playerHeldBy.carryWeight = Mathf.Clamp(playerHeldBy.carryWeight + (unworthyWeight - 1f), 1f, 10f);
             }
             else if (!firstTimeGrab)
             {
@@ -35,11 +70,25 @@ namespace ChillaxScraps.CustomEffects
             }
         }
 
-        private IEnumerator DropSword()
+        public override void ItemActivate(bool used, bool buttonDown = true)
         {
-            yield return new WaitForEndOfFrame();
-            Effects.DropItem(playerHeldBy.transform.position);
-            Effects.Message("You aren't the one who's worthy of holding that blade", "");
+            if (IsUnworthy())
+                return;
+            base.ItemActivate(used, buttonDown);
+        }
+
+        public override void DiscardItem()
+        {
+            if (IsUnworthy() && playerHeldBy != null)
+                playerHeldBy.carryWeight = Mathf.Clamp(playerHeldBy.carryWeight - (unworthyWeight - 1f), 1f, 10f);
+            base.DiscardItem();
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            if (IsUnworthy() && playerHeldBy != null)
+                playerHeldBy.carryWeight = Mathf.Clamp(playerHeldBy.carryWeight - (unworthyWeight - 1f), 1f, 10f);
+            base.OnNetworkDespawn();
         }
 
         [ServerRpc(RequireOwnership = false)]
