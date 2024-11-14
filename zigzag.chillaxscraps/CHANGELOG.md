@@ -1,3 +1,18 @@
+<!--
+# 1.3.0 The Ocarina update
+- **Added**
+    - Added a custom effect for every song of the Ocarina !
+        - The allowed number of use for triggering an Ocarina special effect is not limited by default but you can change it in the config
+        - All effects don't have any restriction so you can use them freely (but to avoid lag, some do have a time cooldown)
+        - Song effects are kept secret... You need to play the song yourself to discover the behaviour !
+- **Fixed**
+    - The Ocarina animation was working great since last time but some players reported that the animation was still playing incorectly in some of their packs. This is my 3rd time trying to fix it but if you notice any other animation bug it's probably another mod causing compatibility issues
+-->
+
+## 1.2.4
+- **Fixed**
+    - Fixed every damage and heal not working as intended if (somehow) you have more than max health
+
 ## 1.2.3
 - **Updated**
     - Changed how The Master Sword reacts to unworthy players
@@ -31,6 +46,12 @@
         - Audio is now properly assigned to the item
 - **Fixed**
     - I tried a fix for the Ocarina animation (in particular, the rotation of the item when you use it)
+
+##
+
+<details><summary>Old versions (click to reveal)</summary>
+
+###
 
 ## 1.1.1
 - **Updated**
@@ -100,14 +121,4 @@
 - **Fixed**
     - Various fix from the original ChillaxScraps mod for all imported items : this includes the purge of the "floatiness/flying position" bug, some rotation and position adjustments, the addition of custom sound to some grab and drop animation, as well as other things
 
-<!---
-
-##
-
-<details><summary>Old versions (click to reveal)</summary>
-
-###
-
 </details>
-
--->

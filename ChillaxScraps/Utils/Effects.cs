@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace ChillaxScraps.Utils
@@ -58,6 +59,7 @@ namespace ChillaxScraps.Utils
 
         public static void Damage(PlayerControllerB player, int damageNb, CauseOfDeath cause = 0, int animation = 0, bool criticalBlood = true)
         {
+            damageNb = player.health > 100 && damageNb == 100 ? 900 : damageNb;
             if (criticalBlood && player.health - damageNb <= 20)
                 player.bleedingHeavily = true;
             player.DamagePlayer(damageNb, causeOfDeath: cause, deathAnimation: animation);
@@ -72,7 +74,7 @@ namespace ChillaxScraps.Utils
         public static void Heal(ulong playerID, int health)
         {
             var player = StartOfRound.Instance.allPlayerScripts[playerID];
-            player.health = health;
+            player.health = player.health > 100 ? player.health : health;
             player.criticallyInjured = false;
             player.bleedingHeavily = false;
             player.playerBodyAnimator.SetBool("Limp", false);
@@ -136,23 +138,6 @@ namespace ChillaxScraps.Utils
                 Audio(audioID, clientPosition, clientVolume);
         }
 
-        public static void Audio(int audioID, Vector3 position, float volume, float pitch, bool adjust = true)
-        {
-            var clip = Plugin.audioClips[audioID];
-            var finalPosition = position;
-            if (adjust)
-                finalPosition += (Vector3.up * 2);
-            GameObject gameObject = new GameObject("One shot audio");
-            gameObject.transform.position = finalPosition;
-            AudioSource audioSource = (AudioSource)gameObject.AddComponent(typeof(AudioSource));
-            audioSource.clip = clip;
-            audioSource.spatialBlend = 1f;
-            audioSource.volume = volume;
-            audioSource.pitch = pitch;
-            audioSource.Play();
-            Object.Destroy(gameObject, clip.length * ((Time.timeScale < 0.01f) ? 0.01f : Time.timeScale));
-        }
-
         public static IEnumerator FadeOutAudio(AudioSource source, float time)
         {
             yield return new WaitForEndOfFrame();
@@ -169,6 +154,43 @@ namespace ChillaxScraps.Utils
         public static void Message(string title, string bottom, bool warning = false)
         {
             HUDManager.Instance.DisplayTip(title, bottom, warning);
+        }
+
+        public static void Spawn(SpawnableEnemyWithRarity enemy, Vector3 position)
+        {
+            GameObject gameObject = Object.Instantiate(enemy.enemyType.enemyPrefab, position, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+            gameObject.GetComponentInChildren<NetworkObject>().Spawn(true);
+            RoundManager.Instance.SpawnedEnemies.Add(gameObject.GetComponent<EnemyAI>());
+        }
+
+        public static void Spawn(SpawnableMapObject trap, Vector3 position)
+        {
+            GameObject gameObject = Object.Instantiate(trap.prefabToSpawn, position, Quaternion.identity, RoundManager.Instance.mapPropsContainer.transform);
+            gameObject.GetComponent<NetworkObject>().Spawn(true);
+        }
+
+        public static SpawnableItemWithRarity GetScrap(string scrapName)
+        {
+            return RoundManager.Instance.currentLevel.spawnableScrap.FirstOrDefault(i => i.spawnableItem.name.Equals(scrapName));
+        }
+
+        public static ScrapReference Spawn(SpawnableItemWithRarity scrap, Vector3 position)
+        {
+            var parent = RoundManager.Instance.spawnedScrapContainer == null ? StartOfRound.Instance.elevatorTransform : RoundManager.Instance.spawnedScrapContainer;
+            GameObject gameObject = Object.Instantiate(scrap.spawnableItem.spawnPrefab, position + Vector3.up * 0.25f, Quaternion.identity, parent);
+            GrabbableObject component = gameObject.GetComponent<GrabbableObject>();
+            component.transform.rotation = Quaternion.Euler(component.itemProperties.restingRotation);
+            component.fallTime = 0f;
+            component.scrapValue = (int)(Random.Range(scrap.spawnableItem.minValue, scrap.spawnableItem.maxValue) * RoundManager.Instance.scrapValueMultiplier);
+            component.NetworkObject.Spawn();
+            component.FallToGround(true);
+            return new ScrapReference(gameObject.GetComponent<NetworkObject>(), component.scrapValue);
+        }
+
+        public static IEnumerator SyncScrap(ScrapReference reference)
+        {
+            yield return new WaitForSeconds(3f);
+            RoundManager.Instance.SyncScrapValuesClientRpc(new NetworkObjectReference[] { reference.netObjectRef }, new int[] { reference.scrapValue });
         }
     }
 }

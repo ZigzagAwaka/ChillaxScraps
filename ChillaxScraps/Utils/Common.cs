@@ -1,4 +1,7 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace ChillaxScraps.Utils
@@ -17,11 +20,31 @@ namespace ChillaxScraps.Utils
         }
     }
 
+    public class ScrapReference
+    {
+        public NetworkObjectReference netObjectRef;
+        public int scrapValue;
+
+        public ScrapReference(NetworkObjectReference netObjectRef, int scrapValue)
+        {
+            this.netObjectRef = netObjectRef;
+            this.scrapValue = scrapValue;
+        }
+    }
+
     public class SetupScript
     {
         public static void Network()
         {
-            var types = Assembly.GetExecutingAssembly().GetTypes();
+            IEnumerable<System.Type> types;
+            try
+            {
+                types = Assembly.GetExecutingAssembly().GetTypes();
+            }
+            catch (ReflectionTypeLoadException e)
+            {
+                types = e.Types.Where(t => t != null);
+            }
             foreach (var type in types)
             {
                 var methods = type.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);

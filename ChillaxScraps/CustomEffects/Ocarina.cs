@@ -10,12 +10,16 @@ namespace ChillaxScraps.CustomEffects
     {
         public int selectedAudioID = 0;
         public bool isOcarinaUnique = false;
+        //public int numberOfUse = -1;
+        //public int usage = 0;
         public Vector3 originalPosition = new Vector3(0.03f, 0.22f, -0.09f);
         public Vector3 originalRotation = new Vector3(180, 5, -5);
         public Vector3 animationPosition = new Vector3(-0.12f, 0.15f, 0.01f);
         public Vector3 animationRotation = new Vector3(60, 0, -50);
         private Vector3 position;
         private Vector3 rotation;
+        //private float selectedAudioLength = 0f;
+        //private float lastUsedTime = 0f;
         private Coroutine? ocarinaCoroutine;
         private readonly string[] audioTitles = new string[14] {
             "", "Zelda's Lullaby", "Epona's Song", "Sun's Song", "Saria's Song", "Song of Time", "Song of Storms",
@@ -28,13 +32,30 @@ namespace ChillaxScraps.CustomEffects
             position = originalPosition;
             rotation = originalRotation;
             isOcarinaUnique = Plugin.config.ocarinaUniqueSongs.Value;
+            //numberOfUse = Plugin.config.ocarinaNbOfUse.Value;
         }
+
+        /*private int GetValidID(int audioID)
+        {
+            int Id = audioID;
+            if (audioID == 0)
+                Id = Random.Range(0, 5);
+            else
+                Id += 4;
+            return Id;
+        }
+
+        private bool IsPlaying()
+        {
+            return Time.realtimeSinceStartup - lastUsedTime < selectedAudioLength;
+        }*/
 
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
             if (isOcarinaUnique)
                 selectedAudioID = Random.Range(0, audioTitles.Length);
+            //selectedAudioLength = noiseSFX[GetValidID(selectedAudioID)].length;
         }
 
         public override void EquipItem()
@@ -70,7 +91,7 @@ namespace ChillaxScraps.CustomEffects
 
         public override void ItemActivate(bool used, bool buttonDown = true)
         {
-            if (buttonDown && playerHeldBy != null && !playerHeldBy.activatingItem && !noiseAudio.isPlaying && !noiseAudioFar.isPlaying)
+            if (buttonDown && playerHeldBy != null && !playerHeldBy.activatingItem && !noiseAudio.isPlaying && !noiseAudioFar.isPlaying/*!IsPlaying()*/)
             {
                 UpdatePosRotServerRpc(animationPosition, animationRotation);
                 playerHeldBy.activatingItem = buttonDown;
@@ -84,6 +105,7 @@ namespace ChillaxScraps.CustomEffects
                 UpdatePosRotServerRpc(originalPosition, originalRotation);
                 playerHeldBy.playerBodyAnimator.SetBool("useTZPItem", false);  // stop playing music animation
                 playerHeldBy.activatingItem = false;
+                //lastUsedTime = 0f;
             }
         }
 
@@ -92,21 +114,23 @@ namespace ChillaxScraps.CustomEffects
             yield return new WaitForSeconds(0.9f);
             OcarinaAudioServerRpc(selectedAudioID);
             yield return new WaitForSeconds(0.1f);
-            yield return new WaitUntil(() => !noiseAudio.isPlaying && !noiseAudioFar.isPlaying);  // stop playing music when song ends
+            yield return new WaitUntil(() => !noiseAudio.isPlaying && !noiseAudioFar.isPlaying/*!IsPlaying()*/);  // stop playing music when song ends
             UpdatePosRotServerRpc(originalPosition, originalRotation);
             player.playerBodyAnimator.SetBool("useTZPItem", false);
             player.activatingItem = false;
+            //usage++;
         }
 
         public override void ItemInteractLeftRight(bool right)
         {
             base.ItemInteractLeftRight(right);
-            if (!right && playerHeldBy != null && !isOcarinaUnique && !playerHeldBy.activatingItem && !noiseAudio.isPlaying && !noiseAudioFar.isPlaying)
+            if (!right && playerHeldBy != null && !isOcarinaUnique && !playerHeldBy.activatingItem && !noiseAudio.isPlaying && !noiseAudioFar.isPlaying/*!IsPlaying()*/)
             {
                 if (selectedAudioID < audioTitles.Length - 1)
                     selectedAudioID++;
                 else
                     selectedAudioID = 0;
+                //selectedAudioLength = noiseSFX[GetValidID(selectedAudioID)].length;
                 SetControlTips();
             }
         }
@@ -158,11 +182,13 @@ namespace ChillaxScraps.CustomEffects
             else
                 audioID += 4;
             OcarinaAudioClientRpc(audioID);
+            //OcarinaAudioClientRpc(GetValidID(audioClientID));
         }
 
         [ClientRpc]
         private void OcarinaAudioClientRpc(int audioID)
         {
+            //lastUsedTime = Time.realtimeSinceStartup;
             noiseAudio.PlayOneShot(noiseSFX[audioID], 1f);
             if (noiseAudioFar != null)
             {
