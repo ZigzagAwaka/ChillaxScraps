@@ -69,6 +69,11 @@ Each item has a low/medium spawn chance on all moons, you will not find them eas
 
 *You can modify any spawn chance in the config file if you want to.*
 
+### Compatible mods
+
+- You should check [PremiumScraps](https://thunderstore.io/c/lethal-company/p/Zigzag/PremiumScraps/), it pairs well with ChillaxScraps!
+- Some Ocarina songs effects will not work properly when played at the Company Building, but you can install the mods [NavMeshInCompany](https://thunderstore.io/c/lethal-company/p/Kittenji/NavMeshInCompany/) and [StarlancerAIFix](https://thunderstore.io/c/lethal-company/p/AudioKnight/StarlancerAIFix/) to make them work !
+
 ### Feedback
 You can post some suggestions or issues in the mod release page in the [modding discord](https://discord.com/invite/lcmod) or as a [github](https://github.com/ZigzagAwaka/ChillaxScraps) issue.
 
@@ -103,9 +108,9 @@ You can post some suggestions or issues in the mod release page in the [modding 
 
 - The original developers for the ChillaxScraps mod : [BogBog](https://twitter.com/benbogbog), [Namsom](https://twitter.com/NamsomXD) and [OptimusGorilla](https://twitter.com/DanielSuPery)
 
-- Thanks [a_glitched_npc](https://www.twitch.tv/a_glitched_npc) for testing, bug reports and some ideas!
+- Thanks [A Glitched Npc](https://www.twitch.tv/a_glitched_npc) for testing, bug reports and some ideas!
 
-- Thanks [mrov](https://thunderstore.io/c/lethal-company/p/mrov/) for the lightning bolts code!
+- Thanks [Mrov](https://thunderstore.io/c/lethal-company/p/mrov/) for the lightning bolts code!
 
 - Thanks **Leaucard** for helping with some messages, tool tips and stuff!
 

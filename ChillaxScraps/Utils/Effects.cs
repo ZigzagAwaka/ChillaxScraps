@@ -107,6 +107,18 @@ namespace ChillaxScraps.Utils
             HUDManager.Instance.ShakeCamera(ScreenShakeType.Big);
         }
 
+        public static bool IsPlayerFacingDoor(PlayerControllerB player, out DoorLock? doorLock)
+        {
+            if (Physics.Raycast(new Ray(player.gameplayCamera.transform.position, player.gameplayCamera.transform.forward), out var hitInfo, 3f, 2816))
+            {
+                doorLock = hitInfo.transform.GetComponent<DoorLock>();
+                if (doorLock != null)
+                    return true;
+            }
+            doorLock = null;
+            return false;
+        }
+
         public static void Knockback(Vector3 position, float range, int damage = 0, float physicsForce = 30)
         {
             Landmine.SpawnExplosion(position, false, 0, range, damage, physicsForce);

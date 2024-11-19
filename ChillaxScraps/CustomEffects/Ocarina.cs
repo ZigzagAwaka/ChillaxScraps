@@ -8,39 +8,14 @@ namespace ChillaxScraps.CustomEffects
 {
     internal class Ocarina : NoisemakerProp
     {
-        internal class OcarinaSong
-        {
-            public string title;
-            public int usage = 0;
-            public int maxUsage;
-            public Color color;
-            public static float colorMultiplicator = 5f;
-            public Condition[] conditions;
-
-            public OcarinaSong(string title, int maxUsage, Color color, params Condition[] conditions)
-            {
-                this.title = title;
-                this.maxUsage = maxUsage;
-                this.color = color;
-                this.conditions = conditions;
-            }
-        }
-
-        internal enum Condition
-        {
-            None,
-            IsPlayerInsideFactory,
-            IsPlayerOutsideFactory,
-            IsPlayerFacingDoor,
-            IsTimeAfternoon  //360
-        }
-
         public int selectedSongID = 0;
-        public float selectedSongLength = 0f;
+        public float selectedSongLength = -1f;
+        public float lastUsedTime = 0f;
         public bool isOcarinaUnique = false;
         public bool isOcarinaRestricted = true;
         public bool isPlaying = false;
         public bool isHoldingButton = false;
+        public bool resetUsage = false;
         public Vector3 originalPosition = new Vector3(0.03f, 0.22f, -0.09f);
         public Vector3 originalRotation = new Vector3(180, 5, -5);
         public Vector3 animationPosition = new Vector3(-0.12f, 0.15f, 0.01f);
@@ -53,20 +28,20 @@ namespace ChillaxScraps.CustomEffects
         private Renderer? particleRenderer;
 
         private readonly OcarinaSong[] ocarinaSongs = new OcarinaSong[14] {
-            new OcarinaSong("", -1, new Color(0, 0, 0), Condition.None),
-            new OcarinaSong("Zelda's Lullaby", 2, new Color(0.87f, 0.36f, 1f), Condition.IsPlayerFacingDoor, Condition.None),
-            new OcarinaSong("Epona's Song", 3, new Color(1f, 0.56f, 0.16f), Condition.IsPlayerOutsideFactory),
+            new OcarinaSong("", -1, new Color(0, 0, 0), Condition.Invalid),
+            new OcarinaSong("Zelda's Lullaby", 2, new Color(0.87f, 0.36f, 1f), Condition.IsPlayerFacingDoor, Condition.IsTimeAfternoon),
+            new OcarinaSong("Epona's Song", 3, new Color(0.94f, 0.44f, 0.01f), Condition.IsPlayerOutsideFactory),
             new OcarinaSong("Sun's Song", 1, new Color(1f, 0.92f, 0.1f), Condition.None),
             new OcarinaSong("Saria's Song", 2, new Color(0.11f, 0.98f, 0.17f), Condition.None),
             new OcarinaSong("Song of Time", 1, new Color(0.18f, 0.76f, 1f), Condition.IsTimeAfternoon),
-            new OcarinaSong("Song of Storms", 1, new Color(0.85f, 0.76f, 0.45f), Condition.IsPlayerOutsideFactory),
-            new OcarinaSong("Song of Healing", 1, new Color(1f, 0.2f, 0), Condition.None),
-            new OcarinaSong("Song of Soaring", 5, new Color(0.69f, 0.97f, 1f), Condition.None),
+            new OcarinaSong("Song of Storms", 1, new Color(0.87f, 0.76f, 0.42f), Condition.IsPlayerOutsideFactory),
+            new OcarinaSong("Song of Healing", 1, new Color(1f, 0.22f, 0.09f), Condition.None),
+            new OcarinaSong("Song of Soaring", 5, new Color(0.5f, 0.8f, 1f), Condition.None),
             new OcarinaSong("Sonata of Awakening", 1, new Color(0.12f, 1f, 0.45f), Condition.None),
-            new OcarinaSong("Goron Lullaby", 1, new Color(0.72f, 0.45f, 0), Condition.None),
+            new OcarinaSong("Goron Lullaby", 1, new Color(1f, 0.41f, 0.54f), Condition.None),
             new OcarinaSong("New Wave Bossa Nova", 1, new Color(0.03f, 0.09f, 1f), Condition.None),
-            new OcarinaSong("Elegy of Emptiness", 3, new Color(0.94f, 0.63f, 0.49f), Condition.None),
-            new OcarinaSong("Oath to Order", 1, new Color(1f, 1f, 1f), Condition.IsPlayerOutsideFactory),
+            new OcarinaSong("Elegy of Emptiness", 3, new Color(0.85f, 0.53f, 0.33f), Condition.None),
+            new OcarinaSong("Oath to Order", 1, new Color(1f, 1f, 1f), Condition.IsPlayerOutsideFactory)
         };
 
         public Ocarina()
@@ -77,7 +52,7 @@ namespace ChillaxScraps.CustomEffects
             isOcarinaRestricted = Plugin.config.ocarinaRestrictUsage.Value;
         }
 
-        private int GetValidID(int audioID)
+        private int GetNoiseID(int audioID)
         {
             int Id = audioID;
             if (audioID == 0)
@@ -92,8 +67,10 @@ namespace ChillaxScraps.CustomEffects
             base.OnNetworkSpawn();
             if (isOcarinaUnique)
                 selectedSongID = Random.Range(0, ocarinaSongs.Length);
+            selectedSongLength = noiseSFX[GetNoiseID(selectedSongID)].length;
             particleSystem = transform.GetChild(3).GetComponent<ParticleSystem>();
-            particleRenderer = particleSystem.GetComponent<Renderer>();
+            if (particleSystem != null)
+                particleRenderer = particleSystem.GetComponent<Renderer>();
         }
 
         public override void EquipItem()
@@ -151,7 +128,10 @@ namespace ChillaxScraps.CustomEffects
             yield return new WaitForSeconds(0.9f);
             if (isHoldingButton && isHeld)
             {
-                OcarinaAudioServerRpc(selectedSongID);
+                var isValid = ocarinaSongs[selectedSongID].IsValid(previousPlayerHeldBy, isOcarinaRestricted);
+                lastUsedTime = Time.realtimeSinceStartup;
+                OcarinaAudioServerRpc(selectedSongID, isValid.Item1);
+                StartCoroutine(OcarinaEffect(isValid.Item1, isValid.Item2));
                 yield return new WaitForSeconds(0.1f);
                 yield return new WaitUntil(() => !isHoldingButton || !isHeld);
             }
@@ -166,6 +146,21 @@ namespace ChillaxScraps.CustomEffects
             ocarinaCoroutine = null;
         }
 
+        private IEnumerator OcarinaEffect(bool isEffectValid, int variationId)
+        {
+            yield return new WaitForSeconds(0.1f);
+            if (isEffectValid && !StartOfRound.Instance.inShipPhase)
+            {
+                yield return new WaitUntil(() => !isHoldingButton || !isHeld || Time.realtimeSinceStartup - lastUsedTime >= selectedSongLength);
+                if (isHoldingButton && isHeld)
+                {
+                    StopOcarinaAudioServerRpc();
+                    ocarinaSongs[selectedSongID].StartEffect(this, previousPlayerHeldBy, variationId);
+                    UpdateUsageServerRpc(selectedSongID);
+                }
+            }
+        }
+
         public override void ItemInteractLeftRight(bool right)
         {
             base.ItemInteractLeftRight(right);
@@ -176,6 +171,7 @@ namespace ChillaxScraps.CustomEffects
                 else
                     selectedSongID = 0;
                 SetControlTips();
+                selectedSongLength = noiseSFX[GetNoiseID(selectedSongID)].length;
             }
         }
 
@@ -203,7 +199,12 @@ namespace ChillaxScraps.CustomEffects
         public override void Update()
         {
             base.Update();
-
+            if (resetUsage && StartOfRound.Instance.inShipPhase)
+            {
+                resetUsage = false;
+                for (int i = 0; i < ocarinaSongs.Length; i++)
+                    ocarinaSongs[i].usage = 0;
+            }
         }
 
         public override void LateUpdate()
@@ -224,28 +225,29 @@ namespace ChillaxScraps.CustomEffects
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void OcarinaAudioServerRpc(int audioClientID)
+        private void OcarinaAudioServerRpc(int audioClientID, bool isEffectValid)
         {
-            OcarinaAudioClientRpc(GetValidID(audioClientID));
+            OcarinaAudioClientRpc(audioClientID, GetNoiseID(audioClientID), isEffectValid && !StartOfRound.Instance.inShipPhase);
         }
 
         [ClientRpc]
-        private void OcarinaAudioClientRpc(int audioID)
+        private void OcarinaAudioClientRpc(int audioID, int noiseAudioID, bool isEffectValid)
         {
-            if (particleRenderer != null && particleSystem != null && selectedSongID != 0)
+            if (particleRenderer != null && particleSystem != null && particleSystem.lights.enabled && isEffectValid)
             {
-                particleRenderer.sharedMaterial.SetColor("_Color", ocarinaSongs[selectedSongID].color * OcarinaSong.colorMultiplicator);
+                particleSystem.lights.light.color = ocarinaSongs[audioID].color * OcarinaSong.colorMultiplicator;
+                particleRenderer.sharedMaterial.SetColor("_Color", ocarinaSongs[audioID].color * OcarinaSong.colorMultiplicator);
                 particleSystem.Play();
             }
             if (noiseAudio != null)
             {
-                noiseAudio.PlayOneShot(noiseSFX[audioID], 1f);
+                noiseAudio.PlayOneShot(noiseSFX[noiseAudioID], 1f);
             }
             if (noiseAudioFar != null)
             {
-                noiseAudioFar.PlayOneShot(noiseSFXFar[audioID], 1f);
+                noiseAudioFar.PlayOneShot(noiseSFXFar[noiseAudioID], 1f);
             }
-            WalkieTalkie.TransmitOneShotAudio(noiseAudio, noiseSFX[audioID], 1f);
+            WalkieTalkie.TransmitOneShotAudio(noiseAudio, noiseSFX[noiseAudioID], 1f);
             RoundManager.Instance.PlayAudibleNoise(transform.position, noiseRange, 1f, 0, isInElevator && StartOfRound.Instance.hangarDoorsClosed);
             if (minLoudness >= 0.6f && playerHeldBy != null)
             {
@@ -268,6 +270,19 @@ namespace ChillaxScraps.CustomEffects
                 StartCoroutine(Effects.FadeOutAudio(noiseAudio, 0.1f));
             if (noiseAudioFar != null && noiseAudioFar.isPlaying)
                 StartCoroutine(Effects.FadeOutAudio(noiseAudioFar, 0.1f));
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void UpdateUsageServerRpc(int audioClientID)
+        {
+            UpdateUsageClientRpc(audioClientID);
+        }
+
+        [ClientRpc]
+        private void UpdateUsageClientRpc(int audioID)
+        {
+            ocarinaSongs[audioID].usage++;
+            resetUsage = true;
         }
 
         [ServerRpc(RequireOwnership = false)]

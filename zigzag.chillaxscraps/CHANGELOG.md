@@ -2,9 +2,9 @@
 - **Added**
     - Added a custom effect for every song of the Ocarina !
         - Song effects are kept secret... You need to play the song yourself to discover the behaviour !
-        - All songs have a specific number of allowed usage per moons (some are 1 time use, some are 2). This can be disabled in the config but it's preferable to not disable this as it will become unbalanced
-        - Thanks [mrov](https://thunderstore.io/c/lethal-company/p/mrov/) for the lightning bolts code !
-        - Thanks [a_glitched_npc](https://www.twitch.tv/a_glitched_npc) for testing and for effect ideas !
+        - All songs have a specific number of allowed usage per moons (some are 1 time use, some are 2). This can be disabled in the config but it's preferable to not modify this as it will become unbalanced
+        - Thanks [Mrov](https://thunderstore.io/c/lethal-company/p/mrov/) for the lightning bolts code !
+        - Thanks [A Glitched Npc](https://www.twitch.tv/a_glitched_npc) for testing and for effect ideas !
 - **Fixed**
     - The Ocarina animation got a rework, hopefully it's working great now
     - Fixed Ocarina still playing audio if you cancel it by using the ship's terminal or when you drop it in the ship's cupboard
