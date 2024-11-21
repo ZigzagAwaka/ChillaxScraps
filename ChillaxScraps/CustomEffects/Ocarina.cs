@@ -28,20 +28,20 @@ namespace ChillaxScraps.CustomEffects
         private Renderer? particleRenderer;
 
         private readonly OcarinaSong[] ocarinaSongs = new OcarinaSong[14] {
-            new OcarinaSong("", -1, new Color(0, 0, 0), Condition.Invalid),
-            new OcarinaSong("Zelda's Lullaby", 2, new Color(0.87f, 0.36f, 1f), Condition.IsPlayerFacingDoor, Condition.IsTimeAfternoon),
-            new OcarinaSong("Epona's Song", 3, new Color(0.94f, 0.44f, 0.01f), Condition.IsPlayerOutsideFactory),
-            new OcarinaSong("Sun's Song", 1, new Color(1f, 0.92f, 0.1f), Condition.None),
-            new OcarinaSong("Saria's Song", 2, new Color(0.11f, 0.98f, 0.17f), Condition.None),
-            new OcarinaSong("Song of Time", 1, new Color(0.18f, 0.76f, 1f), Condition.IsTimeAfternoon),
-            new OcarinaSong("Song of Storms", 1, new Color(0.87f, 0.76f, 0.42f), Condition.IsPlayerOutsideFactory),
-            new OcarinaSong("Song of Healing", 1, new Color(1f, 0.22f, 0.09f), Condition.None),
-            new OcarinaSong("Song of Soaring", 5, new Color(0.5f, 0.8f, 1f), Condition.None),
-            new OcarinaSong("Sonata of Awakening", 1, new Color(0.12f, 1f, 0.45f), Condition.None),
-            new OcarinaSong("Goron Lullaby", 1, new Color(1f, 0.41f, 0.54f), Condition.None),
-            new OcarinaSong("New Wave Bossa Nova", 1, new Color(0.03f, 0.09f, 1f), Condition.None),
-            new OcarinaSong("Elegy of Emptiness", 3, new Color(0.85f, 0.53f, 0.33f), Condition.None),
-            new OcarinaSong("Oath to Order", 1, new Color(1f, 1f, 1f), Condition.IsPlayerOutsideFactory)
+            new OcarinaSong("", new Color(0, 0, 0), null, 0, Condition.Invalid),
+            new OcarinaSong("Zelda's Lullaby", new Color(0.87f, 0.36f, 1f), OcarinaSong.ZeldaLullaby, 2, Condition.IsPlayerFacingDoor, Condition.IsTimeAfternoon),
+            new OcarinaSong("Epona's Song", new Color(0.94f, 0.44f, 0.01f), OcarinaSong.EponaSong, 3, Condition.IsPlayerOutsideFactory),
+            new OcarinaSong("Sun's Song", new Color(1f, 0.92f, 0.1f), OcarinaSong.SunSong, 1, Condition.None),
+            new OcarinaSong("Saria's Song", new Color(0.11f, 0.98f, 0.17f), OcarinaSong.SariaSong, 2, Condition.None),
+            new OcarinaSong("Song of Time", new Color(0.18f, 0.76f, 1f), OcarinaSong.SongOfTime, 1, Condition.IsTimeAfternoon),
+            new OcarinaSong("Song of Storms", new Color(0.87f, 0.76f, 0.42f), OcarinaSong.SongOfStorms, 1, Condition.IsPlayerOutsideFactory),
+            new OcarinaSong("Song of Healing", new Color(1f, 0.22f, 0.09f), OcarinaSong.SongOfHealing, 1, Condition.None),
+            new OcarinaSong("Song of Soaring", new Color(0.5f, 0.8f, 1f), OcarinaSong.SongOfSoaring, 5, Condition.None),
+            new OcarinaSong("Sonata of Awakening", new Color(0.12f, 1f, 0.45f), OcarinaSong.SonataOfAwakening, 1, Condition.None),
+            new OcarinaSong("Goron Lullaby", new Color(1f, 0.41f, 0.54f), OcarinaSong.GoronLullaby, 2, Condition.None),
+            new OcarinaSong("New Wave Bossa Nova", new Color(0.03f, 0.09f, 1f), OcarinaSong.NewWaveBossaNova, 1, Condition.None),
+            new OcarinaSong("Elegy of Emptiness", new Color(0.85f, 0.53f, 0.33f), OcarinaSong.ElegyOfEmptiness, 3, Condition.None),
+            new OcarinaSong("Oath to Order", new Color(1f, 1f, 1f), OcarinaSong.OathToOrder, 1, Condition.IsPlayerOutsideFactory)
         };
 
         public Ocarina()
@@ -155,8 +155,8 @@ namespace ChillaxScraps.CustomEffects
                 if (isHoldingButton && isHeld)
                 {
                     StopOcarinaAudioServerRpc();
-                    ocarinaSongs[selectedSongID].StartEffect(this, previousPlayerHeldBy, variationId);
-                    UpdateUsageServerRpc(selectedSongID);
+                    if (ocarinaSongs[selectedSongID].StartEffect(this, previousPlayerHeldBy, variationId))
+                        UpdateUsageServerRpc(selectedSongID);
                 }
             }
         }
@@ -297,5 +297,50 @@ namespace ChillaxScraps.CustomEffects
             position = newPos;
             rotation = newRot;
         }
+
+        // OCARINA EFFECTS // COROUTINE & RPCs
+
+        [ServerRpc(RequireOwnership = false)]
+        private void AudioServerRpc(int audioID, Vector3 clientPosition, float hostVolume, float clientVolume = default)
+        {
+            AudioClientRpc(audioID, clientPosition, hostVolume, clientVolume == default ? hostVolume : clientVolume);
+        }
+
+        [ClientRpc]
+        private void AudioClientRpc(int audioID, Vector3 clientPosition, float hostVolume, float clientVolume)
+        {
+            Effects.Audio(audioID, clientPosition, hostVolume, clientVolume, playerHeldBy);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void AudioAtPositionServerRpc(int audioID, Vector3 position, float volume, bool adjust = true)
+        {
+            AudioAtPositionClientRpc(audioID, position, volume, adjust);
+        }
+
+        [ClientRpc]
+        private void AudioAtPositionClientRpc(int audioID, Vector3 position, float volume, bool adjust)
+        {
+            Effects.Audio(audioID, position, volume, adjust);
+        }
+
+        public IEnumerator OpenDoorZeldaStyle(DoorLock door)
+        {
+            AudioAtPositionServerRpc(12, door.transform.position, 2f);
+            yield return new WaitForSeconds(1.45f);
+            if (door.isLocked && !door.isPickingLock)
+            {
+                door.UnlockDoorSyncWithServer();
+                yield return new WaitForSeconds(0.5f);
+                var animObjTrig = door.gameObject.GetComponent<AnimatedObjectTrigger>();
+                if (animObjTrig != null)
+                {
+                    animObjTrig.TriggerAnimationNonPlayer(overrideBool: true);
+                    door.OpenDoorAsEnemyServerRpc();
+                }
+            }
+        }
+
+
     }
 }

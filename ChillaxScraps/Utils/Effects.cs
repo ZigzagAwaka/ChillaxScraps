@@ -107,15 +107,15 @@ namespace ChillaxScraps.Utils
             HUDManager.Instance.ShakeCamera(ScreenShakeType.Big);
         }
 
-        public static bool IsPlayerFacingDoor(PlayerControllerB player, out DoorLock? doorLock)
+        public static bool IsPlayerFacingObject<T>(PlayerControllerB player, out T obj, float distance)
         {
-            if (Physics.Raycast(new Ray(player.gameplayCamera.transform.position, player.gameplayCamera.transform.forward), out var hitInfo, 3f, 2816))
+            if (Physics.Raycast(new Ray(player.gameplayCamera.transform.position, player.gameplayCamera.transform.forward), out var hitInfo, distance, 2816))
             {
-                doorLock = hitInfo.transform.GetComponent<DoorLock>();
-                if (doorLock != null)
+                obj = hitInfo.transform.GetComponent<T>();
+                if (obj != null)
                     return true;
             }
-            doorLock = null;
+            obj = default;
             return false;
         }
 

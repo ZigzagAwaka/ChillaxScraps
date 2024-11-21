@@ -51,6 +51,7 @@ namespace ChillaxScraps
             script.itemProperties = item;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051")]
         void Awake()
         {
             instance = this;
@@ -75,7 +76,11 @@ namespace ChillaxScraps
                 bundle.LoadAsset<AudioClip>(directory + "_audio/sneakers-activate.wav"),
                 bundle.LoadAsset<AudioClip>(directory + "_audio/sneakers-deactivate.wav"),
                 bundle.LoadAsset<AudioClip>(directory + "_audio/OOT_Fanfare_Item.wav"),
-                bundle.LoadAsset<AudioClip>(directory + "_audio/undying.wav")
+                bundle.LoadAsset<AudioClip>(directory + "_audio/undying.wav"),
+                bundle.LoadAsset<AudioClip>(directory + "_audio/OOT_Warp_Song_In.wav"),
+                bundle.LoadAsset<AudioClip>(directory + "_audio/OOT_Warp_Song_Out.wav"),
+                bundle.LoadAsset<AudioClip>(directory + "_audio/OOT_Secret.wav"),
+                bundle.LoadAsset<AudioClip>(directory + "_audio/OOT_SpiritualStone_Appear.wav")
             };
 
             var scraps = new List<Scrap> {
