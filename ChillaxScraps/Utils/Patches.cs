@@ -1,5 +1,6 @@
 ﻿using GameNetcodeStuff;
 using HarmonyLib;
+using UnityEngine;
 
 namespace ChillaxScraps.Utils
 {
@@ -34,6 +35,28 @@ namespace ChillaxScraps.Utils
         public static void KillPlayerTotemPostPatch(PlayerControllerB __instance)
         {
             CustomEffects.TotemOfUndying.TryDestroyItem(__instance);
+        }
+    }
+
+    [HarmonyPatch(typeof(EnemyAI))]
+    internal class EnemyAIPatch
+    {
+        [HarmonyPrefix]
+        [HarmonyPatch("UseNestSpawnObject")]
+        public static void UseNestSpawnObjectPatch(EnemyAI __instance, ref EnemyAINestSpawnObject nestSpawnObject)
+        {
+            if (CustomEffects.Ocarina.WakeOldBirdFlag && __instance.enemyType == GetEnemies.OldBird.enemyType)
+            {
+                EnemyAINestSpawnObject[] array = Object.FindObjectsByType<EnemyAINestSpawnObject>(FindObjectsSortMode.None);
+                for (int i = 0; i < array.Length; i++)
+                {
+                    if (array[i].enemyType == GetEnemies.OldBird.enemyType && array[i].transform.position == CustomEffects.Ocarina.WakeOldBirdPosition)
+                    {
+                        nestSpawnObject = array[i];
+                    }
+                }
+                CustomEffects.Ocarina.WakeOldBirdFlag = false;
+            }
         }
     }
 }

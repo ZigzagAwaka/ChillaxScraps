@@ -20,15 +20,15 @@ namespace ChillaxScraps.Utils
         }
     }
 
-    public class ScrapReference
+    public class NetworkReference
     {
         public NetworkObjectReference netObjectRef;
-        public int scrapValue;
+        public int value;
 
-        public ScrapReference(NetworkObjectReference netObjectRef, int scrapValue)
+        public NetworkReference(NetworkObjectReference netObjectRef, int value)
         {
             this.netObjectRef = netObjectRef;
-            this.scrapValue = scrapValue;
+            this.value = value;
         }
     }
 

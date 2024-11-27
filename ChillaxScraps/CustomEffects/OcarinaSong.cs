@@ -1,6 +1,5 @@
 ﻿using ChillaxScraps.Utils;
 using GameNetcodeStuff;
-using System;
 using UnityEngine;
 
 namespace ChillaxScraps.CustomEffects
@@ -13,7 +12,15 @@ namespace ChillaxScraps.CustomEffects
         IsPlayerOutsideFactory,
         IsPlayerFacingDoor,
         IsTimeAfternoon,
-        IsTimeNight
+        IsTimeNight,
+        IsOutsideTimeNight,
+        IsOutsideWeatherNotStormy,
+        IsOutsideWeatherStormy,
+        IsPlayerNearOldBirdNest,
+        IsPlayerInShip,
+        IsInsideTimeAfternoon,
+        IsOutsideAtLeastOneBaboonSpawned,
+        IsPlayerInShipSpeakerNotPlaying
     }
 
     internal class OcarinaSong
@@ -21,12 +28,13 @@ namespace ChillaxScraps.CustomEffects
         public string title;
         public Color color;
         public static float colorMultiplicator = 2f;
-        public Func<Ocarina, PlayerControllerB, int, bool>? effect;
+        public System.Func<Ocarina, PlayerControllerB, int, bool>? effect;
         public int usage = 0;
         public int maxUsage;
         public Condition[] conditions;
+        public bool canBeUsedInOrbit = false;
 
-        public OcarinaSong(string title, Color color, Func<Ocarina, PlayerControllerB, int, bool>? effect,
+        public OcarinaSong(string title, Color color, System.Func<Ocarina, PlayerControllerB, int, bool>? effect,
                             int maxUsage, params Condition[] conditions)
         {
             this.title = title;
@@ -36,24 +44,49 @@ namespace ChillaxScraps.CustomEffects
             this.conditions = conditions;
         }
 
+        internal class ConditionComponents
+        {
+            public DoorLock? door;
+            public EnemyAINestSpawnObject? birdNest;
+        }
+
+        private static bool Verif(Condition condition, PlayerControllerB player)
+        {
+            return Verif(condition, player, out _);
+        }
+
+        private static bool Verif(Condition condition, PlayerControllerB player, out ConditionComponents components)
+        {
+            components = new ConditionComponents();
+            return condition switch
+            {
+                Condition.None => true,
+                Condition.Invalid => false,
+                Condition.IsPlayerInsideFactory => player.isInsideFactory,
+                Condition.IsPlayerOutsideFactory => !player.isInsideFactory,
+                Condition.IsPlayerFacingDoor => Effects.IsPlayerFacingObject<DoorLock>(player, out components.door, 3f) && components.door.isLocked && !components.door.isPickingLock,
+                Condition.IsTimeAfternoon => TimeOfDay.Instance.currentDayTime >= 360,
+                Condition.IsTimeNight => TimeOfDay.Instance.currentDayTime >= 720,
+                Condition.IsOutsideTimeNight => !player.isInsideFactory && TimeOfDay.Instance.currentDayTime >= 720,
+                Condition.IsOutsideWeatherNotStormy => !player.isInsideFactory && StartOfRound.Instance.currentLevel.currentWeather != LevelWeatherType.Stormy,
+                Condition.IsOutsideWeatherStormy => !player.isInsideFactory && StartOfRound.Instance.currentLevel.currentWeather == LevelWeatherType.Stormy,
+                Condition.IsPlayerNearOldBirdNest => Effects.IsPlayerNearObject<EnemyAINestSpawnObject>(player, out components.birdNest, 10f) && components.birdNest.enemyType == GetEnemies.OldBird.enemyType,
+                Condition.IsPlayerInShip => player.isInElevator && player.isInHangarShipRoom,
+                Condition.IsInsideTimeAfternoon => player.isInsideFactory && TimeOfDay.Instance.currentDayTime >= 360,
+                Condition.IsOutsideAtLeastOneBaboonSpawned => !player.isInsideFactory && Effects.IsPlayerNearObject<BaboonBirdAI>(player, out _, 1000f),
+                Condition.IsPlayerInShipSpeakerNotPlaying => player.isInElevator && player.isInHangarShipRoom && !StartOfRound.Instance.speakerAudioSource.isPlaying,
+                _ => false
+            };
+        }
+
         public (bool, int) IsValid(PlayerControllerB player, bool isOcarinaRestricted)
         {
             var result = (false, 0);
-            if (player != null && (usage < maxUsage || !isOcarinaRestricted))
+            if (player != null && (!StartOfRound.Instance.inShipPhase || canBeUsedInOrbit) && (usage < maxUsage || !isOcarinaRestricted))
             {
                 for (int i = 0; i < conditions.Length; i++)
                 {
-                    switch (conditions[i])
-                    {
-                        case Condition.None: result = (true, i); break;
-                        case Condition.Invalid: result = (false, i); break;
-                        case Condition.IsPlayerInsideFactory: result = (player.isInsideFactory, i); break;
-                        case Condition.IsPlayerOutsideFactory: result = (!player.isInsideFactory, i); break;
-                        case Condition.IsPlayerFacingDoor: result = (Effects.IsPlayerFacingObject<DoorLock>(player, out var door, 3f) && door.isLocked && !door.isPickingLock, i); break;
-                        case Condition.IsTimeAfternoon: result = (TimeOfDay.Instance.currentDayTime >= 360, i); break;
-                        case Condition.IsTimeNight: result = (TimeOfDay.Instance.currentDayTime >= 720, i); break;
-                        default: break;
-                    }
+                    result = (Verif(conditions[i], player), i);
                     if (result.Item1 == true)
                         return result;
                 }
@@ -72,14 +105,17 @@ namespace ChillaxScraps.CustomEffects
         {
             if (variationId == 0)
             {
-                if (Effects.IsPlayerFacingObject<DoorLock>(player, out var door, 3f) && door.isLocked && !door.isPickingLock)
-                    ocarina.StartCoroutine(ocarina.OpenDoorZeldaStyle(door));
+                if (Verif(Condition.IsPlayerFacingDoor, player, out var components))
+                    ocarina.StartCoroutine(ocarina.OpenDoorZeldaStyle(components.door));
                 else
                     return false;
             }
             else
             {
-                //var p = player.beamUpParticle; //3.2
+                if (Verif(Condition.IsTimeAfternoon, player))
+                    ocarina.StartCoroutine(ocarina.TeleportTo(player, StartOfRound.Instance.middleOfShipNode.position, false));
+                else
+                    return false;
             }
             return true;
         }
@@ -88,6 +124,10 @@ namespace ChillaxScraps.CustomEffects
         {
             if (variationId == 0)
             {
+                if (Verif(Condition.IsPlayerOutsideFactory, player))
+                    ocarina.StartCoroutine(ocarina.SpawnZeldaEnemy(0, player.transform.position));
+                else
+                    return false;
             }
             return true;
         }
@@ -96,6 +136,7 @@ namespace ChillaxScraps.CustomEffects
         {
             if (variationId == 0)
             {
+                ocarina.ChargeAllItemsServerRpc();
             }
             return true;
         }
@@ -104,6 +145,8 @@ namespace ChillaxScraps.CustomEffects
         {
             if (variationId == 0)
             {
+                var position = RoundManager.Instance.insideAINodes[Random.Range(0, RoundManager.Instance.insideAINodes.Length - 1)].transform.position;
+                ocarina.StartCoroutine(ocarina.TeleportTo(player, position, true));
             }
             return true;
         }
@@ -112,6 +155,10 @@ namespace ChillaxScraps.CustomEffects
         {
             if (variationId == 0)
             {
+                if (Verif(Condition.IsTimeNight, player))
+                    ocarina.ChangeTimeServerRpc(TimeOfDay.Instance.currentDayTime - 120);
+                else
+                    return false;
             }
             return true;
         }
@@ -120,6 +167,17 @@ namespace ChillaxScraps.CustomEffects
         {
             if (variationId == 0)
             {
+                if (Verif(Condition.IsOutsideWeatherNotStormy, player))
+                    ocarina.ChangeWeatherServerRpc(LevelWeatherType.Stormy);
+                else
+                    return false;
+            }
+            else
+            {
+                if (Verif(Condition.IsOutsideWeatherStormy, player))
+                    ocarina.StartCoroutine(ocarina.SpawnOutsideLightningBolts());
+                else
+                    return false;
             }
             return true;
         }
@@ -128,6 +186,7 @@ namespace ChillaxScraps.CustomEffects
         {
             if (variationId == 0)
             {
+                ocarina.HealPlayersInAreaServerRpc(player.transform.position);
             }
             return true;
         }
@@ -136,6 +195,7 @@ namespace ChillaxScraps.CustomEffects
         {
             if (variationId == 0)
             {
+                ocarina.StartCoroutine(ocarina.SoaringEffect(player));
             }
             return true;
         }
@@ -144,6 +204,10 @@ namespace ChillaxScraps.CustomEffects
         {
             if (variationId == 0)
             {
+                if (Verif(Condition.IsPlayerNearOldBirdNest, player, out var components))
+                    ocarina.StartCoroutine(ocarina.WakeTheBird(components.birdNest));
+                else
+                    return false;
             }
             return true;
         }
@@ -152,6 +216,17 @@ namespace ChillaxScraps.CustomEffects
         {
             if (variationId == 0)
             {
+                if (Verif(Condition.IsOutsideAtLeastOneBaboonSpawned, player))
+                    ocarina.StartCoroutine(ocarina.MakeAllBaboonSleep());
+                else
+                    return false;
+            }
+            else
+            {
+                if (Verif(Condition.IsInsideTimeAfternoon, player))
+                    ocarina.StartCoroutine(ocarina.SpawnZeldaEnemy(3, player.transform.position));
+                else
+                    return false;
             }
             return true;
         }
@@ -160,6 +235,10 @@ namespace ChillaxScraps.CustomEffects
         {
             if (variationId == 0)
             {
+                if (Verif(Condition.IsPlayerInShipSpeakerNotPlaying, player))
+                    ocarina.PlayMusicInShipServerRpc(33);
+                else
+                    return false;
             }
             return true;
         }
@@ -168,6 +247,7 @@ namespace ChillaxScraps.CustomEffects
         {
             if (variationId == 0)
             {
+                ocarina.StartCoroutine(ocarina.SpawnZeldaEnemy(2, player.transform.position));
             }
             return true;
         }
@@ -176,6 +256,10 @@ namespace ChillaxScraps.CustomEffects
         {
             if (variationId == 0)
             {
+                if (Verif(Condition.IsOutsideTimeNight, player))
+                    ocarina.StartCoroutine(ocarina.SpawnZeldaEnemy(1, player.transform.position));
+                else
+                    return false;
             }
             return true;
         }

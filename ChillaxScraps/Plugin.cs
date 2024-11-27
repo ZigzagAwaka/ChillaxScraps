@@ -12,6 +12,7 @@ using UnityEngine;
 namespace ChillaxScraps
 {
     [BepInPlugin(GUID, NAME, VERSION)]
+    [BepInDependency(CodeRebirth.MyPluginInfo.PLUGIN_GUID, BepInDependency.DependencyFlags.SoftDependency)]
     public class Plugin : BaseUnityPlugin
     {
         const string GUID = "zigzag.chillaxscraps";
@@ -19,14 +20,16 @@ namespace ChillaxScraps
         const string VERSION = "1.3.0";
 
         public static Plugin instance;
-        public static List<AudioClip> audioClips;
-        public static List<GameObject> gameObjects;
+        public static List<AudioClip> audioClips = new List<AudioClip>();
+        public static List<GameObject> gameObjects = new List<GameObject>();
         private readonly Harmony harmony = new Harmony(GUID);
         internal static Config config { get; private set; } = null!;
 
         void HarmonyPatchAll()
         {
+            harmony.CreateClassProcessor(typeof(GetEnemies), true).Patch();  // getenemies patch
             harmony.CreateClassProcessor(typeof(TotemItemPlayerControllerBPatch), true).Patch();  // totem patch
+            harmony.CreateClassProcessor(typeof(EnemyAIPatch), true).Patch();  // ocarina enemyai patch
         }
 
         void LoadItemBehaviour(Item item, int behaviourId)
@@ -61,27 +64,30 @@ namespace ChillaxScraps
 
             string directory = "Assets/Data/";
 
-            gameObjects = new List<GameObject> {
-                bundle.LoadAsset<GameObject>(directory + "DeathNote/DeathNoteCanvas.prefab"),
-                bundle.LoadAsset<GameObject>(directory + "EmergencyMeeting/EmergencyMeetingCanvas.prefab")
+            var prefabs = new string[] { "DeathNote/DeathNoteCanvas.prefab", "EmergencyMeeting/EmergencyMeetingCanvas.prefab",
+                "Ocarina/ElegyOfEmptiness.prefab"
             };
 
-            audioClips = new List<AudioClip> {
-                bundle.LoadAsset<AudioClip>(directory + "_audio/Page_Turn_Sound_Effect.wav"),
-                bundle.LoadAsset<AudioClip>(directory + "_audio/Death_Note_Heart_Attack_Sound_Effect.wav"),
-                bundle.LoadAsset<AudioClip>(directory + "_audio/Boink.wav"),
-                bundle.LoadAsset<AudioClip>(directory + "_audio/EatSFX.wav"),
-                bundle.LoadAsset<AudioClip>(directory + "_audio/uno-reverse-biaatch.wav"),
-                bundle.LoadAsset<AudioClip>(directory + "_audio/emergencymeeting.wav"),
-                bundle.LoadAsset<AudioClip>(directory + "_audio/sneakers-activate.wav"),
-                bundle.LoadAsset<AudioClip>(directory + "_audio/sneakers-deactivate.wav"),
-                bundle.LoadAsset<AudioClip>(directory + "_audio/OOT_Fanfare_Item.wav"),
-                bundle.LoadAsset<AudioClip>(directory + "_audio/undying.wav"),
-                bundle.LoadAsset<AudioClip>(directory + "_audio/OOT_Warp_Song_In.wav"),
-                bundle.LoadAsset<AudioClip>(directory + "_audio/OOT_Warp_Song_Out.wav"),
-                bundle.LoadAsset<AudioClip>(directory + "_audio/OOT_Secret.wav"),
-                bundle.LoadAsset<AudioClip>(directory + "_audio/OOT_SpiritualStone_Appear.wav")
+            var audios = new string[] { "Page_Turn_Sound_Effect.wav", "Death_Note_Heart_Attack_Sound_Effect.wav",
+                "Boink.wav", "EatSFX.wav", "uno-reverse-biaatch.wav", "emergencymeeting.wav", "sneakers-activate.wav",
+                "sneakers-deactivate.wav", "OOT_Fanfare_Item.wav", "undying.wav", "OOT_Warp_Song_In.wav",
+                "OOT_Warp_Song_Out.wav", "OOT_Secret.wav", "OOT_SpiritualStone_Appear.wav", "OOT_Warp_Respawn_In.wav",
+                "OOT_YoungEpona_Neigh.wav", "Epona_Breath.wav", "Epona_KillPlayer.wav", "OOT_YoungEpona_Walk.wav",
+                "OOT_Epona_Walk.wav", "OOT_Epona_Hooves.wav", "Epona_growl.wav", "Epona_Lunge.wav", "giant-spawn.wav",
+                "giant-eating.wav", "MM_ClockTower_Bell.wav", "MM_Wizrobe_Appear.wav", "MM_GaleWarp_Out.wav",
+                "MM_Goron_Ohhh.wav", "OOT_Biggoron_Ohh.wav", "OOT_Goron_Oop.wav", "OOT_Goron_Ohrr.wav", "MM_Goron_Oh.wav",
+                "New_Wave_Bossa_Nova_by_The_Indigo-gos.wav", "MM_Warp.wav", "ChargeItem.ogg"
             };
+
+            foreach (string prefab in prefabs)
+            {
+                gameObjects.Add(bundle.LoadAsset<GameObject>(directory + prefab));
+            }
+
+            foreach (string sfx in audios)
+            {
+                audioClips.Add(bundle.LoadAsset<AudioClip>(directory + "_audio/" + sfx));
+            }
 
             var scraps = new List<Scrap> {
                 new Scrap("DeathNote/DeathNoteItem.asset", 5, 1),

@@ -3,11 +3,9 @@
     - Added a custom effect for every song of the Ocarina !
         - Song effects are kept secret... You need to play the song yourself to discover the behaviour !
         - All songs have a specific number of allowed usage per moons (some are 1 time use, some are 2). This can be disabled in the config but it's preferable to not modify this as it will become unbalanced
-        - Thanks [Mrov](https://thunderstore.io/c/lethal-company/p/mrov/) for the lightning bolts code !
-        - Thanks [A Glitched Npc](https://www.twitch.tv/a_glitched_npc) for testing and for effect ideas !
 - **Fixed**
     - The Ocarina animation got a rework, hopefully it's working great now
-    - Fixed Ocarina still playing audio if you cancel it by using the ship's terminal or when you drop it in the ship's cupboard
+    - Fixed Ocarina still playing audio if you cancel it by using the ship's terminal or when you place it in the ship's cupboard
 
 ## 1.2.4
 - **Fixed**
@@ -22,14 +20,14 @@
     - Added a new config "Ocarina unique songs", false by default. You can activate it to give every player a randomly selected song assigned to them (note that with this enabled, it's not possible to select other songs anymore)
 - **Fixed**
     - I tried another fix for the Ocarina animation, but this time it's stronger
-    - [lunxara](https://www.twitch.tv/lunxara) has reported that it's possible to use the Death Note on players that are no longer in the lobby, I didn't find a way to replicate this issue but I still modified the code to hopefully fix it
+    - [Lunxara](https://www.twitch.tv/lunxara) has reported that it's possible to use the Death Note on players that are no longer in the lobby, I didn't find a way to replicate this issue but I still modified the code to hopefully fix it
 
 ## 1.2.1
 - **Updated**
     - The feature of the Boink added in the last update *"Have a small chance of launching you in the wrong direction"* has been reverted by default, but can be re-enabled with the newly added "Evil Boink" config
 - **Fixed**
     - Fixed The Master Sword dropping all your items when you are unworthy
-    - [a_glitched_npc](https://www.twitch.tv/a_glitched_npc) has reported that the Death Note UI is displayed for other players when the item is used by the host, I didn't find a way to replicate this issue but I still modified the code to hopefully fix it (but it's probably a mod incompatibility thing)
+    - [A Glitched Npc](https://www.twitch.tv/a_glitched_npc) has reported that the Death Note UI is displayed for other players when the item is used by the host, I didn't find a way to replicate this issue but I still modified the code to hopefully fix it (but it's probably a mod incompatibility thing)
 - **Information**
     - It appears that the jump boost effect given by Super Sneakers does not work when you have [BetterStamina](https://thunderstore.io/c/lethal-company/p/FlipMods/BetterStamina/) installed, I'm still searching a way to fix that
 

@@ -14,11 +14,11 @@ Compatible with v64/v65/v66/v67/v68 of Lethal Company.
 
 ![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-deathnote.PNG)
 
-### Uno Reverse Card
-- The thing that turns your friends into your haters, can swap your position with that of a random player.
-- You want to use it soooooo badly and especially when standing on a landmine.
+### Ocarina
+- This instrument will play emblematic tunes from Zelda !
+- Playing this instrument might activate a special effect like opening a locked door, summoning lightning bolts, calling "Epona"...
 
-![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-uno.PNG)
+![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/tmp.PNG)
 
 ### Totem of Undying
 - This totem made of strange squares has the power to cheat death when you hold it in your hands, but it can only do so once.
@@ -26,11 +26,11 @@ Compatible with v64/v65/v66/v67/v68 of Lethal Company.
 
 ![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-totem.PNG)
 
-### Ocarina
-- This instrument will play emblematic tunes from Zelda !
-- Playing this instrument might activate a special effect like opening a locked door, summoning lightning bolts, calling "Epona"...
+### Uno Reverse Card
+- The thing that turns your friends into your haters, can swap your position with that of a random player.
+- You want to use it soooooo badly and especially when standing on a landmine.
 
-![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/tmp.PNG)
+![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-uno.PNG)
 
 ### Custom effect items
 - **Boink**, this red bird just wants to go *boink boink* with you ! Also, do you want free Robux?
@@ -72,7 +72,7 @@ Each item has a low/medium spawn chance on all moons, you will not find them eas
 ### Compatible mods
 
 - You should check [PremiumScraps](https://thunderstore.io/c/lethal-company/p/Zigzag/PremiumScraps/), it pairs well with ChillaxScraps!
-- Some Ocarina songs effects will not work properly when played at the Company Building, but you can install the mods [NavMeshInCompany](https://thunderstore.io/c/lethal-company/p/Kittenji/NavMeshInCompany/) and [StarlancerAIFix](https://thunderstore.io/c/lethal-company/p/AudioKnight/StarlancerAIFix/) to make them work !
+- Some Ocarina songs effects will not work properly when played inside the facility or at the Company Building, but you can install the mods [StarlancerAIFix](https://thunderstore.io/c/lethal-company/p/AudioKnight/StarlancerAIFix/) and [NavMeshInCompany](https://thunderstore.io/c/lethal-company/p/Kittenji/NavMeshInCompany/) to make them work !
 
 ### Feedback
 You can post some suggestions or issues in the mod release page in the [modding discord](https://discord.com/invite/lcmod) or as a [github](https://github.com/ZigzagAwaka/ChillaxScraps) issue.
@@ -108,9 +108,11 @@ You can post some suggestions or issues in the mod release page in the [modding 
 
 - The original developers for the ChillaxScraps mod : [BogBog](https://twitter.com/benbogbog), [Namsom](https://twitter.com/NamsomXD) and [OptimusGorilla](https://twitter.com/DanielSuPery)
 
-- Thanks [A Glitched Npc](https://www.twitch.tv/a_glitched_npc) for testing, bug reports and some ideas!
-
 - Thanks [Mrov](https://thunderstore.io/c/lethal-company/p/mrov/) for the lightning bolts code!
+
+- Thanks [XyphireTV](https://www.twitch.tv/xyphiretv), [Zedahu](https://www.twitch.tv/zedahu) and [TheHylianMonster](https://www.instagram.com/lucas_tripier/) for testing and helping with some Unity stuff!
+
+- Thanks [A Glitched Npc](https://www.twitch.tv/a_glitched_npc) for testing, bug reports and some ideas!
 
 - Thanks **Leaucard** for helping with some messages, tool tips and stuff!
 
