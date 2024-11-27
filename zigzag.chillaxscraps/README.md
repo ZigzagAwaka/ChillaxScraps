@@ -16,21 +16,21 @@ Compatible with v64/v65/v66/v67/v68 of Lethal Company.
 
 ### Ocarina
 - This instrument will play emblematic tunes from Zelda !
-- Playing this instrument might activate a special effect like opening a locked door, summoning lightning bolts, calling "Epona"...
+- Playing this instrument might activate a special effect like opening a locked door, teleporting you somewhere, calling "Epona"...
 
-![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/tmp.PNG)
-
-### Totem of Undying
-- This totem made of strange squares has the power to cheat death when you hold it in your hands, but it can only do so once.
-- Beware to not fall into a pit with this in your hand, or else you're going to spend the rest of the day stuck at the bottom of it...!
-
-![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-totem.PNG)
+![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-ocarina.png)
 
 ### Uno Reverse Card
 - The thing that turns your friends into your haters, can swap your position with that of a random player.
 - You want to use it soooooo badly and especially when standing on a landmine.
 
 ![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-uno.PNG)
+
+### Totem of Undying
+- This totem made of strange squares has the power to cheat death when you hold it in your hands, but it can only do so once.
+- Beware to not fall into a pit with this in your hand, or else you're going to spend the rest of the day stuck at the bottom of it...!
+
+![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-totem.PNG)
 
 ### Custom effect items
 - **Boink**, this red bird just wants to go *boink boink* with you ! Also, do you want free Robux?
@@ -49,7 +49,7 @@ Compatible with v64/v65/v66/v67/v68 of Lethal Company.
 ### Noisy items
 - **Eevee** can be used to make some cute sounds!
 
-![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-audio.PNG)
+![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-noisy.PNG)
 
 ### Classic items
 - Scraps with no special effects, but they come with custom audio or color variations.
@@ -110,7 +110,7 @@ You can post some suggestions or issues in the mod release page in the [modding 
 
 - Thanks [Mrov](https://thunderstore.io/c/lethal-company/p/mrov/) for the lightning bolts code!
 
-- Thanks [XyphireTV](https://www.twitch.tv/xyphiretv), [Zedahu](https://www.twitch.tv/zedahu) and [TheHylianMonster](https://www.instagram.com/lucas_tripier/) for testing and helping with some Unity stuff!
+- Thanks [XyphireTV](https://www.twitch.tv/xyphiretv), [Zedahu](https://www.twitch.tv/zedahu) and [TheHylianMonster](https://www.instagram.com/lucas_tripier/) for testing and helping with some Ocarina effects!
 
 - Thanks [A Glitched Npc](https://www.twitch.tv/a_glitched_npc) for testing, bug reports and some ideas!
 

@@ -12,7 +12,7 @@ namespace ChillaxScraps.Utils
         public static SpawnableEnemyWithRarity Masked, HoardingBug, SnareFlea, Jester, Bracken, Thumper, CoilHead,
                                                CircuitBees, EarthLeviathan, BunkerSpider, ForestKeeper, GhostGirl,
                                                TulipSnake, EyelessDog, Maneater, Nutcracker, Barber, Butler, OldBird,
-                                               ShyGuy, RedwoodTitan, RedwoodGiant, Locker, Bruce, BaboonHawk;
+                                               ShyGuy, RedwoodTitan, RedwoodGiant, Locker, Bruce, BaboonHawk, Tornado;
         public static SpawnableMapObject Landmine, Turret, SpikeTrap, Seamine, BigBertha;
 
         [HarmonyPatch("Start")]
@@ -81,6 +81,8 @@ namespace ChillaxScraps.Utils
                         Bruce = enemy;
                     else if (enemy.enemyType.enemyName == "Baboon hawk" && BaboonHawk == null)
                         BaboonHawk = enemy;
+                    else if (enemy.enemyType.enemyName == "Tornado" && Tornado == null)
+                        Tornado = enemy;
                 }
 
                 foreach (var trap in level.spawnableMapObjects)

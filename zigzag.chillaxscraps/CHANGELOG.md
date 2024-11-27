@@ -3,6 +3,7 @@
     - Added a custom effect for every song of the Ocarina !
         - Song effects are kept secret... You need to play the song yourself to discover the behaviour !
         - All songs have a specific number of allowed usage per moons (some are 1 time use, some are 2). This can be disabled in the config but it's preferable to not modify this as it will become unbalanced
+        - There is special compatibility effects with [CodeRebirth](https://thunderstore.io/c/lethal-company/p/XuXiaolan/CodeRebirth/)
 - **Fixed**
     - The Ocarina animation got a rework, hopefully it's working great now
     - Fixed Ocarina still playing audio if you cancel it by using the ship's terminal or when you place it in the ship's cupboard

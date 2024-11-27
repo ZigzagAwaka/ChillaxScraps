@@ -20,7 +20,8 @@ namespace ChillaxScraps.CustomEffects
         IsPlayerInShip,
         IsInsideTimeAfternoon,
         IsOutsideAtLeastOneBaboonSpawned,
-        IsPlayerInShipSpeakerNotPlaying
+        IsPlayerInShipSpeakerNotPlaying,
+        IsPlayerNotInShip
     }
 
     internal class OcarinaSong
@@ -75,6 +76,7 @@ namespace ChillaxScraps.CustomEffects
                 Condition.IsInsideTimeAfternoon => player.isInsideFactory && TimeOfDay.Instance.currentDayTime >= 360,
                 Condition.IsOutsideAtLeastOneBaboonSpawned => !player.isInsideFactory && Effects.IsPlayerNearObject<BaboonBirdAI>(player, out _, 1000f),
                 Condition.IsPlayerInShipSpeakerNotPlaying => player.isInElevator && player.isInHangarShipRoom && !StartOfRound.Instance.speakerAudioSource.isPlaying,
+                Condition.IsPlayerNotInShip => !player.isInElevator && !player.isInHangarShipRoom,
                 _ => false
             };
         }
@@ -175,7 +177,7 @@ namespace ChillaxScraps.CustomEffects
             else
             {
                 if (Verif(Condition.IsOutsideWeatherStormy, player))
-                    ocarina.StartCoroutine(ocarina.SpawnOutsideLightningBolts());
+                    ocarina.StartCoroutine(ocarina.SpawnSuperStormy());
                 else
                     return false;
             }
@@ -195,7 +197,10 @@ namespace ChillaxScraps.CustomEffects
         {
             if (variationId == 0)
             {
-                ocarina.StartCoroutine(ocarina.SoaringEffect(player));
+                if (Verif(Condition.IsPlayerNotInShip, player))
+                    ocarina.StartCoroutine(ocarina.SoaringEffect(player));
+                else
+                    return false;
             }
             return true;
         }
@@ -247,7 +252,7 @@ namespace ChillaxScraps.CustomEffects
         {
             if (variationId == 0)
             {
-                ocarina.StartCoroutine(ocarina.SpawnZeldaEnemy(2, player.transform.position));
+                ocarina.StartCoroutine(ocarina.SpawnZeldaEnemy(2, player.transform.position, player.playerClientId));
             }
             return true;
         }

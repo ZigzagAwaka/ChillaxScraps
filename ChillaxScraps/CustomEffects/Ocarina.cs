@@ -39,7 +39,7 @@ namespace ChillaxScraps.CustomEffects
             new OcarinaSong("Song of Time", new Color(0.18f, 0.76f, 1f), OcarinaSong.SongOfTime, 1, Condition.IsTimeNight),
             new OcarinaSong("Song of Storms", new Color(0.87f, 0.76f, 0.42f), OcarinaSong.SongOfStorms, 2, Condition.IsOutsideWeatherNotStormy, Condition.IsOutsideWeatherStormy),
             new OcarinaSong("Song of Healing", new Color(1f, 0.22f, 0.09f), OcarinaSong.SongOfHealing, 1, Condition.None),
-            new OcarinaSong("Song of Soaring", new Color(0.5f, 0.8f, 1f), OcarinaSong.SongOfSoaring, 5, Condition.None),
+            new OcarinaSong("Song of Soaring", new Color(0.5f, 0.8f, 1f), OcarinaSong.SongOfSoaring, 5, Condition.IsPlayerNotInShip),
             new OcarinaSong("Sonata of Awakening", new Color(0.12f, 1f, 0.45f), OcarinaSong.SonataOfAwakening, 4, Condition.IsPlayerNearOldBirdNest),
             new OcarinaSong("Goron Lullaby", new Color(1f, 0.41f, 0.54f), OcarinaSong.GoronLullaby, 2, Condition.IsOutsideAtLeastOneBaboonSpawned, Condition.IsInsideTimeAfternoon),
             new OcarinaSong("New Wave Bossa Nova", new Color(0.03f, 0.09f, 1f), OcarinaSong.NewWaveBossaNova, 1, Condition.IsPlayerInShipSpeakerNotPlaying),
@@ -419,6 +419,8 @@ namespace ChillaxScraps.CustomEffects
                 goronAI.cawScreamSFX[3] = Plugin.audioClips[31];
                 goronAI.cawScreamSFX[4] = Plugin.audioClips[32];
             }
+            else if (id == 98 && GetEnemies.Tornado != null)
+                Effects.Spawn(GetEnemies.Tornado, position);
             else if (id == 99)
                 Effects.Spawn(GetEnemies.OldBird, position);
             if (enemy != null)
@@ -664,9 +666,11 @@ namespace ChillaxScraps.CustomEffects
             }
         }
 
-        public IEnumerator SpawnOutsideLightningBolts()
+        public IEnumerator SpawnSuperStormy()
         {
             yield return new WaitForEndOfFrame();
+            if (GetEnemies.Tornado != null)
+                SpawnSpecialEnemyServerRpc(98, RoundManager.Instance.outsideAINodes[Random.Range(0, RoundManager.Instance.outsideAINodes.Length - 1)].transform.position);
             while (!StartOfRound.Instance.inShipPhase && !StartOfRound.Instance.shipIsLeaving)
             {
                 for (int i = 0; i < Random.Range(1, 5); i++)

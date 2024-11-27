@@ -215,7 +215,6 @@ namespace ChillaxScraps.Utils
         {
             var original = StartOfRound.Instance.currentLevel.currentWeather;
             StartOfRound.Instance.currentLevel.currentWeather = weather;
-            StartOfRound.Instance.SetMapScreenInfoToCurrentLevel();
             RoundManager.Instance.SetToCurrentLevelWeather();
             TimeOfDay.Instance.SetWeatherBasedOnVariables();
             for (var i = 0; i < TimeOfDay.Instance.effects.Length; i++)
