@@ -1,4 +1,5 @@
-﻿using BepInEx.Configuration;
+﻿using BepInEx.Bootstrap;
+using BepInEx.Configuration;
 using ChillaxScraps.Utils;
 using System.Collections.Generic;
 
@@ -6,6 +7,7 @@ namespace ChillaxScraps
 {
     class Config
     {
+        public readonly List<ulong> unluckyPlayersID = new List<ulong>();
         public readonly ConfigEntry<int> masterSwordDmg;
         public readonly ConfigEntry<bool> evilBoink;
         public readonly ConfigEntry<bool> ocarinaUniqueSongs;
@@ -25,6 +27,18 @@ namespace ChillaxScraps
             }
             cfg.Save();
             cfg.SaveOnConfigSet = true;
+        }
+
+        public void SetupCustomConfigs()
+        {
+            if (Chainloader.PluginInfos.ContainsKey("zigzag.premiumscraps") && new System.Version("2.0.11").CompareTo(Chainloader.PluginInfos.GetValueOrDefault("zigzag.premiumscraps").Metadata.Version) <= 0)  // get unlucky players of PremiumScraps
+            {
+                if (PremiumScraps.Plugin.config != null && PremiumScraps.Plugin.config.unluckyPlayersID != null)
+                {
+                    foreach (var id in PremiumScraps.Plugin.config.unluckyPlayersID)
+                        unluckyPlayersID.Add(id);
+                }
+            }
         }
     }
 }

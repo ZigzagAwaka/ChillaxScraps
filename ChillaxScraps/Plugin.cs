@@ -12,12 +12,13 @@ using UnityEngine;
 namespace ChillaxScraps
 {
     [BepInPlugin(GUID, NAME, VERSION)]
+    [BepInDependency("zigzag.premiumscraps", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(CodeRebirth.MyPluginInfo.PLUGIN_GUID, BepInDependency.DependencyFlags.SoftDependency)]
     public class Plugin : BaseUnityPlugin
     {
         const string GUID = "zigzag.chillaxscraps";
         const string NAME = "ChillaxScraps";
-        const string VERSION = "1.3.0";
+        const string VERSION = "1.3.1";
 
         public static Plugin instance;
         public static List<AudioClip> audioClips = new List<AudioClip>();
@@ -105,6 +106,7 @@ namespace ChillaxScraps
             };
 
             int i = 0; config = new Config(base.Config, scraps);
+            config.SetupCustomConfigs();
             SetupScript.Network();
 
             foreach (Scrap scrap in scraps)

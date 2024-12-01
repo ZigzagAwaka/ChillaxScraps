@@ -1,3 +1,16 @@
+## 1.3.1
+- **Updated**
+    - Ocarina's Sun's Song has a new variation effet when you use it in altitude
+    - Adjusted the launch angle of Ocarina's Song of Soaring effect
+    - Compatibility with [PremiumScraps](https://thunderstore.io/c/lethal-company/p/Zigzag/PremiumScraps/) if you have it installed
+        - Death Note got a *special* upgrade when used by unlucky players
+        - Unlucky players can be chosen in the PremiumScraps config file
+- **Fixed**
+    - Fixed Ocarina's Song of Storms 'super stormy' effect persisting even if the weather is changed by something else
+    - Fixed "special Zelda enemies" summoned by Ocarina's songs only having their sound changed for the host (Thank you [Xu Xiaolan](https://thunderstore.io/c/lethal-company/p/XuXiaolan/) for the help!)
+    - Fixed The Master Sword yellow crystal beeing a bit too yellow
+    - Small optimization of Ocarina particles
+
 # 1.3.0 The Ocarina update
 - **Added**
     - Added a custom effect for every song of the Ocarina !
@@ -7,6 +20,12 @@
 - **Fixed**
     - The Ocarina animation got a rework, hopefully it's working great now
     - Fixed Ocarina still playing audio if you cancel it by using the ship's terminal or when you place it in the ship's cupboard
+
+##
+
+<details><summary>Old versions (click to reveal)</summary>
+
+###
 
 ## 1.2.4
 - **Fixed**
@@ -45,12 +64,6 @@
         - Audio is now properly assigned to the item
 - **Fixed**
     - I tried a fix for the Ocarina animation (in particular, the rotation of the item when you use it)
-
-##
-
-<details><summary>Old versions (click to reveal)</summary>
-
-###
 
 ## 1.1.1
 - **Updated**

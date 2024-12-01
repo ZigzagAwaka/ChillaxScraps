@@ -21,7 +21,8 @@ namespace ChillaxScraps.CustomEffects
         IsInsideTimeAfternoon,
         IsOutsideAtLeastOneBaboonSpawned,
         IsPlayerInShipSpeakerNotPlaying,
-        IsPlayerNotInShip
+        IsPlayerNotInShip,
+        IsPlayerInAltitude
     }
 
     internal class OcarinaSong
@@ -77,6 +78,7 @@ namespace ChillaxScraps.CustomEffects
                 Condition.IsOutsideAtLeastOneBaboonSpawned => !player.isInsideFactory && Effects.IsPlayerNearObject<BaboonBirdAI>(player, out _, 1000f),
                 Condition.IsPlayerInShipSpeakerNotPlaying => player.isInElevator && player.isInHangarShipRoom && !StartOfRound.Instance.speakerAudioSource.isPlaying,
                 Condition.IsPlayerNotInShip => !player.isInElevator && !player.isInHangarShipRoom,
+                Condition.IsPlayerInAltitude => player.transform.position.y - StartOfRound.Instance.middleOfShipNode.position.y >= 20f,
                 _ => false
             };
         }
@@ -137,6 +139,13 @@ namespace ChillaxScraps.CustomEffects
         public static bool SunSong(Ocarina ocarina, PlayerControllerB player, int variationId)
         {
             if (variationId == 0)
+            {
+                if (Verif(Condition.IsPlayerInAltitude, player))
+                    ocarina.ChangeWeatherServerRpc(LevelWeatherType.None);
+                else
+                    return false;
+            }
+            else
             {
                 ocarina.ChargeAllItemsServerRpc();
             }

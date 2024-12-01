@@ -1000,11 +1000,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MasterSword
       objectReference: {fileID: 0}
-    - target: {fileID: 3999401898102198075, guid: da44b81760b8e4c40b2d9a473f8deb75,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.509
-      objectReference: {fileID: 0}
     - target: {fileID: 4493073448231694404, guid: da44b81760b8e4c40b2d9a473f8deb75,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -1059,36 +1054,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7777116747972286355, guid: da44b81760b8e4c40b2d9a473f8deb75,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 2.6285667
-      objectReference: {fileID: 0}
-    - target: {fileID: 7777116747972286355, guid: da44b81760b8e4c40b2d9a473f8deb75,
-        type: 3}
-      propertyPath: m_Center.x
-      value: -0.7841816
-      objectReference: {fileID: 0}
-    - target: {fileID: 7777116747972286355, guid: da44b81760b8e4c40b2d9a473f8deb75,
-        type: 3}
-      propertyPath: m_Center.z
-      value: -0.004770845
-      objectReference: {fileID: 0}
-    - target: {fileID: 8501559135320243744, guid: da44b81760b8e4c40b2d9a473f8deb75,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.784
-      objectReference: {fileID: 0}
-    - target: {fileID: 8501559135320243744, guid: da44b81760b8e4c40b2d9a473f8deb75,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.068
-      objectReference: {fileID: 0}
-    - target: {fileID: 8501559135320243744, guid: da44b81760b8e4c40b2d9a473f8deb75,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.029
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

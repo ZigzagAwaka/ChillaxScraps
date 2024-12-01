@@ -28,6 +28,13 @@ namespace ChillaxScraps.Utils
             return StartOfRound.Instance.connectedPlayersAmount + 1;
         }
 
+        public static bool IsUnlucky(ulong playerId)
+        {
+            if (Plugin.config.unluckyPlayersID.Count == 0)
+                return false;
+            return Plugin.config.unluckyPlayersID.Find(id => id == playerId) != default;
+        }
+
         public static List<PlayerControllerB> GetPlayers(bool includeDead = false, bool excludeOutsideFactory = false)
         {
             List<PlayerControllerB> rawList = Object.FindObjectsOfType<PlayerControllerB>().ToList();
@@ -247,12 +254,12 @@ namespace ChillaxScraps.Utils
             }
         }
 
-        public static NetworkReference Spawn(SpawnableEnemyWithRarity enemy, Vector3 position, float yRot = 0f)
+        public static NetworkObjectReference Spawn(SpawnableEnemyWithRarity enemy, Vector3 position, float yRot = 0f)
         {
             GameObject gameObject = Object.Instantiate(enemy.enemyType.enemyPrefab, position, Quaternion.Euler(new Vector3(0f, yRot, 0f)));
             gameObject.GetComponentInChildren<NetworkObject>().Spawn(true);
             RoundManager.Instance.SpawnedEnemies.Add(gameObject.GetComponent<EnemyAI>());
-            return new NetworkReference(gameObject.GetComponentInChildren<NetworkObject>(), 0);
+            return new NetworkObjectReference(gameObject);
         }
 
         public static void SpawnMaskedOfPlayer(ulong playerId, Vector3 position)

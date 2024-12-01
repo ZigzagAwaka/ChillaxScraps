@@ -34,7 +34,7 @@ namespace ChillaxScraps.CustomEffects
             new OcarinaSong("", new Color(0, 0, 0), null, 0, Condition.Invalid),
             new OcarinaSong("Zelda's Lullaby", new Color(0.87f, 0.36f, 1f), OcarinaSong.ZeldaLullaby, 2, Condition.IsPlayerFacingDoor, Condition.IsTimeAfternoon),
             new OcarinaSong("Epona's Song", new Color(0.94f, 0.44f, 0.01f), OcarinaSong.EponaSong, 2, Condition.IsPlayerOutsideFactory),
-            new OcarinaSong("Sun's Song", new Color(1f, 0.92f, 0.1f), OcarinaSong.SunSong, 1, Condition.None),
+            new OcarinaSong("Sun's Song", new Color(1f, 0.92f, 0.1f), OcarinaSong.SunSong, 1, Condition.IsPlayerInAltitude, Condition.None),
             new OcarinaSong("Saria's Song", new Color(0.11f, 0.98f, 0.17f), OcarinaSong.SariaSong, 2, Condition.None),
             new OcarinaSong("Song of Time", new Color(0.18f, 0.76f, 1f), OcarinaSong.SongOfTime, 1, Condition.IsTimeNight),
             new OcarinaSong("Song of Storms", new Color(0.87f, 0.76f, 0.42f), OcarinaSong.SongOfStorms, 2, Condition.IsOutsideWeatherNotStormy, Condition.IsOutsideWeatherStormy),
@@ -241,7 +241,7 @@ namespace ChillaxScraps.CustomEffects
             if (particleRenderer != null && particleSystem != null && particleSystem.lights.enabled && isEffectValid)
             {
                 particleSystem.lights.light.color = ocarinaSongs[audioID].color * OcarinaSong.colorMultiplicator;
-                particleRenderer.sharedMaterial.SetColor("_Color", ocarinaSongs[audioID].color * OcarinaSong.colorMultiplicator);
+                particleRenderer.material.SetColor("_Color", ocarinaSongs[audioID].color * OcarinaSong.colorMultiplicator);
                 particleSystem.Play();
             }
             if (noiseAudio != null)
@@ -369,11 +369,40 @@ namespace ChillaxScraps.CustomEffects
         [ServerRpc(RequireOwnership = false)]
         private void SpawnSpecialEnemyServerRpc(int id, Vector3 position, ulong playerId = default)
         {
-            GameObject? enemy = null;
             if (id == 0)
             {
-                var epona = GetEnemies.EyelessDog;
-                enemy = Instantiate(epona.enemyType.enemyPrefab, position, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+                var netRef = Effects.Spawn(GetEnemies.EyelessDog, position);
+                SpawnSpecialEnemyClientRpc(id, netRef);
+            }
+            else if (id == 1)
+            {
+                if (GetEnemies.RedwoodTitan != null)
+                {
+                    var netRef = Effects.Spawn(GetEnemies.RedwoodTitan, position);
+                    SpawnSpecialEnemyClientRpc(id, netRef);
+                }
+                else
+                    Effects.Spawn(GetEnemies.RedwoodGiant != null ? GetEnemies.RedwoodGiant : GetEnemies.ForestKeeper, position);
+            }
+            else if (id == 2)
+                Effects.SpawnMaskedOfPlayer(playerId, position);
+            else if (id == 3)
+            {
+                var netRef = Effects.Spawn(GetEnemies.BaboonHawk, position);
+                SpawnSpecialEnemyClientRpc(id, netRef);
+            }
+            else if (id == 98 && GetEnemies.Tornado != null)
+                Effects.Spawn(GetEnemies.Tornado, position);
+            else if (id == 99)
+                Effects.Spawn(GetEnemies.OldBird, position);
+        }
+
+        [ClientRpc]
+        private void SpawnSpecialEnemyClientRpc(int id, NetworkObjectReference netRef)
+        {
+            var enemy = (GameObject)netRef;
+            if (id == 0)
+            {
                 var eponaAI = enemy.GetComponent<MouthDogAI>();
                 eponaAI.screamSFX = Plugin.audioClips[15];
                 eponaAI.breathingSFX = Plugin.audioClips[16];
@@ -390,43 +419,19 @@ namespace ChillaxScraps.CustomEffects
             }
             else if (id == 1)
             {
-                SpawnableEnemyWithRarity giant;
-                if (GetEnemies.RedwoodTitan != null)
-                {
-                    giant = GetEnemies.RedwoodTitan;
-                    enemy = Instantiate(giant.enemyType.enemyPrefab, position, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
-                    var giantAI = enemy.GetComponent<CodeRebirth.src.Content.Enemies.RedwoodTitanAI>();
-                    giantAI.roarSound = null;
-                    giantAI.spawnSound = Plugin.audioClips[23];
-                    giantAI.eatenSound = Plugin.audioClips[24];
-                }
-                else
-                {
-                    giant = GetEnemies.RedwoodGiant != null ? GetEnemies.RedwoodGiant : GetEnemies.ForestKeeper;
-                    enemy = Instantiate(giant.enemyType.enemyPrefab, position, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
-                }
+                var giantAI = enemy.GetComponent<CodeRebirth.src.Content.Enemies.RedwoodTitanAI>();
+                giantAI.roarSound = null;
+                giantAI.spawnSound = Plugin.audioClips[23];
+                giantAI.eatenSound = Plugin.audioClips[24];
             }
-            else if (id == 2)
-                Effects.SpawnMaskedOfPlayer(playerId, position);
             else if (id == 3)
             {
-                var goron = GetEnemies.BaboonHawk;
-                enemy = Instantiate(goron.enemyType.enemyPrefab, position, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
                 var goronAI = enemy.GetComponent<BaboonBirdAI>();
                 goronAI.cawScreamSFX[0] = Plugin.audioClips[28];
                 goronAI.cawScreamSFX[1] = Plugin.audioClips[29];
                 goronAI.cawScreamSFX[2] = Plugin.audioClips[30];
                 goronAI.cawScreamSFX[3] = Plugin.audioClips[31];
                 goronAI.cawScreamSFX[4] = Plugin.audioClips[32];
-            }
-            else if (id == 98 && GetEnemies.Tornado != null)
-                Effects.Spawn(GetEnemies.Tornado, position);
-            else if (id == 99)
-                Effects.Spawn(GetEnemies.OldBird, position);
-            if (enemy != null)
-            {
-                enemy.GetComponentInChildren<NetworkObject>().Spawn(true);
-                RoundManager.Instance.SpawnedEnemies.Add(enemy.GetComponent<EnemyAI>());
             }
         }
 
@@ -574,7 +579,7 @@ namespace ChillaxScraps.CustomEffects
             if (!StartOfRound.Instance.inShipPhase && !player.isPlayerDead)
             {
                 StartOfRound.Instance.allowLocalPlayerDeath = false;
-                Effects.Knockback(player.transform.position - player.transform.up, 5f, physicsForce: 150);
+                Effects.Knockback(player.transform.position - player.transform.up - (player.transform.forward * 0.5f), 7f, physicsForce: 170);
                 yield return new WaitForSeconds(0.1f);
                 yield return new WaitUntil(() => player.thisController.isGrounded || player.isPlayerDead || StartOfRound.Instance.inShipPhase);
                 StartOfRound.Instance.allowLocalPlayerDeath = true;
@@ -671,7 +676,7 @@ namespace ChillaxScraps.CustomEffects
             yield return new WaitForEndOfFrame();
             if (GetEnemies.Tornado != null)
                 SpawnSpecialEnemyServerRpc(98, RoundManager.Instance.outsideAINodes[Random.Range(0, RoundManager.Instance.outsideAINodes.Length - 1)].transform.position);
-            while (!StartOfRound.Instance.inShipPhase && !StartOfRound.Instance.shipIsLeaving)
+            while (!StartOfRound.Instance.inShipPhase && !StartOfRound.Instance.shipIsLeaving && StartOfRound.Instance.currentLevel.currentWeather == LevelWeatherType.Stormy)
             {
                 for (int i = 0; i < Random.Range(1, 5); i++)
                 {
