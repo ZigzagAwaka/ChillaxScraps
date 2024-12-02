@@ -57,7 +57,7 @@ namespace ChillaxScraps.CustomEffects
             {
                 if (!jumpBoostActivated && insertedBattery != null && insertedBattery.charge > 0)
                 {
-                    AudioServerRpc(6, playerHeldBy.transform.position, 1.5f, 2f);
+                    AudioServerRpc(6, playerHeldBy.transform.position, 1f, 0.75f);
                     originalJumpForce = playerHeldBy.jumpForce;
                     playerHeldBy.jumpForce *= 2f;
                     jumpBoostActivated = true;
@@ -67,7 +67,7 @@ namespace ChillaxScraps.CustomEffects
                 }
                 else if (jumpBoostActivated)
                 {
-                    AudioServerRpc(7, playerHeldBy.transform.position, 1.5f, 2f);
+                    AudioServerRpc(7, playerHeldBy.transform.position, 1f, 0.75f);
                     playerHeldBy.jumpForce = originalJumpForce;
                     jumpBoostActivated = false;
                     isBeingUsed = false;

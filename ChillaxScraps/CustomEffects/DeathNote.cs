@@ -60,7 +60,7 @@ namespace ChillaxScraps.CustomEffects
                 {
                     if (!StartOfRound.Instance.inShipPhase)
                     {
-                        AudioServerRpc(0, playerHeldBy.transform.position, 1f);  // page audio
+                        AudioServerRpc(0, playerHeldBy.transform.position, 1f, 0.75f);  // page audio
                         playerList = Effects.GetPlayers();
                         enemyList = Effects.GetEnemies(excludeDaytime: true);
                         canvas = Instantiate(canvasPrefab, transform).GetComponent<DeathNoteCanvas>();

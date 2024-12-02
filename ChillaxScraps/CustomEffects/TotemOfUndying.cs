@@ -1,5 +1,6 @@
 ﻿using ChillaxScraps.Utils;
 using GameNetcodeStuff;
+using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -26,9 +27,16 @@ namespace ChillaxScraps.CustomEffects
 
         private void UndyingEffect(PlayerControllerB player)
         {
-            StartOfRound.Instance.allowLocalPlayerDeath = false;
-            AudioServerRpc(9, player.transform.position, 1.2f, 1.6f);
+            StartCoroutine(UndyingPlayer());
+            AudioServerRpc(9, player.transform.position, 1f, 0.8f);
             used = true;
+        }
+
+        private IEnumerator UndyingPlayer()
+        {
+            StartOfRound.Instance.allowLocalPlayerDeath = false;
+            yield return new WaitForSeconds(0.5f);
+            StartOfRound.Instance.allowLocalPlayerDeath = true;
         }
 
         public static void TryDestroyItem(PlayerControllerB player)  // used by harmony patch
@@ -46,7 +54,6 @@ namespace ChillaxScraps.CustomEffects
 
         private void DestroyTotem(PlayerControllerB player)
         {
-            StartOfRound.Instance.allowLocalPlayerDeath = true;
             DestroyObjectServerRpc(player.playerClientId);
         }
 

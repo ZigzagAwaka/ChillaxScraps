@@ -1,3 +1,14 @@
+## 1.3.2
+- **Updated**
+    - Better teleportation code for Emergency meeting, Uno Reverse Card and Ocarina
+    - Better audio code for all items
+    - Improve Totem of Undying effect: now gives you 0.5s of invincibility when it's activated, should fix modded cause of death not working
+- **Fixed**
+    - Various fix for Ocarina's Song of Storms
+        - Fixed tornados still beeing active even if the weather is changed by something else
+        - Prevent the creation of lightning bolts inside objects/houses
+        - Fixed rain sometimes beeing created inside the facility
+
 ## 1.3.1
 - **Updated**
     - Ocarina's Sun's Song has a new variation effet when you use it in altitude
@@ -6,7 +17,7 @@
         - Death Note got a *special* upgrade when used by unlucky players
         - Unlucky players can be chosen in the PremiumScraps config file
 - **Fixed**
-    - Fixed Ocarina's Song of Storms 'super stormy' effect persisting even if the weather is changed by something else
+    - Fixed Ocarina's Song of Storms "super stormy" effect persisting even if the weather is changed by something else
     - Fixed "special Zelda enemies" summoned by Ocarina's songs only having their sound changed for the host (Thank you [Xu Xiaolan](https://thunderstore.io/c/lethal-company/p/XuXiaolan/) for the help!)
     - Fixed The Master Sword yellow crystal beeing a bit too yellow
     - Small optimization of Ocarina particles

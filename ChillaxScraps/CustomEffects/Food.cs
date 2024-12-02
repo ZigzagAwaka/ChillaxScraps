@@ -30,7 +30,7 @@ namespace ChillaxScraps.CustomEffects
         private IEnumerator FoodEffect(PlayerControllerB player)
         {
             yield return new WaitForSeconds(0.8f);
-            AudioServerRpc(3, player.transform.position, 1f, 1.5f);
+            AudioServerRpc(3, player.transform.position, 1f, 0.75f);
             UpdatePosRotServerRpc(originalPosition, originalRotation);
             player.playerBodyAnimator.SetBool("useTZPItem", false);  // stop eat animation
             player.activatingItem = false;

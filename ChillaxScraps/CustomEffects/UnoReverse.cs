@@ -67,7 +67,20 @@ namespace ChillaxScraps.CustomEffects
         private void SwapPlayersClientRpc(Vector3 positionToSwap, bool ship, bool exterior, bool interior, ClientRpcParams clientRpcParams = default)
         {
             Effects.Audio(4, 1f);
-            Effects.Teleportation(StartOfRound.Instance.localPlayerController, positionToSwap, ship, exterior, interior);
+            Effects.Teleportation(StartOfRound.Instance.localPlayerController, positionToSwap);
+            SetPosFlagsServerRpc(StartOfRound.Instance.localPlayerController.playerClientId, ship, exterior, interior);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void SetPosFlagsServerRpc(ulong playerID, bool ship, bool exterior, bool interior)
+        {
+            SetPosFlagsClientRpc(playerID, ship, exterior, interior);
+        }
+
+        [ClientRpc]
+        private void SetPosFlagsClientRpc(ulong playerID, bool ship, bool exterior, bool interior)
+        {
+            Effects.SetPosFlags(playerID, ship, exterior, interior);
         }
 
         [ServerRpc(RequireOwnership = false)]

@@ -66,7 +66,7 @@ namespace ChillaxScraps.CustomEffects
             else if (!firstTimeGrab)
             {
                 firstTimeGrab = true;
-                AudioServerRpc(8, playerHeldBy.transform.position, 0.8f, 1.2f);
+                AudioServerRpc(8, playerHeldBy.transform.position, 0.8f, 0.55f);
             }
         }
 

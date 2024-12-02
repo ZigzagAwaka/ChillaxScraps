@@ -1,6 +1,7 @@
 ﻿using ChillaxScraps.Utils;
 using GameNetcodeStuff;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -27,6 +28,7 @@ namespace ChillaxScraps.CustomEffects
         private ParticleSystem? particleSystem;
         private Renderer? particleRenderer;
         private readonly GameObject elegyPrefab;
+        private List<NetworkObjectReference> tornadoRefs = new List<NetworkObjectReference>();
         public static bool WakeOldBirdFlag = false;
         public static Vector3 WakeOldBirdPosition = Vector3.zero;
 
@@ -392,7 +394,10 @@ namespace ChillaxScraps.CustomEffects
                 SpawnSpecialEnemyClientRpc(id, netRef);
             }
             else if (id == 98 && GetEnemies.Tornado != null)
-                Effects.Spawn(GetEnemies.Tornado, position);
+            {
+                var netRef = Effects.Spawn(GetEnemies.Tornado, position);
+                SetTornadoRefClientRpc(netRef);
+            }
             else if (id == 99)
                 Effects.Spawn(GetEnemies.OldBird, position);
         }
@@ -433,6 +438,30 @@ namespace ChillaxScraps.CustomEffects
                 goronAI.cawScreamSFX[3] = Plugin.audioClips[31];
                 goronAI.cawScreamSFX[4] = Plugin.audioClips[32];
             }
+        }
+
+        [ClientRpc]
+        private void SetTornadoRefClientRpc(NetworkObjectReference netRef)
+        {
+            tornadoRefs.Add(netRef);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        public void StopTornadoServerRpc()
+        {
+            if (GetEnemies.Tornado != null && tornadoRefs.Count != 0)
+            {
+                foreach (var netRef in tornadoRefs)
+                    Destroy((GameObject)netRef);
+                StopTornadoClientRpc();
+            }
+        }
+
+        [ClientRpc]
+        private void StopTornadoClientRpc()
+        {
+            if (GetEnemies.Tornado != null)
+                tornadoRefs.Clear();
         }
 
         [ServerRpc(RequireOwnership = false)]
@@ -531,6 +560,18 @@ namespace ChillaxScraps.CustomEffects
             }
         }
 
+        [ServerRpc(RequireOwnership = false)]
+        private void SetPosFlagsServerRpc(ulong playerID, bool ship, bool exterior, bool interior)
+        {
+            SetPosFlagsClientRpc(playerID, ship, exterior, interior);
+        }
+
+        [ClientRpc]
+        private void SetPosFlagsClientRpc(ulong playerID, bool ship, bool exterior, bool interior)
+        {
+            Effects.SetPosFlags(playerID, ship, exterior, interior);
+        }
+
         public IEnumerator OpenDoorZeldaStyle(DoorLock door)
         {
             EffectsAudioServerRpc(12, 1f, door.transform.position);
@@ -554,7 +595,8 @@ namespace ChillaxScraps.CustomEffects
             {
                 var origin = player.transform.position;
                 yield return new WaitForEndOfFrame();
-                Effects.Teleportation(player, position, interior: true);
+                Effects.Teleportation(player, position);
+                SetPosFlagsServerRpc(player.playerClientId, false, false, true);
                 EffectsAudioServerRpc(14, 1f, player.playerClientId);
                 EffectsAudioServerRpc(14, 1f, origin);
             }
@@ -566,7 +608,8 @@ namespace ChillaxScraps.CustomEffects
                 yield return new WaitForSeconds(3.2f);
                 if (!player.isPlayerDead)
                 {
-                    Effects.Teleportation(player, position, true);
+                    Effects.Teleportation(player, position);
+                    SetPosFlagsServerRpc(player.playerClientId, true, false, false);
                     EffectsAudioServerRpc(13, 0.9f, player.playerClientId);
                 }
             }
@@ -683,8 +726,10 @@ namespace ChillaxScraps.CustomEffects
                     var boltPosition = RoundManager.Instance.outsideAINodes[Random.Range(0, RoundManager.Instance.outsideAINodes.Length - 1)].transform.position;
                     EffectAtPositionServerRpc(0, boltPosition);
                 }
-                yield return new WaitForSeconds(Random.Range(0.1f, 4f));
+                yield return new WaitForSeconds(Random.Range(0.1f, 3.5f));
             }
+            if (GetEnemies.Tornado != null && tornadoRefs.Count != 0)
+                StopTornadoServerRpc();
         }
     }
 }
