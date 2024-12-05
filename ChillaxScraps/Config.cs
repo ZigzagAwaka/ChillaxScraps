@@ -1,5 +1,4 @@
-﻿using BepInEx.Bootstrap;
-using BepInEx.Configuration;
+﻿using BepInEx.Configuration;
 using ChillaxScraps.Utils;
 using System.Collections.Generic;
 
@@ -29,15 +28,12 @@ namespace ChillaxScraps
             cfg.SaveOnConfigSet = true;
         }
 
-        public void SetupCustomConfigs()
+        public void SetupUnluckyPlayersConfig()
         {
-            if (Chainloader.PluginInfos.ContainsKey("zigzag.premiumscraps") && new System.Version("2.0.11").CompareTo(Chainloader.PluginInfos.GetValueOrDefault("zigzag.premiumscraps").Metadata.Version) <= 0)  // get unlucky players of PremiumScraps
+            if (PremiumScraps.Plugin.config != null && PremiumScraps.Plugin.config.unluckyPlayersID != null)
             {
-                if (PremiumScraps.Plugin.config != null && PremiumScraps.Plugin.config.unluckyPlayersID != null)
-                {
-                    foreach (var id in PremiumScraps.Plugin.config.unluckyPlayersID)
-                        unluckyPlayersID.Add(id);
-                }
+                foreach (var id in PremiumScraps.Plugin.config.unluckyPlayersID)
+                    unluckyPlayersID.Add(id);
             }
         }
     }

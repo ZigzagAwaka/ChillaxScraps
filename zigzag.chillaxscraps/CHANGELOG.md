@@ -1,3 +1,9 @@
+## 1.3.3
+- **Updated**
+    - Increased Moai Statue audio
+- **Fixed**
+    - Fixed a soft dependency issue
+
 ## 1.3.2
 - **Updated**
     - Better teleportation code for Emergency meeting, Uno Reverse Card and Ocarina

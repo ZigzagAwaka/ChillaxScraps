@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using BepInEx.Bootstrap;
 using ChillaxScraps.CustomEffects;
 using ChillaxScraps.Utils;
 using HarmonyLib;
@@ -18,7 +19,7 @@ namespace ChillaxScraps
     {
         const string GUID = "zigzag.chillaxscraps";
         const string NAME = "ChillaxScraps";
-        const string VERSION = "1.3.2";
+        const string VERSION = "1.3.3";
 
         public static Plugin instance;
         public static List<AudioClip> audioClips = new List<AudioClip>();
@@ -106,7 +107,8 @@ namespace ChillaxScraps
             };
 
             int i = 0; config = new Config(base.Config, scraps);
-            config.SetupCustomConfigs();
+            if (Chainloader.PluginInfos.ContainsKey("zigzag.premiumscraps") && new System.Version("2.0.11").CompareTo(Chainloader.PluginInfos.GetValueOrDefault("zigzag.premiumscraps").Metadata.Version) <= 0)
+                config.SetupUnluckyPlayersConfig();  // get unlucky players of PremiumScraps
             SetupScript.Network();
 
             foreach (Scrap scrap in scraps)
