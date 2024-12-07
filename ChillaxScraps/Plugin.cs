@@ -14,12 +14,13 @@ namespace ChillaxScraps
 {
     [BepInPlugin(GUID, NAME, VERSION)]
     [BepInDependency("zigzag.premiumscraps", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("mrov.WeatherRegistry", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(CodeRebirth.MyPluginInfo.PLUGIN_GUID, BepInDependency.DependencyFlags.SoftDependency)]
     public class Plugin : BaseUnityPlugin
     {
         const string GUID = "zigzag.chillaxscraps";
         const string NAME = "ChillaxScraps";
-        const string VERSION = "1.3.3";
+        const string VERSION = "1.3.4";
 
         public static Plugin instance;
         public static List<AudioClip> audioClips = new List<AudioClip>();
@@ -107,6 +108,7 @@ namespace ChillaxScraps
             };
 
             int i = 0; config = new Config(base.Config, scraps);
+            config.SetupCustomConfigs();
             if (Chainloader.PluginInfos.ContainsKey("zigzag.premiumscraps") && new System.Version("2.0.11").CompareTo(Chainloader.PluginInfos.GetValueOrDefault("zigzag.premiumscraps").Metadata.Version) <= 0)
                 config.SetupUnluckyPlayersConfig();  // get unlucky players of PremiumScraps
             SetupScript.Network();
@@ -114,6 +116,7 @@ namespace ChillaxScraps
             foreach (Scrap scrap in scraps)
             {
                 Item item = bundle.LoadAsset<Item>(directory + scrap.asset);
+                if (config.scrapValues[i].Item1 != -1) { item.minValue = config.scrapValues[i].Item1; item.maxValue = config.scrapValues[i].Item2; }
                 if (scrap.behaviourId != 0) LoadItemBehaviour(item, scrap.behaviourId);
                 NetworkPrefabs.RegisterNetworkPrefab(item.spawnPrefab);
                 Utilities.FixMixerGroups(item.spawnPrefab);

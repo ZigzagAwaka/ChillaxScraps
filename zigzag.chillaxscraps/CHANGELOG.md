@@ -1,3 +1,9 @@
+## 1.3.4
+- **Added**
+    - Added a config to set custom min,max scrap value for all items (can be left empty for default values)
+- **Fixed**
+    - Ocarina's Song of Storms is now compatible with [WeatherRegistry](https://thunderstore.io/c/lethal-company/p/mrov/WeatherRegistry/)
+
 ## 1.3.3
 - **Updated**
     - Increased Moai Statue audio

@@ -1,17 +1,22 @@
 ﻿using BepInEx.Configuration;
 using ChillaxScraps.Utils;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ChillaxScraps
 {
     class Config
     {
+        public bool StarlancerAIFix = false;
+        public bool WeatherRegistery = false;
         public readonly List<ulong> unluckyPlayersID = new List<ulong>();
+        public readonly List<(int, int)> scrapValues = new List<(int, int)>();
         public readonly ConfigEntry<int> masterSwordDmg;
         public readonly ConfigEntry<bool> evilBoink;
         public readonly ConfigEntry<bool> ocarinaUniqueSongs;
         public readonly ConfigEntry<bool> ocarinaRestrictUsage;
         public readonly List<ConfigEntry<int>> entries = new List<ConfigEntry<int>>();
+        public readonly List<ConfigEntry<string>> values = new List<ConfigEntry<string>>();
 
         public Config(ConfigFile cfg, List<Scrap> scraps)
         {
@@ -23,9 +28,35 @@ namespace ChillaxScraps
             foreach (Scrap scrap in scraps)
             {
                 entries.Add(cfg.Bind("Spawn chance", scrap.asset.Split("/")[0], scrap.rarity));
+                values.Add(cfg.Bind("Values", scrap.asset.Split("/")[0], "", "Min,max value of the item, follow the format 200,300 or empty for default.\nIn-game value will be randomized between these numbers and divided by 2.5."));
             }
             cfg.Save();
             cfg.SaveOnConfigSet = true;
+        }
+
+        public void SetupCustomConfigs()
+        {
+            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("AudioKnight.StarlancerAIFix"))
+            {
+                StarlancerAIFix = true;
+            }
+            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("mrov.WeatherRegistry"))
+            {
+                WeatherRegistery = true;
+            }
+            foreach (var value in values)
+            {
+                if (value.Value == "")
+                { scrapValues.Add((-1, -1)); continue; }
+                var valueTab = value.Value.Split(',').Select(s => s.Trim()).ToArray();
+                if (valueTab.Count() != 2)
+                { scrapValues.Add((-1, -1)); continue; }
+                if (!int.TryParse(valueTab[0], out var minV) || !int.TryParse(valueTab[1], out var maxV))
+                { scrapValues.Add((-1, -1)); continue; }
+                if (minV > maxV)
+                { scrapValues.Add((-1, -1)); continue; }
+                scrapValues.Add((minV, maxV));
+            }
         }
 
         public void SetupUnluckyPlayersConfig()

@@ -237,7 +237,7 @@ namespace ChillaxScraps.CustomEffects
             }
             else
             {
-                if (Verif(Condition.IsInsideTimeAfternoon, player))
+                if (Verif(Condition.IsInsideTimeAfternoon, player) && Plugin.config.StarlancerAIFix)
                     ocarina.StartCoroutine(ocarina.SpawnZeldaEnemy(3, player.transform.position));
                 else
                     return false;
