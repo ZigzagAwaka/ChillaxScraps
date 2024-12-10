@@ -5,20 +5,20 @@ using UnityEngine.UI;
 
 namespace ChillaxScraps.CustomEffects
 {
-    internal class DeathNoteName : MonoBehaviour
+    internal class DarkBookName : MonoBehaviour
     {
         [SerializeField] private TMP_Text nameText;
         [SerializeField] private Button killButton;
 
         private GameObject _objectToKill;
-        private DeathNote _deathNote;
-        private DeathNoteCanvas _deathNoteCanvas;
+        private DarkBook _darkBook;
+        private DarkBookCanvas _darkBookCanvas;
 
-        public void Initialize(GameObject objectToKill, DeathNote deathNote, DeathNoteCanvas deathNoteCanvas)
+        public void Initialize(GameObject objectToKill, DarkBook darkBook, DarkBookCanvas darkBookCanvas)
         {
-            _deathNote = deathNote;
+            _darkBook = darkBook;
             _objectToKill = objectToKill;
-            _deathNoteCanvas = deathNoteCanvas;
+            _darkBookCanvas = darkBookCanvas;
 
             if (objectToKill.transform.TryGetComponent(out PlayerControllerB player))
             {
@@ -34,8 +34,8 @@ namespace ChillaxScraps.CustomEffects
 
         private void Kill()
         {
-            _deathNote.ActivateDeathNote(_objectToKill);
-            _deathNoteCanvas.Close();
+            _darkBook.ActivateDeathNote(_objectToKill);
+            _darkBookCanvas.Close();
         }
     }
 }

@@ -41,7 +41,7 @@ namespace ChillaxScraps.Utils
             List<PlayerControllerB> updatedList = new List<PlayerControllerB>(rawList);
             foreach (var p in rawList)
             {
-                if (p.playerSteamId <= 0 || !p.IsSpawned || !p.isPlayerControlled || (!includeDead && p.isPlayerDead) || (excludeOutsideFactory && !p.isInsideFactory))
+                if (/*p.playerSteamId <= 0 ||*/ !p.IsSpawned || !p.isPlayerControlled || (!includeDead && p.isPlayerDead) || (excludeOutsideFactory && !p.isInsideFactory))
                 {
                     updatedList.Remove(p);
                 }

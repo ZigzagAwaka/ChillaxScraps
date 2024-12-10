@@ -1,3 +1,13 @@
+# 1.4.0 New scraps
+- **Added**
+    - Imported from the original ChillaxScraps mod: f
+- **Updated**
+    - f
+        - f
+    - Misc
+        - Updated to v65/v66
+        - All new items have received some various fix (similarly to all previously imported scraps)
+
 ## 1.3.4
 - **Added**
     - Added a config to set custom min,max scrap value for all items (can be left empty for default values)

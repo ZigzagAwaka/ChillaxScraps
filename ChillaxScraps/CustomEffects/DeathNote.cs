@@ -1,54 +1,17 @@
 ﻿using ChillaxScraps.Utils;
 using GameNetcodeStuff;
 using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace ChillaxScraps.CustomEffects
 {
-    internal class DeathNote : PhysicsProp
+    internal class DeathNote : DarkBook
     {
-        public bool canUseDeathNote = true;
-        public bool isOpened = false;
-        public List<PlayerControllerB> playerList;
-        public List<EnemyAI> enemyList;
-        private DeathNoteCanvas canvas;
-        private readonly GameObject canvasPrefab;
-
         public DeathNote()
         {
             useCooldown = 2;
             canvasPrefab = Plugin.gameObjects[0];
-        }
-
-        public override void EquipItem()
-        {
-            SetControlTips();
-            EnableItemMeshes(enable: true);
-            isPocketed = false;
-            if (!hasBeenHeld)
-            {
-                hasBeenHeld = true;
-                if (!isInShipRoom && !StartOfRound.Instance.inShipPhase && StartOfRound.Instance.currentLevel.spawnEnemiesAndScrap)
-                {
-                    RoundManager.Instance.valueOfFoundScrapItems += scrapValue;
-                }
-            }
-        }
-
-        public override void SetControlTipsForItem()
-        {
-            SetControlTips();
-        }
-
-        private void SetControlTips()
-        {
-            string[] allLines = (canUseDeathNote ? new string[1] { "Write a name : [RMB]" } : new string[1] { "" });
-            if (IsOwner)
-            {
-                HUDManager.Instance.ChangeControlTipMultiple(allLines, holdingItem: true, itemProperties);
-            }
         }
 
         public override void ItemActivate(bool used, bool buttonDown = true)
@@ -63,7 +26,7 @@ namespace ChillaxScraps.CustomEffects
                         AudioServerRpc(0, playerHeldBy.transform.position, 1f, 0.75f);  // page audio
                         playerList = Effects.GetPlayers();
                         enemyList = Effects.GetEnemies(excludeDaytime: true);
-                        canvas = Instantiate(canvasPrefab, transform).GetComponent<DeathNoteCanvas>();
+                        canvas = Instantiate(canvasPrefab, transform).GetComponent<DarkBookCanvas>();
                         canvas.Initialize(this);  // open death note
                         isOpened = true;
                         Cursor.visible = true;
@@ -82,13 +45,6 @@ namespace ChillaxScraps.CustomEffects
             }
         }
 
-        private void CloseDeathNote()
-        {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            isOpened = false;
-        }
-
         public override void PocketItem()
         {
             base.PocketItem();
@@ -103,7 +59,7 @@ namespace ChillaxScraps.CustomEffects
                 canvas.Close();
         }
 
-        public void ActivateDeathNote(GameObject objectToKill)
+        public override void ActivateDeathNote(GameObject objectToKill)
         {
             bool flag = true;
             CloseDeathNote();
@@ -124,18 +80,6 @@ namespace ChillaxScraps.CustomEffects
                 canUseDeathNote = false;
                 SetControlTips();
             }
-        }
-
-        [ServerRpc(RequireOwnership = false)]
-        private void AudioServerRpc(int audioID, Vector3 clientPosition, float hostVolume, float clientVolume = default)
-        {
-            AudioClientRpc(audioID, clientPosition, hostVolume, clientVolume == default ? hostVolume : clientVolume);
-        }
-
-        [ClientRpc]
-        private void AudioClientRpc(int audioID, Vector3 clientPosition, float hostVolume, float clientVolume)
-        {
-            Effects.Audio(audioID, clientPosition, hostVolume, clientVolume, playerHeldBy);
         }
 
         [ServerRpc(RequireOwnership = false)]

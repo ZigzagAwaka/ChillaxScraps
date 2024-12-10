@@ -634,7 +634,7 @@ GameObject:
   - component: {fileID: 8274889878440014035}
   - component: {fileID: 4933014505109700082}
   - component: {fileID: 2376690313884679451}
-  - component: {fileID: 9101223063949635511}
+  - component: {fileID: 4458104268932088667}
   m_Layer: 5
   m_Name: DeathNoteCanvas
   m_TagString: Untagged
@@ -725,7 +725,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &9101223063949635511
+--- !u!114 &4458104268932088667
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -734,7 +734,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6986517972114518392}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 600039093, guid: 1039a54f6d777d446b8744f603a15cc5, type: 3}
+  m_Script: {fileID: 848690216, guid: 1039a54f6d777d446b8744f603a15cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   closeButton: {fileID: 7808601295109674562}
