@@ -12,11 +12,19 @@ namespace ChillaxScraps.CustomEffects
         public bool canUseDeathNote = true;
         public bool isOpened = false;
         public bool canKillEnemies = true;
+        public bool punishInOrbit = true;
         public int musicToPlayID = -1;
+        public AudioSource musicSource;
         public List<PlayerControllerB> playerList;
         public List<EnemyAI> enemyList;
         public DarkBookCanvas canvas;
         public GameObject canvasPrefab;
+
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+            musicSource = GetComponent<AudioSource>();
+        }
 
         public override void ItemActivate(bool used, bool buttonDown = true)
         {
@@ -38,13 +46,16 @@ namespace ChillaxScraps.CustomEffects
                         Cursor.lockState = CursorLockMode.None;
                         canvas.onExit += CloseDeathNote;
                         if (musicToPlayID != -1)
-                            MusicServerRpc(musicToPlayID, 0.48f);
+                            MusicServerRpc(musicToPlayID, 0.6f);
                     }
                     else
                     {
-                        Effects.Message("Wow...", "That's one way of wasting death's powers.", true);
-                        canUseDeathNote = false;
-                        SetControlTips();
+                        if (punishInOrbit)
+                        {
+                            Effects.Message("Wow...", "That's one way of wasting death's powers.", true);
+                            canUseDeathNote = false;
+                            SetControlTips();
+                        }
                     }
                 }
                 else
@@ -129,12 +140,12 @@ namespace ChillaxScraps.CustomEffects
         [ClientRpc]
         public void MusicClientRpc(int audioID, float volume)
         {
-            if (playerHeldBy != null)
+            if (musicSource != null)
             {
-                playerHeldBy.itemAudio.loop = true;
-                playerHeldBy.itemAudio.volume = volume;
-                playerHeldBy.itemAudio.clip = Plugin.audioClips[audioID];
-                playerHeldBy.itemAudio.PlayDelayed(0.2f);
+                musicSource.loop = true;
+                musicSource.volume = volume;
+                musicSource.clip = Plugin.audioClips[audioID];
+                musicSource.PlayDelayed(0.3f);
             }
         }
 
@@ -147,10 +158,10 @@ namespace ChillaxScraps.CustomEffects
         [ClientRpc]
         public void StopMusicClientRpc()
         {
-            if (playerHeldBy != null && playerHeldBy.itemAudio.isPlaying)
+            if (musicSource != null && musicSource.isPlaying)
             {
-                StartCoroutine(Effects.FadeOutAudio(playerHeldBy.itemAudio, 0.1f));
-                StartCoroutine(ResetAudioSourceAfterTime(playerHeldBy.itemAudio, 0.1f));
+                StartCoroutine(Effects.FadeOutAudio(musicSource, 0.1f));
+                StartCoroutine(ResetAudioSourceAfterTime(musicSource, 0.15f));
             }
         }
 

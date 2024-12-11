@@ -70,7 +70,7 @@ namespace ChillaxScraps
 
             var prefabs = new string[] { "DeathNote/DeathNoteCanvas.prefab", "EmergencyMeeting/EmergencyMeetingCanvas.prefab",
                 "Ocarina/ElegyOfEmptiness.prefab", "DanceNote/DanceNoteCanvas.prefab", "DanceNote/WarningCanvas.prefab",
-                "DanceNote/Glow.prefab"
+                "DanceNote/Glow.prefab", "DanceNote/GlowBoom.prefab"
             };
 
             var audios = new string[] { "Page_Turn_Sound_Effect.wav", "Death_Note_Heart_Attack_Sound_Effect.wav",

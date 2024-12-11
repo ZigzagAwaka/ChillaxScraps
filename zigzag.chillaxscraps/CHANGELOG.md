@@ -3,7 +3,7 @@
     - Imported from the original ChillaxScraps mod: Dance Note
 - **Updated**
     - Dance Note
-        - Can now be used up to 6 times globaly, each use with a different effect music
+        - Can now be used up to 6 times globaly, each use with a different effect music (will not be destroyed after beeing used)
         - Restored particle effects that were not playing in the original mod
         - Fixed the "area kill" effect not working in the original mod
     - Death Note
