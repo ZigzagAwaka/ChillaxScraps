@@ -1,11 +1,14 @@
 # 1.4.0 New scraps
 - **Added**
-    - Imported from the original ChillaxScraps mod: f
+    - Imported from the original ChillaxScraps mod: Dance Note
 - **Updated**
-    - f
-        - f
+    - Dance Note
+        - Can now be used up to 6 times globaly, each use with a different effect music
+        - Restored particle effects that were not playing in the original mod
+        - Fixed the "area kill" effect not working in the original mod
+    - Death Note
+        - Will now play the famous Death Note music theme when a player opens the book
     - Misc
-        - Updated to v65/v66
         - All new items have received some various fix (similarly to all previously imported scraps)
 
 ## 1.3.4

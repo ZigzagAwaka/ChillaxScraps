@@ -11,52 +11,8 @@ namespace ChillaxScraps.CustomEffects
         public DeathNote()
         {
             useCooldown = 2;
+            musicToPlayID = 36;
             canvasPrefab = Plugin.gameObjects[0];
-        }
-
-        public override void ItemActivate(bool used, bool buttonDown = true)
-        {
-            base.ItemActivate(used, buttonDown);
-            if (buttonDown && playerHeldBy != null && IsOwner && !isOpened)
-            {
-                if (canUseDeathNote)
-                {
-                    if (!StartOfRound.Instance.inShipPhase)
-                    {
-                        AudioServerRpc(0, playerHeldBy.transform.position, 1f, 0.75f);  // page audio
-                        playerList = Effects.GetPlayers();
-                        enemyList = Effects.GetEnemies(excludeDaytime: true);
-                        canvas = Instantiate(canvasPrefab, transform).GetComponent<DarkBookCanvas>();
-                        canvas.Initialize(this);  // open death note
-                        isOpened = true;
-                        Cursor.visible = true;
-                        Cursor.lockState = CursorLockMode.None;
-                        canvas.onExit += CloseDeathNote;
-                    }
-                    else
-                    {
-                        Effects.Message("Wow...", "That's one way of wasting death's powers.", true);
-                        canUseDeathNote = false;
-                        SetControlTips();
-                    }
-                }
-                else
-                    Effects.Message("?", "The book doesn't acknowledge you as one of its owners anymore.");
-            }
-        }
-
-        public override void PocketItem()
-        {
-            base.PocketItem();
-            if (canvas != null)
-                canvas.Close();
-        }
-
-        public override void DiscardItem()
-        {
-            base.DiscardItem();
-            if (canvas != null)
-                canvas.Close();
         }
 
         public override void ActivateDeathNote(GameObject objectToKill)

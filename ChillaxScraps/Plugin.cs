@@ -49,6 +49,7 @@ namespace ChillaxScraps
                 case 7: script = item.spawnPrefab.AddComponent<MasterSword>(); SetupScript.Copy((Shovel)script, item); break;
                 case 8: script = item.spawnPrefab.AddComponent<Ocarina>(); SetupScript.Copy((NoisemakerProp)script, item); break;
                 case 9: script = item.spawnPrefab.AddComponent<TotemOfUndying>(); break;
+                case 10: script = item.spawnPrefab.AddComponent<DanceNote>(); break;
                 default: return;
             }
             script.grabbable = true;
@@ -68,7 +69,8 @@ namespace ChillaxScraps
             string directory = "Assets/Data/";
 
             var prefabs = new string[] { "DeathNote/DeathNoteCanvas.prefab", "EmergencyMeeting/EmergencyMeetingCanvas.prefab",
-                "Ocarina/ElegyOfEmptiness.prefab"
+                "Ocarina/ElegyOfEmptiness.prefab", "DanceNote/DanceNoteCanvas.prefab", "DanceNote/WarningCanvas.prefab",
+                "DanceNote/Glow.prefab"
             };
 
             var audios = new string[] { "Page_Turn_Sound_Effect.wav", "Death_Note_Heart_Attack_Sound_Effect.wav",
@@ -79,7 +81,9 @@ namespace ChillaxScraps
                 "OOT_Epona_Walk.wav", "OOT_Epona_Hooves.wav", "Epona_growl.wav", "Epona_Lunge.wav", "giant-spawn.wav",
                 "giant-eating.wav", "MM_ClockTower_Bell.wav", "MM_Wizrobe_Appear.wav", "MM_GaleWarp_Out.wav",
                 "MM_Goron_Ohhh.wav", "OOT_Biggoron_Ohh.wav", "OOT_Goron_Oop.wav", "OOT_Goron_Ohrr.wav", "MM_Goron_Oh.wav",
-                "New_Wave_Bossa_Nova_by_The_Indigo-gos.wav", "MM_Warp.wav", "ChargeItem.ogg"
+                "New_Wave_Bossa_Nova_by_The_Indigo-gos.wav", "MM_Warp.wav", "ChargeItem.ogg", "DeathNoteL.wav",
+                "DanceNoteBassPractice.wav", "DanceNote1-Ching.wav", "DanceNote2-Giorno.wav", "DanceNote3-Nyan.wav",
+                "DanceNote4-Spectre.wav", "DanceNote5-Gucci.wav", "DanceNote6-Heyyeya.wav"
             };
 
             foreach (string prefab in prefabs)
@@ -104,7 +108,8 @@ namespace ChillaxScraps
                 new Scrap("SuperSneakers/SuperSneakersItem.asset", 10, 6),
                 new Scrap("MasterSword/MasterSwordItem.asset", 7, 7),
                 new Scrap("Ocarina/OcarinaItem.asset", 10, 8),
-                new Scrap("TotemOfUndying/TotemOfUndyingItem.asset", 6, 9)
+                new Scrap("TotemOfUndying/TotemOfUndyingItem.asset", 6, 9),
+                new Scrap("DanceNote/DanceNoteItem.asset", 5, 10)
             };
 
             int i = 0; config = new Config(base.Config, scraps);
