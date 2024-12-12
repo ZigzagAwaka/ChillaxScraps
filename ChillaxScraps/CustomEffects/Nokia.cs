@@ -8,6 +8,7 @@ namespace ChillaxScraps.CustomEffects
     internal class Nokia : WalkieTalkie
     {
         public bool isPlayingMusic = false;
+        public bool hasBeenThrown = false;
         public AudioSource? audio;
         public AudioSource? farAudio;
 
@@ -16,7 +17,7 @@ namespace ChillaxScraps.CustomEffects
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-            audio = GetComponent<AudioSource>();
+            audio = transform.GetChild(7).GetComponent<AudioSource>();
             farAudio = transform.GetChild(2).GetComponent<AudioSource>();
         }
 
@@ -24,7 +25,7 @@ namespace ChillaxScraps.CustomEffects
         {
             if (isPlayingMusic)
                 return;
-            if (playerHeldBy != null && buttonDown && !isHoldingButton && Random.Range(0, 10) == 0)  // 10% ringtone
+            if (playerHeldBy != null && isBeingUsed && buttonDown && !isHoldingButton && Random.Range(0, 10) == 0)  // 10% ringtone
             {
                 var audioID = 44;
                 var farAudioID = 46;
@@ -39,16 +40,45 @@ namespace ChillaxScraps.CustomEffects
                 base.ItemActivate(used, buttonDown);  // 90% walkietalkie
         }
 
+        public override void ItemInteractLeftRight(bool right)
+        {
+            if (!right && !isPlayingMusic)
+            {
+                base.ItemInteractLeftRight(right);
+            }
+            if (right && IsOwner)
+            {
+                Effects.DropItem(ThrowableItem.GetItemThrowDestination(playerHeldBy));
+                HasBeenThrownServerRpc(true);
+            }
+        }
+
         public override void FallWithCurve()
         {
             ThrowableItem.ItemFall(this);
         }
 
-        public override void ItemInteractLeftRight(bool right)
+        public override void UseUpBatteries()
         {
-            base.ItemInteractLeftRight(right);
-            if (right && IsOwner)
-                Effects.DropItem(ThrowableItem.GetItemThrowDestination(playerHeldBy));
+            base.UseUpBatteries();
+            if (audio == null || farAudio == null)
+                return;
+            if (isPlayingMusic)
+            {
+                audio.Stop();
+                farAudio.Stop();
+                isPlayingMusic = false;
+            }
+        }
+
+        public override void OnHitGround()
+        {
+            base.OnHitGround();
+            if (hasBeenThrown)
+            {
+                Landmine.SpawnExplosion(transform.position, false, 0, 1.5f, 10, 5);
+                hasBeenThrown = false;
+            }
         }
 
         [ServerRpc(RequireOwnership = false)]
@@ -73,13 +103,25 @@ namespace ChillaxScraps.CustomEffects
                 farAudio.Stop();
             isPlayingMusic = true;
             audio.PlayOneShot(Plugin.audioClips[audioID]);
-            farAudio.PlayOneShot(Plugin.audioClips[farAudioID]);
+            farAudio.PlayOneShot(Plugin.audioClips[farAudioID], 1.3f);
             yield return new WaitForSeconds(0.1f);
             while (audio.isPlaying || farAudio.isPlaying)
             {
                 yield return new WaitForSeconds(0.1f);
             }
             isPlayingMusic = false;
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void HasBeenThrownServerRpc(bool value)
+        {
+            HasBeenThrownClientRpc(value);
+        }
+
+        [ClientRpc]
+        private void HasBeenThrownClientRpc(bool value)
+        {
+            hasBeenThrown = value;
         }
     }
 }

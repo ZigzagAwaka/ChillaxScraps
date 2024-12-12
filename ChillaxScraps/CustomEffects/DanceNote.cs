@@ -41,6 +41,12 @@ namespace ChillaxScraps.CustomEffects
             }
         }
 
+        public override void ItemActivate(bool used, bool buttonDown = true)
+        {
+            if (!danceActivated)
+                base.ItemActivate(used, buttonDown);
+        }
+
         public override void ActivateDeathNote(GameObject objectToKill)
         {
             bool flag = true;
@@ -86,9 +92,10 @@ namespace ChillaxScraps.CustomEffects
         private void StartMusicClientRpc(ulong playerId, int realMusicID)
         {
             var player = StartOfRound.Instance.allPlayerObjects[playerId].GetComponent<PlayerControllerB>();
+            danceActivated = true;
             if (player.itemAudio.isPlaying)
                 player.itemAudio.Stop();
-            player.itemAudio.PlayOneShot(Plugin.audioClips[realMusicID]);
+            player.itemAudio.PlayOneShot(Plugin.audioClips[realMusicID], 1.2f);
             glowObj = Instantiate(glowPrefab, player.transform.position + Vector3.up, Quaternion.identity, player.transform);
             Destroy(glowObj.gameObject, transitionTime + danceTime);
         }
@@ -118,6 +125,7 @@ namespace ChillaxScraps.CustomEffects
                 yield return new WaitForSeconds(0.1f);
                 actualTime += 0.1f;
             }
+            EndDanceServerRpc();
         }
 
         [ServerRpc(RequireOwnership = false)]
@@ -130,12 +138,33 @@ namespace ChillaxScraps.CustomEffects
         private void KillInAreaDanceNoteClientRpc(ulong playerId, Vector3 position)
         {
             var player = StartOfRound.Instance.allPlayerObjects[playerId].GetComponent<PlayerControllerB>();
+            StartCoroutine(WaitValidationThenBoom(player, position));
+        }
+
+        private IEnumerator WaitValidationThenBoom(PlayerControllerB player, Vector3 position)
+        {
+            while (!player.grabbedObjectValidated)
+            {
+                yield return new WaitForEndOfFrame();
+            }
             if (player.itemAudio.isPlaying)
                 player.itemAudio.Stop();
             if (glowObj != null)
                 Destroy(glowObj.gameObject);
             Instantiate(glowboomPrefab, position, Quaternion.identity);
-            Landmine.SpawnExplosion(position + Vector3.up * 0.25f, false, 4f, 5f, 90, 5f);
+            Landmine.SpawnExplosion(position + Vector3.up * 0.25f, false, 4.5f, 6f, 70, 5f);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void EndDanceServerRpc()
+        {
+            EndDanceClientRpc();
+        }
+
+        [ClientRpc]
+        private void EndDanceClientRpc()
+        {
+            danceActivated = false;
         }
     }
 }

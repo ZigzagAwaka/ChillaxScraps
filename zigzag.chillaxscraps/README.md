@@ -2,7 +2,7 @@
 
 This mod is an updated version of the [original ChillaxScraps mod](https://thunderstore.io/c/lethal-company/p/CHILLAX/ChillaxSCRAPS/). BogBog, the original author, has stopped working on the mod and gave me permission to update and improve all the scraps.
 
-This mod currently adds **12 scrap items** to the game but each original scraps are planed to be imported, improved and fixed.
+This mod currently adds **14 scrap items** to the game but each original scraps are planed to be imported, improved and fixed.
 
 You can check the Changelog file to see the list of improvements that I made... and let's just say that some are crazy ! 😏
 
@@ -97,6 +97,8 @@ You can post some suggestions or issues in the mod release page in the [modding 
 - The Master Sword
 - Ocarina
 - Totem of Undying
+- Dance Note
+- Nokia
 
 </details>
 
