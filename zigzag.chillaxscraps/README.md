@@ -32,6 +32,12 @@ Compatible with v64/v65/v66/v67/v68 of Lethal Company.
 
 ![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-totem.PNG)
 
+### Dance Note
+- The Death Note's groovy cousin, forces someone to dance.
+- Going disco mode is highly recommended, else your innards are going to be the thing stepping on the dance floor...
+
+![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-dancenote.png)
+
 ### Custom effect items
 - **Boink**, this red bird just wants to go *boink boink* with you ! Also, do you want free Robux?
 - **Cup Noodle**, a tasty dish from Thailand, can be eaten to heal a small amount of health and stamina.
@@ -48,6 +54,7 @@ Compatible with v64/v65/v66/v67/v68 of Lethal Company.
 
 ### Noisy items
 - **Eevee** can be used to make some cute sounds!
+- **Nokia**, this ancient phone will play even more ancient tunes, and you have absolutely no clue as to how it is still working after all these centuries.
 
 ![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-noisy.PNG)
 
@@ -72,6 +79,7 @@ Each item has a low/medium spawn chance on all moons, you will not find them eas
 ### Compatible mods
 
 - You should check [PremiumScraps](https://thunderstore.io/c/lethal-company/p/Zigzag/PremiumScraps/), it pairs well with ChillaxScraps!
+- There is some compatible effects with [CodeRebirth](https://thunderstore.io/c/lethal-company/p/XuXiaolan/CodeRebirth/).
 - Some Ocarina songs effects will not work properly when played inside the facility or at the Company Building, but you can install the mods [StarlancerAIFix](https://thunderstore.io/c/lethal-company/p/AudioKnight/StarlancerAIFix/) and [NavMeshInCompany](https://thunderstore.io/c/lethal-company/p/Kittenji/NavMeshInCompany/) to make them work !
 
 ### Feedback
@@ -110,11 +118,11 @@ You can post some suggestions or issues in the mod release page in the [modding 
 
 - The original developers for the ChillaxScraps mod : [BogBog](https://twitter.com/benbogbog), [Namsom](https://twitter.com/NamsomXD) and [OptimusGorilla](https://twitter.com/DanielSuPery)
 
-- Thanks [Mrov](https://thunderstore.io/c/lethal-company/p/mrov/) for the lightning bolts code!
-
-- Thanks [XyphireTV](https://www.twitch.tv/xyphiretv), [Zedahu](https://www.twitch.tv/zedahu) and [TheHylianMonster](https://www.instagram.com/lucas_tripier/) for testing and helping with some Ocarina effects!
+- Thanks [Mrov](https://thunderstore.io/c/lethal-company/p/mrov/), [Zeldahu](https://thunderstore.io/c/lethal-company/p/Zeldahu/), [XyphireTV](https://www.twitch.tv/xyphiretv) and [TheHylianMonster](https://www.instagram.com/lucas_tripier/) for helping with some Ocarina effects!
 
 - Thanks [A Glitched Npc](https://www.twitch.tv/a_glitched_npc) for testing, bug reports and some ideas!
+
+- Thanks [Yoestar](https://www.instagram.com/yo_estar/) for testing!
 
 - Thanks **Leaucard** for helping with some messages, tool tips and stuff!
 

@@ -112,7 +112,7 @@ namespace ChillaxScraps
                 new Scrap("Ocarina/OcarinaItem.asset", 10, 8),
                 new Scrap("TotemOfUndying/TotemOfUndyingItem.asset", 6, 9),
                 new Scrap("DanceNote/DanceNoteItem.asset", 5, 10),
-                new Scrap("Nokia/NokiaItem.asset", 11, 11)
+                new Scrap("Nokia/NokiaItem.asset", 13, 11)
             };
 
             int i = 0; config = new Config(base.Config, scraps);
