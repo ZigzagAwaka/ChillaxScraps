@@ -124,3 +124,4 @@ You can post some suggestions or issues in the mod release page in the [modding 
 
     - [pedrohmm123](https://sketchfab.com/3d-models/death-note-anime-book-fanart-970248251f124cddbfc2b4999c43b713)
     - [SandWich34](https://sketchfab.com/3d-models/uno-reverse-card-e15ee883deb14fbe8a476cce325c2983)
+    - [sMoKi](https://sketchfab.com/3d-models/nokia-3310-lowpoly-bed87049026640a59f3f8b5844614253)

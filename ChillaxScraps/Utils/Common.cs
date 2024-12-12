@@ -123,5 +123,42 @@ namespace ChillaxScraps.Utils
             collider.itemScript = target;
             Object.Destroy(source);
         }
+
+        public static void Copy(WalkieTalkie target, Item item)
+        {
+            var source = item.spawnPrefab.GetComponent<WalkieTalkie>();
+            target.insertedBattery = source.insertedBattery;
+            target.insertedBattery.charge = source.insertedBattery.charge;
+            target.mainObjectRenderer = source.mainObjectRenderer;
+            target.thisAudio = source.thisAudio;
+            target.stopTransmissionSFX = new AudioClip[source.stopTransmissionSFX.Length];
+            for (int i = 0; i < source.stopTransmissionSFX.Length; i++)
+            {
+                target.stopTransmissionSFX[i] = source.stopTransmissionSFX[i];
+            }
+            target.startTransmissionSFX = new AudioClip[source.startTransmissionSFX.Length];
+            for (int i = 0; i < source.startTransmissionSFX.Length; i++)
+            {
+                target.startTransmissionSFX[i] = source.startTransmissionSFX[i];
+            }
+            target.switchWalkieTalkiePowerOff = source.switchWalkieTalkiePowerOff;
+            target.switchWalkieTalkiePowerOn = source.switchWalkieTalkiePowerOn;
+            target.talkingOnWalkieTalkieNotHeldSFX = source.talkingOnWalkieTalkieNotHeldSFX;
+            target.playerDieOnWalkieTalkieSFX = source.playerDieOnWalkieTalkieSFX;
+            target.onMaterial = source.onMaterial;
+            target.offMaterial = source.offMaterial;
+            target.walkieTalkieLight = source.walkieTalkieLight;
+            target.target = source.target;
+            target.recordingRange = source.recordingRange;
+            target.maxVolume = source.maxVolume;
+            target.collidersInRange = new Collider[source.collidersInRange.Length];
+            target.wallAudio = source.wallAudio;
+            target.wallAudios = new AudioClip[source.wallAudios.Length];
+            for (int i = 0; i < source.wallAudios.Length; i++)
+            {
+                target.wallAudios[i] = source.wallAudios[i];
+            }
+            Object.Destroy(source);
+        }
     }
 }

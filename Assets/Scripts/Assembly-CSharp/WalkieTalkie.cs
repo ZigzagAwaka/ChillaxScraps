@@ -125,6 +125,10 @@ public class WalkieTalkie : GrabbableObject
 
 	private float updateInterval;
 
+    public AudioSource wallAudio;
+
+    public AudioClip[] wallAudios;
+
 	private void OnDisable()
 	{
 	}

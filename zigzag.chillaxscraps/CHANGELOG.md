@@ -1,11 +1,14 @@
 # 1.4.0 New scraps
 - **Added**
-    - Imported from the original ChillaxScraps mod: Dance Note
+    - Imported from the original ChillaxScraps mod: Dance Note, Nokia
 - **Updated**
     - Dance Note
         - Can now be used up to 6 times globaly, each use with a different effect music (will not be destroyed after beeing used)
         - Restored particle effects that were not playing in the original mod
         - Fixed the "area kill" effect not working in the original mod
+    - Nokia
+        - This item has been fully reworked
+        - Now with some custom fun effects
     - Death Note
         - Will now play the famous Death Note music theme when a player opens the book
     - Misc

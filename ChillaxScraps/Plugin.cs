@@ -50,6 +50,7 @@ namespace ChillaxScraps
                 case 8: script = item.spawnPrefab.AddComponent<Ocarina>(); SetupScript.Copy((NoisemakerProp)script, item); break;
                 case 9: script = item.spawnPrefab.AddComponent<TotemOfUndying>(); break;
                 case 10: script = item.spawnPrefab.AddComponent<DanceNote>(); break;
+                case 11: script = item.spawnPrefab.AddComponent<Nokia>(); SetupScript.Copy((WalkieTalkie)script, item); break;
                 default: return;
             }
             script.grabbable = true;
@@ -83,7 +84,8 @@ namespace ChillaxScraps
                 "MM_Goron_Ohhh.wav", "OOT_Biggoron_Ohh.wav", "OOT_Goron_Oop.wav", "OOT_Goron_Ohrr.wav", "MM_Goron_Oh.wav",
                 "New_Wave_Bossa_Nova_by_The_Indigo-gos.wav", "MM_Warp.wav", "ChargeItem.ogg", "DeathNoteL.wav",
                 "DanceNoteBassPractice.wav", "DanceNote1-Ching.wav", "DanceNote2-Giorno.wav", "DanceNote3-Nyan.wav",
-                "DanceNote4-Spectre.wav", "DanceNote5-Gucci.wav", "DanceNote6-Heyyeya.wav"
+                "DanceNote4-Spectre.wav", "DanceNote5-Gucci.wav", "DanceNote6-Heyyeya.wav", "nokia1.wav", "nokia2.wav",
+                "nokia1-far.wav", "nokia2-far.wav"
             };
 
             foreach (string prefab in prefabs)
@@ -109,7 +111,8 @@ namespace ChillaxScraps
                 new Scrap("MasterSword/MasterSwordItem.asset", 7, 7),
                 new Scrap("Ocarina/OcarinaItem.asset", 10, 8),
                 new Scrap("TotemOfUndying/TotemOfUndyingItem.asset", 6, 9),
-                new Scrap("DanceNote/DanceNoteItem.asset", 5, 10)
+                new Scrap("DanceNote/DanceNoteItem.asset", 5, 10),
+                new Scrap("Nokia/NokiaItem.asset", 11, 11)
             };
 
             int i = 0; config = new Config(base.Config, scraps);
