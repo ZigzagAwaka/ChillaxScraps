@@ -20,7 +20,7 @@ namespace ChillaxScraps
     {
         const string GUID = "zigzag.chillaxscraps";
         const string NAME = "ChillaxScraps";
-        const string VERSION = "1.4.0";
+        const string VERSION = "1.5.0";
 
         public static Plugin instance;
         public static List<AudioClip> audioClips = new List<AudioClip>();
@@ -51,6 +51,7 @@ namespace ChillaxScraps
                 case 9: script = item.spawnPrefab.AddComponent<TotemOfUndying>(); break;
                 case 10: script = item.spawnPrefab.AddComponent<DanceNote>(); break;
                 case 11: script = item.spawnPrefab.AddComponent<Nokia>(); SetupScript.Copy((WalkieTalkie)script, item); break;
+                case 12: script = item.spawnPrefab.AddComponent<Freddy>(); break;
                 default: return;
             }
             script.grabbable = true;
@@ -85,7 +86,7 @@ namespace ChillaxScraps
                 "New_Wave_Bossa_Nova_by_The_Indigo-gos.wav", "MM_Warp.wav", "ChargeItem.ogg", "DeathNoteL.wav",
                 "DanceNoteBassPractice.wav", "DanceNote1-Ching.wav", "DanceNote2-Giorno.wav", "DanceNote3-Nyan.wav",
                 "DanceNote4-Spectre.wav", "DanceNote5-Gucci.wav", "DanceNote6-Heyyeya.wav", "nokia1.wav", "nokia2.wav",
-                "nokia1-far.wav", "nokia2-far.wav"
+                "nokia1-far.wav", "nokia2-far.wav", "toy.wav", "at_door.wav"
             };
 
             foreach (string prefab in prefabs)
@@ -104,7 +105,7 @@ namespace ChillaxScraps
                 new Scrap("Eevee/EeveeItem.asset", 10),
                 new Scrap("CupNoodle/CupNoodleItem.asset", 11, 3),
                 new Scrap("Moai/MoaiItem.asset", 9),
-                new Scrap("UnoReverseCard/UnoReverseCardItem.asset", 8, 4),
+                new Scrap("UnoReverseCard/UnoReverseCardItem.asset", 9, 4),
                 new Scrap("FroggyChair/FroggyChairItem.asset", 10),
                 new Scrap("EmergencyMeeting/EmergencyMeetingItem.asset", 6, 5),
                 new Scrap("SuperSneakers/SuperSneakersItem.asset", 10, 6),
@@ -112,7 +113,8 @@ namespace ChillaxScraps
                 new Scrap("Ocarina/OcarinaItem.asset", 10, 8),
                 new Scrap("TotemOfUndying/TotemOfUndyingItem.asset", 6, 9),
                 new Scrap("DanceNote/DanceNoteItem.asset", 5, 10),
-                new Scrap("Nokia/NokiaItem.asset", 13, 11)
+                new Scrap("Nokia/NokiaItem.asset", 13, 11),
+                new Scrap("FreddyFazbear/FreddyFazbearItem.asset", 10, 12)
             };
 
             int i = 0; config = new Config(base.Config, scraps);

@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c30496d6ae6d6f907456e10a94e01ec6, type: 3}
+  m_Name: FreddyFazbearItem
+  m_EditorClassIdentifier: 
+  itemId: 0
+  itemName: Freddy Fazbear
+  spawnPositionTypes: []
+  twoHanded: 1
+  twoHandedAnimation: 1
+  canBeGrabbedBeforeGameStart: 1
+  weight: 1.47
+  itemIsTrigger: 0
+  holdButtonUse: 0
+  itemSpawnsOnGround: 1
+  isConductiveMetal: 0
+  isScrap: 1
+  creditsWorth: 0
+  lockedInDemo: 0
+  highestSalePercentage: 0
+  maxValue: 300
+  minValue: 200
+  spawnPrefab: {fileID: 8274456591751211032, guid: 271157a4d37846e4dbe8886ff13b3e84,
+    type: 3}
+  requiresBattery: 0
+  batteryUsage: 0
+  automaticallySetUsingPower: 0
+  itemIcon: {fileID: 21300000, guid: 12b4fad7c0099544397e4b3e99c9295b, type: 3}
+  grabAnim: HoldLung
+  useAnim: 
+  pocketAnim: 
+  throwAnim: 
+  grabAnimationTime: 0
+  grabSFX: {fileID: 8300000, guid: f721cfdd79afabd40b964424567a8db0, type: 3}
+  dropSFX: {fileID: 8300000, guid: 350b2424e9389074b97daf06dd9d9646, type: 3}
+  pocketSFX: {fileID: 0}
+  throwSFX: {fileID: 0}
+  syncGrabFunction: 1
+  syncUseFunction: 0
+  syncDiscardFunction: 0
+  syncInteractLRFunction: 0
+  saveItemVariable: 0
+  isDefensiveWeapon: 0
+  toolTips:
+  - 'Squeeze : [RMB]'
+  verticalOffset: 0
+  floorYOffset: 90
+  allowDroppingAheadOfPlayer: 1
+  restingRotation: {x: 0, y: 0, z: 0}
+  rotationOffset: {x: 0, y: 90, z: -90}
+  positionOffset: {x: -0.1, y: 0.07, z: 0.2}
+  meshOffset: 0
+  meshVariants: []
+  materialVariants: []
+  usableInSpecialAnimations: 0
+  canBeInspected: 0

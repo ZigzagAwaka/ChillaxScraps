@@ -1,3 +1,19 @@
+# 1.5.0 New scraps
+- **Added**
+    - Imported from the original ChillaxScraps mod: Freddy Fazbear
+    - Added: Uno Reverse Card DX (previously known as the Red Uno Reverse Card)
+- **Updated**
+    - Freddy Fazbear
+        - This item has been fully reworked
+        - Is now a bit dangerous...
+    - Uno Reverse Card DX
+        - This item has been fully reworked
+        - Very fun effect, trust me 🤨
+    - Nokia
+        - Music audio can now be heard by monsters
+    - Misc
+        - All new items have received some various fix (similarly to all previously imported scraps)
+
 # 1.4.0 New scraps
 - **Added**
     - Imported from the original ChillaxScraps mod: Dance Note and Nokia

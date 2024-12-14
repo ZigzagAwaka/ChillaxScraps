@@ -104,9 +104,13 @@ namespace ChillaxScraps.CustomEffects
             isPlayingMusic = true;
             audio.PlayOneShot(Plugin.audioClips[audioID]);
             farAudio.PlayOneShot(Plugin.audioClips[farAudioID], 1.3f);
+            TransmitOneShotAudio(audio, Plugin.audioClips[audioID], 1f);
             yield return new WaitForSeconds(0.1f);
             while (audio.isPlaying || farAudio.isPlaying)
             {
+                RoundManager.Instance.PlayAudibleNoise(transform.position, 40, 1f, 0, isInElevator && StartOfRound.Instance.hangarDoorsClosed);
+                if (playerHeldBy != null)
+                    playerHeldBy.timeSinceMakingLoudNoise = 0f;
                 yield return new WaitForSeconds(0.1f);
             }
             isPlayingMusic = false;

@@ -2,11 +2,11 @@
 
 This mod is an updated version of the [original ChillaxScraps mod](https://thunderstore.io/c/lethal-company/p/CHILLAX/ChillaxSCRAPS/). BogBog, the original author, has stopped working on the mod and gave me permission to update and improve all the scraps.
 
-This mod currently adds **14 scrap items** to the game but each original scraps are planed to be imported, improved and fixed.
+This mod currently adds **16 scrap items** to the game, they were all imported, improved and fixed from the original mod!
 
 You can check the Changelog file to see the list of improvements that I made... and let's just say that some are crazy ! 😏
 
-Compatible with v64/v65/v66/v67/v68 of Lethal Company.
+Compatible with v64/v65/v66/v67/v68/v69 of Lethal Company.
 
 ### Death Note
 - This otherwordly notebook can be used to write a person's name and have *something* happen to them.
@@ -86,8 +86,8 @@ Each item has a low/medium spawn chance on all moons, you will not find them eas
 You can post some suggestions or issues in the mod release page in the [modding discord](https://discord.com/invite/lcmod) or as a [github](https://github.com/ZigzagAwaka/ChillaxScraps) issue.
 
 ### ToDo
-- Finish the transfer of all items in the original ChillaxScraps mod
-- Improve the scraps and maybe add new items
+- This updated Chillax Scraps mod is now complete. But I may add new items in the future.
+- Rubber Ducks scraps will be imported in a separate mod.
 
 ###
 
@@ -107,6 +107,8 @@ You can post some suggestions or issues in the mod release page in the [modding 
 - Totem of Undying
 - Dance Note
 - Nokia
+- Freddy Fazbear
+- Uno Reverse Card DX
 
 </details>
 
@@ -118,7 +120,7 @@ You can post some suggestions or issues in the mod release page in the [modding 
 
 - The original developers for the ChillaxScraps mod : [BogBog](https://twitter.com/benbogbog), [Namsom](https://twitter.com/NamsomXD) and [OptimusGorilla](https://twitter.com/DanielSuPery)
 
-- Thanks [Mrov](https://thunderstore.io/c/lethal-company/p/mrov/), [Zeldahu](https://thunderstore.io/c/lethal-company/p/Zeldahu/), [XyphireTV](https://www.twitch.tv/xyphiretv) and [TheHylianMonster](https://www.instagram.com/lucas_tripier/) for helping with some Ocarina effects!
+- Thanks [Mrov](https://thunderstore.io/c/lethal-company/p/mrov/), [XyphireTV](https://www.twitch.tv/xyphiretv), [Zeldahu](https://thunderstore.io/c/lethal-company/p/Zeldahu/) and [TheHylianMonster](https://www.instagram.com/lucas_tripier/) for helping with some parts of this mod!
 
 - Thanks [A Glitched Npc](https://www.twitch.tv/a_glitched_npc) for testing, bug reports and some ideas!
 
@@ -135,3 +137,4 @@ You can post some suggestions or issues in the mod release page in the [modding 
     - [pedrohmm123](https://sketchfab.com/3d-models/death-note-anime-book-fanart-970248251f124cddbfc2b4999c43b713)
     - [SandWich34](https://sketchfab.com/3d-models/uno-reverse-card-e15ee883deb14fbe8a476cce325c2983)
     - [sMoKi](https://sketchfab.com/3d-models/nokia-3310-lowpoly-bed87049026640a59f3f8b5844614253)
+    - [Slepskiy](https://sketchfab.com/3d-models/czy-to-freddy-fazbear-831f3531aef44c24817b58effff570f3)
