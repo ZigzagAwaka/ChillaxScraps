@@ -8,7 +8,12 @@ namespace ChillaxScraps.CustomEffects
 {
     internal class Freddy : PhysicsProp
     {
+        public int usage = 0;
+        public int maxUsage = 0;
+        public bool doom = false;
         public AudioSource? audio;
+        public AudioSource? music;
+        public BoxCollider? scanNode;
 
         public Freddy()
         {
@@ -18,24 +23,38 @@ namespace ChillaxScraps.CustomEffects
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
+            maxUsage = Random.Range(0, 7);
             audio = GetComponent<AudioSource>();
-            if (transform.position.y < -80f)
+            music = transform.GetChild(2).GetComponent<AudioSource>();
+            scanNode = transform.GetChild(0).GetComponent<BoxCollider>();
+            if ((IsHost || IsServer) && transform.position.y < -80f)
             {
-
+                StartCoroutine(StartBadThings());
             }
+        }
+
+        public override void GrabItem()
+        {
+            base.GrabItem();
+            StopDoomServerRpc();
         }
 
         public override void ItemActivate(bool used, bool buttonDown = true)
         {
             base.ItemActivate(used, buttonDown);
-            if (StartOfRound.Instance.inShipPhase || Random.Range(0, 10) <= 6)  // 70% audio
-                AudioServerRpc(48, 1f);
-            else if (playerHeldBy != null)  // 30% bad effect
+            if (StartOfRound.Instance.inShipPhase || usage <= maxUsage)
+            {
+                AudioServerRpc(48, 1f, 0);
+                usage++;
+            }
+            else if (playerHeldBy != null)
             {
                 var player = playerHeldBy;
-                AudioServerRpc(49, 1.2f);
+                AudioServerRpc(49, 1.5f, 0);
                 StartCoroutine(DamagePlayer(player, player.health <= 20 ? 100 : player.health - 10));
                 Effects.DropItem(player.transform.position);
+                maxUsage = Random.Range(0, 7);
+                usage = 0;
             }
         }
 
@@ -45,19 +64,122 @@ namespace ChillaxScraps.CustomEffects
             Effects.Damage(player, damage, CauseOfDeath.Mauling, (int)Effects.DeathAnimation.NoHead2);
         }
 
-        [ServerRpc(RequireOwnership = false)]
-        private void AudioServerRpc(int audioID, float volume)
+        private IEnumerator StartBadThings()
         {
-            AudioClientRpc(audioID, volume);
+            yield return new WaitForEndOfFrame();
+            if (Random.Range(0, 10) <= 2)  // 30%
+            {
+                bool freddyDoomTime = false;
+                InvisibilityServerRpc(true);
+                yield return new WaitForSeconds(1);
+                while (true)  // wait for a player to be at least 30s inside the facility
+                {
+                    if (StartOfRound.Instance.shipIsLeaving || StartOfRound.Instance.inShipPhase)
+                        break;
+                    var players = Effects.GetPlayers(excludeOutsideFactory: true);
+                    if (players == null || players.Count == 0)
+                    {
+                        yield return new WaitForSeconds(10);
+                        continue;
+                    }
+                    yield return new WaitForSeconds(30);
+                    if (StartOfRound.Instance.shipIsLeaving || StartOfRound.Instance.inShipPhase)
+                        break;
+                    players = Effects.GetPlayers(excludeOutsideFactory: true);
+                    if (players == null || players.Count == 0)
+                    {
+                        continue;
+                    }
+                    freddyDoomTime = true;
+                    break;
+                }
+                if (freddyDoomTime)
+                {
+                    AudioServerRpc(-1, 1, 1);  // start music
+                    yield return new WaitForSeconds(10);
+                    if (StartOfRound.Instance.shipIsLeaving || StartOfRound.Instance.inShipPhase)
+                        yield break;
+                    InvisibilityServerRpc(false);
+                    doom = true;
+                    yield return new WaitForSeconds(45);
+                    if (StartOfRound.Instance.shipIsLeaving || StartOfRound.Instance.inShipPhase)
+                        yield break;
+                    if (doom)
+                    {
+                        int expl = -1;
+                        for (int i = 0; i < RoundManager.Instance.insideAINodes.Length; i++)
+                        {
+                            if (expl == 1)
+                            {
+                                BoomServerRpc(RoundManager.Instance.insideAINodes[i].transform.position);
+                                expl = -1;
+                            }
+                            else expl++;
+                        }
+                        doom = false;
+                    }
+                }
+            }
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void AudioServerRpc(int audioID, float volume, int sourceID)
+        {
+            AudioClientRpc(audioID, volume, sourceID);
         }
 
         [ClientRpc]
-        private void AudioClientRpc(int audioID, float volume)
+        private void AudioClientRpc(int audioID, float volume, int sourceID)
         {
-            if (audio != null)
-            {
+            if (sourceID == 0 && audio != null)
                 audio.PlayOneShot(Plugin.audioClips[audioID], volume);
+            else if (sourceID == 1 && music != null)
+                music.Play();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void InvisibilityServerRpc(bool enabled)
+        {
+            InvisibilityClientRpc(!enabled);
+        }
+
+        [ClientRpc]
+        private void InvisibilityClientRpc(bool visibleFlag)
+        {
+            EnableItemMeshes(visibleFlag);
+            if (scanNode != null)
+                scanNode.enabled = visibleFlag;
+            grabbable = visibleFlag;
+            grabbableToEnemies = visibleFlag;
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void StopDoomServerRpc()
+        {
+            if (doom)
+            {
+                StopDoomClientRpc();
+                doom = false;
             }
+        }
+
+        [ClientRpc]
+        private void StopDoomClientRpc()
+        {
+            if (music != null)
+                music.Stop();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void BoomServerRpc(Vector3 position)
+        {
+            BoomClientRpc(position);
+        }
+
+        [ClientRpc]
+        private void BoomClientRpc(Vector3 position)
+        {
+            Landmine.SpawnExplosion(position, true, 1, 5, 50, 1);
         }
     }
 }

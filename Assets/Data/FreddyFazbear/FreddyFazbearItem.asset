@@ -18,7 +18,7 @@ MonoBehaviour:
   twoHanded: 1
   twoHandedAnimation: 1
   canBeGrabbedBeforeGameStart: 1
-  weight: 1.47
+  weight: 1.33
   itemIsTrigger: 0
   holdButtonUse: 0
   itemSpawnsOnGround: 1
@@ -27,8 +27,8 @@ MonoBehaviour:
   creditsWorth: 0
   lockedInDemo: 0
   highestSalePercentage: 0
-  maxValue: 300
-  minValue: 200
+  maxValue: 400
+  minValue: 300
   spawnPrefab: {fileID: 8274456591751211032, guid: 271157a4d37846e4dbe8886ff13b3e84,
     type: 3}
   requiresBattery: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   dropSFX: {fileID: 8300000, guid: 350b2424e9389074b97daf06dd9d9646, type: 3}
   pocketSFX: {fileID: 0}
   throwSFX: {fileID: 0}
-  syncGrabFunction: 1
+  syncGrabFunction: 0
   syncUseFunction: 0
   syncDiscardFunction: 0
   syncInteractLRFunction: 0

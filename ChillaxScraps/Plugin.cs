@@ -114,7 +114,7 @@ namespace ChillaxScraps
                 new Scrap("TotemOfUndying/TotemOfUndyingItem.asset", 6, 9),
                 new Scrap("DanceNote/DanceNoteItem.asset", 5, 10),
                 new Scrap("Nokia/NokiaItem.asset", 13, 11),
-                new Scrap("FreddyFazbear/FreddyFazbearItem.asset", 10, 12)
+                new Scrap("FreddyFazbear/FreddyFazbearItem.asset", 9, 12)
             };
 
             int i = 0; config = new Config(base.Config, scraps);

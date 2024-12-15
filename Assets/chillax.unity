@@ -1467,9 +1467,49 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5778819908411960897, guid: 271157a4d37846e4dbe8886ff13b3e84,
         type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 756d1ecf550297a4483903ef28ad370e, type: 3}
+      propertyPath: MaxDistance
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778819908411960897, guid: 271157a4d37846e4dbe8886ff13b3e84,
+        type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778819908411960897, guid: 271157a4d37846e4dbe8886ff13b3e84,
+        type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[3].time
+      value: 0.7484741
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778819908411960897, guid: 271157a4d37846e4dbe8886ff13b3e84,
+        type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[4].time
+      value: 0.96754575
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778819908411960897, guid: 271157a4d37846e4dbe8886ff13b3e84,
+        type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[3].value
+      value: 0.1907959
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778819908411960897, guid: 271157a4d37846e4dbe8886ff13b3e84,
+        type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[4].value
+      value: 0.10733032
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778819908411960897, guid: 271157a4d37846e4dbe8886ff13b3e84,
+        type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[4].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778819908411960897, guid: 271157a4d37846e4dbe8886ff13b3e84,
+        type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[4].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778819908411960897, guid: 271157a4d37846e4dbe8886ff13b3e84,
+        type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[4].tangentMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8274456591751211032, guid: 271157a4d37846e4dbe8886ff13b3e84,
         type: 3}
       propertyPath: m_Name
