@@ -40,7 +40,7 @@ namespace ChillaxScraps.CustomEffects
             }
         }
 
-        private Vector3 GetPosition(PlayerControllerB player)
+        public static Vector3 GetPosition(PlayerControllerB player)
         {
             Vector3 position = RoundManager.Instance.GetNavMeshPosition(player.transform.position, RoundManager.Instance.navHit, 2.7f);
             return new Vector3(player.transform.position.x, position.y, player.transform.position.z);

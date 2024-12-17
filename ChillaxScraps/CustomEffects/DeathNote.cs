@@ -22,7 +22,7 @@ namespace ChillaxScraps.CustomEffects
             if (objectToKill.transform.TryGetComponent(out PlayerControllerB player) && player != null && !player.isPlayerDead && player.IsSpawned && player.isPlayerControlled)
             {
                 KillPlayerDeathNoteServerRpc(player.playerClientId, player.OwnerClientId);
-                if (playerHeldBy != null && Effects.IsUnlucky(playerHeldBy.playerSteamId))
+                if (playerHeldBy != null && Effects.IsUnlucky(playerHeldBy.playerSteamId) && Random.Range(0, 10) < 8)  // unlucky 80%
                     KillPlayerDeathNoteServerRpc(playerHeldBy.playerClientId, playerHeldBy.OwnerClientId);
             }
             else if (objectToKill.transform.TryGetComponent(out EnemyAI enemy) && enemy != null && !enemy.isEnemyDead && enemy.IsSpawned)

@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2664710763157467876}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.0064, z: 0}
+  m_LocalPosition: {x: 0, y: 0.0085, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45,7 +45,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.7311321, g: 1, b: 0.9938512, a: 1}
-  m_Intensity: 1.1240429
+  m_Intensity: 1.5
   m_Range: 1
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Intensity: 1.1240429
+  m_Intensity: 1.5
   m_EnableSpotReflector: 1
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 0
@@ -280,6 +280,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: UnoReverseCardDX
       objectReference: {fileID: 0}
+    - target: {fileID: 4811734941886651039, guid: 3d92178f4dbb07846b53913ec3ec1619,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4811734941886651039, guid: 3d92178f4dbb07846b53913ec3ec1619,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4811734941886651039, guid: 3d92178f4dbb07846b53913ec3ec1619,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4811734941886651039, guid: 3d92178f4dbb07846b53913ec3ec1619,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4811734941886651039, guid: 3d92178f4dbb07846b53913ec3ec1619,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4811734941886651039, guid: 3d92178f4dbb07846b53913ec3ec1619,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 4811734941886651039, guid: 3d92178f4dbb07846b53913ec3ec1619,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5948581876739531248, guid: 3d92178f4dbb07846b53913ec3ec1619,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -314,6 +349,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Center.z
       value: -0.0014829636
+      objectReference: {fileID: 0}
+    - target: {fileID: 7475370457616755288, guid: 3d92178f4dbb07846b53913ec3ec1619,
+        type: 3}
+      propertyPath: headerText
+      value: Uno Reverse Card DX
       objectReference: {fileID: 0}
     - target: {fileID: 8691502441570695373, guid: 3d92178f4dbb07846b53913ec3ec1619,
         type: 3}

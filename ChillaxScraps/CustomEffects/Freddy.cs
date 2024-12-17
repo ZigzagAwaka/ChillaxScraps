@@ -67,7 +67,7 @@ namespace ChillaxScraps.CustomEffects
         private IEnumerator StartBadThings()
         {
             yield return new WaitForEndOfFrame();
-            if (Random.Range(0, 10) <= 2)  // 30%
+            if (Random.Range(0, 10) <= 6)  // 70%
             {
                 bool freddyDoomTime = false;
                 InvisibilityServerRpc(true);
@@ -106,16 +106,10 @@ namespace ChillaxScraps.CustomEffects
                         yield break;
                     if (doom)
                     {
-                        int expl = -1;
-                        for (int i = 0; i < RoundManager.Instance.insideAINodes.Length; i++)
-                        {
-                            if (expl == 1)
-                            {
-                                BoomServerRpc(RoundManager.Instance.insideAINodes[i].transform.position);
-                                expl = -1;
-                            }
-                            else expl++;
-                        }
+                        var enemies = new SpawnableEnemyWithRarity[] { GetEnemies.BunkerSpider, GetEnemies.CoilHead, GetEnemies.Butler, GetEnemies.Nutcracker };
+                        var position = Effects.GetClosestAINodePosition(RoundManager.Instance.insideAINodes, transform.position);
+                        for (int i = 0; i < 5; i++)
+                            Effects.Spawn(enemies[Random.Range(0, 4)], position);
                         doom = false;
                     }
                 }
@@ -168,18 +162,6 @@ namespace ChillaxScraps.CustomEffects
         {
             if (music != null)
                 music.Stop();
-        }
-
-        [ServerRpc(RequireOwnership = false)]
-        private void BoomServerRpc(Vector3 position)
-        {
-            BoomClientRpc(position);
-        }
-
-        [ClientRpc]
-        private void BoomClientRpc(Vector3 position)
-        {
-            Landmine.SpawnExplosion(position, true, 1, 5, 50, 1);
         }
     }
 }

@@ -34,7 +34,7 @@ MonoBehaviour:
   requiresBattery: 0
   batteryUsage: 0
   automaticallySetUsingPower: 0
-  itemIcon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  itemIcon: {fileID: 21300000, guid: 88cd904dc91ce0e41a519ec3dabb9091, type: 3}
   grabAnim: 
   useAnim: 
   pocketAnim: 
@@ -51,7 +51,8 @@ MonoBehaviour:
   saveItemVariable: 0
   isDefensiveWeapon: 0
   toolTips:
-  - 'Swap position : [RMB]'
+  - 'Use the card : [RMB]'
+  - 'Inspect: [Z]'
   verticalOffset: 0
   floorYOffset: 90
   allowDroppingAheadOfPlayer: 1
@@ -62,4 +63,4 @@ MonoBehaviour:
   meshVariants: []
   materialVariants: []
   usableInSpecialAnimations: 0
-  canBeInspected: 0
+  canBeInspected: 1

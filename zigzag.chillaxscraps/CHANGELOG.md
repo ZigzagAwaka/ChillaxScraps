@@ -8,11 +8,13 @@
         - Is now a bit dangerous...
     - Uno Reverse Card DX
         - This item has been fully reworked
-        - Very fun effect, trust me 🤨
+        - You'll have to use it to see the new effect
+    - Death Note
+        - Unlucky effect will now be activated at 80% chance (previously it was 100%)
     - Nokia
         - Music audio can now be heard by monsters
     - Misc
-        - All new items have received some various fix (similarly to all previously imported scraps)
+        - Updated default spawn chance for some items
 
 # 1.4.0 New scraps
 - **Added**

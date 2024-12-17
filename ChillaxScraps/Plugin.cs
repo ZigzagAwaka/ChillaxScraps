@@ -52,6 +52,7 @@ namespace ChillaxScraps
                 case 10: script = item.spawnPrefab.AddComponent<DanceNote>(); break;
                 case 11: script = item.spawnPrefab.AddComponent<Nokia>(); SetupScript.Copy((WalkieTalkie)script, item); break;
                 case 12: script = item.spawnPrefab.AddComponent<Freddy>(); break;
+                case 13: script = item.spawnPrefab.AddComponent<UnoReverseDX>(); break;
                 default: return;
             }
             script.grabbable = true;
@@ -100,21 +101,22 @@ namespace ChillaxScraps
             }
 
             var scraps = new List<Scrap> {
-                new Scrap("DeathNote/DeathNoteItem.asset", 5, 1),
-                new Scrap("Boink/BoinkItem.asset", 12, 2),
+                new Scrap("DeathNote/DeathNoteItem.asset", 6, 1),
+                new Scrap("Boink/BoinkItem.asset", 11, 2),
                 new Scrap("Eevee/EeveeItem.asset", 10),
-                new Scrap("CupNoodle/CupNoodleItem.asset", 11, 3),
+                new Scrap("CupNoodle/CupNoodleItem.asset", 12, 3),
                 new Scrap("Moai/MoaiItem.asset", 9),
-                new Scrap("UnoReverseCard/UnoReverseCardItem.asset", 9, 4),
+                new Scrap("UnoReverseCard/UnoReverseCardItem.asset", 10, 4),
                 new Scrap("FroggyChair/FroggyChairItem.asset", 10),
                 new Scrap("EmergencyMeeting/EmergencyMeetingItem.asset", 6, 5),
                 new Scrap("SuperSneakers/SuperSneakersItem.asset", 10, 6),
-                new Scrap("MasterSword/MasterSwordItem.asset", 7, 7),
+                new Scrap("MasterSword/MasterSwordItem.asset", 8, 7),
                 new Scrap("Ocarina/OcarinaItem.asset", 10, 8),
-                new Scrap("TotemOfUndying/TotemOfUndyingItem.asset", 6, 9),
-                new Scrap("DanceNote/DanceNoteItem.asset", 5, 10),
-                new Scrap("Nokia/NokiaItem.asset", 13, 11),
-                new Scrap("FreddyFazbear/FreddyFazbearItem.asset", 9, 12)
+                new Scrap("TotemOfUndying/TotemOfUndyingItem.asset", 7, 9),
+                new Scrap("DanceNote/DanceNoteItem.asset", 6, 10),
+                new Scrap("Nokia/NokiaItem.asset", 14, 11),
+                new Scrap("FreddyFazbear/FreddyFazbearItem.asset", 8, 12),
+                new Scrap("UnoReverseCardDX/UnoReverseCardDXItem.asset", 7, 13)
             };
 
             int i = 0; config = new Config(base.Config, scraps);
