@@ -39,6 +39,8 @@ namespace ChillaxScraps.CustomEffects
                 musicClips = musicClips.Select(i => (i, rnd.Next()))
                     .OrderBy(tuple => tuple.Item2).Select(tuple => tuple.i).ToArray();
             }
+            else
+                SyncDanceNoteServerRpc();
         }
 
         public override void ItemActivate(bool used, bool buttonDown = true)
@@ -73,7 +75,7 @@ namespace ChillaxScraps.CustomEffects
         private void UpdateUsageClientRpc()
         {
             usage++;
-            if (usage == musicClips.Length)
+            if (usage >= musicClips.Length)
             {
                 canUseDeathNote = false;
                 SetControlTips();
@@ -119,6 +121,10 @@ namespace ChillaxScraps.CustomEffects
                     break;
                 if (!player.performingEmote)
                 {
+                    while (!player.grabbedObjectValidated)
+                    {
+                        yield return new WaitForEndOfFrame();
+                    }
                     KillInAreaDanceNoteServerRpc(player.playerClientId, player.transform.position);
                     break;
                 }
@@ -138,21 +144,27 @@ namespace ChillaxScraps.CustomEffects
         private void KillInAreaDanceNoteClientRpc(ulong playerId, Vector3 position)
         {
             var player = StartOfRound.Instance.allPlayerObjects[playerId].GetComponent<PlayerControllerB>();
-            StartCoroutine(WaitValidationThenBoom(player, position));
-        }
-
-        private IEnumerator WaitValidationThenBoom(PlayerControllerB player, Vector3 position)
-        {
-            while (!player.grabbedObjectValidated)
-            {
-                yield return new WaitForEndOfFrame();
-            }
             if (player.itemAudio.isPlaying)
                 player.itemAudio.Stop();
             if (glowObj != null)
                 Destroy(glowObj.gameObject);
             Instantiate(glowboomPrefab, position, Quaternion.identity);
             Landmine.SpawnExplosion(position + Vector3.up * 0.25f, false, 4.5f, 6f, 70, 5f);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void SyncDanceNoteServerRpc()
+        {
+            SyncDanceNoteClientRpc(danceActivated, usage);
+        }
+
+        [ClientRpc]
+        private void SyncDanceNoteClientRpc(bool danceFlag, int usageNb)
+        {
+            danceActivated = danceFlag;
+            usage = usageNb;
+            if (usage >= musicClips.Length)
+                canUseDeathNote = false;
         }
 
         [ServerRpc(RequireOwnership = false)]

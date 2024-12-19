@@ -114,7 +114,7 @@ namespace ChillaxScraps
                 new Scrap("Ocarina/OcarinaItem.asset", 10, 8),
                 new Scrap("TotemOfUndying/TotemOfUndyingItem.asset", 7, 9),
                 new Scrap("DanceNote/DanceNoteItem.asset", 6, 10),
-                new Scrap("Nokia/NokiaItem.asset", 14, 11),
+                new Scrap("Nokia/NokiaItem.asset", 12, 11),
                 new Scrap("FreddyFazbear/FreddyFazbearItem.asset", 8, 12),
                 new Scrap("UnoReverseCardDX/UnoReverseCardDXItem.asset", 7, 13)
             };

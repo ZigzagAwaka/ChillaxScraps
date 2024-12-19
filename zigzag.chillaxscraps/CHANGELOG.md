@@ -11,10 +11,15 @@
         - You'll have to use it to see the new effect
     - Death Note
         - Unlucky effect will now be activated at 80% chance (previously it was 100%)
+    - Super Sneakers
+        - Changed how the jump boost effect is calculated to avoid conflicts with other sources of jump boost effects (BetterStamina is sill not compatible)
     - Nokia
         - Music audio can now be heard by monsters
     - Misc
         - Updated default spawn chance for some items
+- **Fixed**
+    - Fixed Dance Note sometimes not killing non-dancing players
+    - Dance Note state is now synced for late join players
 
 # 1.4.0 New scraps
 - **Added**
@@ -105,8 +110,6 @@
 - **Fixed**
     - Fixed The Master Sword dropping all your items when you are unworthy
     - [A Glitched Npc](https://www.twitch.tv/a_glitched_npc) has reported that the Death Note UI is displayed for other players when the item is used by the host, I didn't find a way to replicate this issue but I still modified the code to hopefully fix it (but it's probably a mod incompatibility thing)
-- **Information**
-    - It appears that the jump boost effect given by Super Sneakers does not work when you have [BetterStamina](https://thunderstore.io/c/lethal-company/p/FlipMods/BetterStamina/) installed, I'm still searching a way to fix that
 
 # 1.2.0 Improvements
 - **Added**
@@ -180,7 +183,7 @@
         - Updated grab animation
         - Can spawn using one of the 4 new color variations (1 common, 2 rares and 1 ultra rare)
     - Uno Reverse Card
-        - Completly removed the red variant in the code (it was supposed to be already removed but was still spawning in game), in the future I will go back to this and rework this specific variant, but for now only the blue card can be found
+        - Completly removed the red variant in the code (it was supposed to be already removed but was still spawning in game)
         - Using it in orbit or if there is no players to swap with (if all other players are dead for example) will cancel the effect and display a message
         - Model and texture have been reworked
     - Froggy Chair

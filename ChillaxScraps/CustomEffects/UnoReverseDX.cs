@@ -1,4 +1,5 @@
 ﻿using ChillaxScraps.Utils;
+using GameNetcodeStuff;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -8,11 +9,19 @@ namespace ChillaxScraps.CustomEffects
     {
         public bool rechargeState = false;
         public bool canBeUsed = true;
+        public float rechargeTime = 0f;
+        public float timeNeededForRecharching = 0f;
         public readonly float rechargeTimeMin = 60;
         public readonly float rechargeTimeMax = 180;
-        public readonly float maxLight = 1.5f;
+        public readonly float maxLerp = 1f;
+        public readonly float maxEmissive = 9f;
+        public readonly float maxLightPower = 0.05f;
+        public readonly float maxHolographic = 1.5f;
+        public readonly float maxLightIntensity = 1.5f;
         public MeshRenderer? meshRenderer;
         public Light? light;
+        private readonly float smoothTime = 10f;
+        private float velocity0, velocity1, velocity2, velocity3, velocity4;
 
         public UnoReverseDX() { }
 
@@ -21,6 +30,8 @@ namespace ChillaxScraps.CustomEffects
             base.OnNetworkSpawn();
             meshRenderer = transform.GetChild(0).GetComponent<MeshRenderer>();
             light = transform.GetChild(2).GetComponent<Light>();
+            if (!IsHost && !IsServer)
+                SyncCardStateServerRpc(GameNetworkManager.Instance.localPlayerController.playerClientId);
         }
 
         public override void EquipItem()
@@ -75,8 +86,25 @@ namespace ChillaxScraps.CustomEffects
         public override void Update()
         {
             base.Update();
-
-
+            if (rechargeState && timeNeededForRecharching != 0f)
+            {
+                rechargeTime += Time.deltaTime;
+                if (rechargeTime >= timeNeededForRecharching && meshRenderer != null && light != null)
+                {
+                    UpdateCardClientRpc(false, rechargeState, timeNeededForRecharching,
+                        Mathf.SmoothDamp(meshRenderer.material.GetFloat("_TextureLerp"), maxLerp, ref velocity0, smoothTime),
+                        Mathf.SmoothDamp(meshRenderer.material.GetFloat("_EmissivePower"), maxEmissive, ref velocity1, smoothTime),
+                        Mathf.SmoothDamp(meshRenderer.material.GetFloat("_LightPower"), maxLightPower, ref velocity2, smoothTime),
+                        Mathf.SmoothDamp(meshRenderer.material.GetFloat("_HolographicPower"), maxHolographic, ref velocity3, smoothTime),
+                        Mathf.SmoothDamp(light.intensity, maxLightIntensity, ref velocity4, smoothTime));
+                    if (light.intensity + 0.1 >= maxLightIntensity)
+                    {
+                        UpdateCardClientRpc(true, false, 0f, maxLerp, maxEmissive, maxLightPower, maxHolographic, maxLightIntensity);
+                        velocity0 = 0f; velocity1 = 0f; velocity2 = 0f; velocity3 = 0f; velocity4 = 0f;
+                        rechargeTime = 0f;
+                    }
+                }
+            }
         }
 
         [ServerRpc(RequireOwnership = false)]
@@ -96,7 +124,7 @@ namespace ChillaxScraps.CustomEffects
                 bool exterior = !ship && !interior;
                 StartSwapClientRpc(position, ship, exterior, interior, clientParams);
             }
-            UpdateCardClientRpc(false, true, 0f, 0f);
+            UpdateCardClientRpc(false, true, Random.Range(rechargeTimeMin, rechargeTimeMax), 0f, 0f, 0f, 0f, 0f);
         }
 
         [ClientRpc]
@@ -108,13 +136,45 @@ namespace ChillaxScraps.CustomEffects
         }
 
         [ClientRpc]
-        private void UpdateCardClientRpc(bool usable, bool recharching, float lerpValue, float lightIntensity)
+        private void UpdateCardClientRpc(bool usable, bool recharching, float rechargeTimer, float lerpValue, float emissiveValue, float lightValue, float holographicValue, float lightIntensity)
         {
+            var originalUsable = canBeUsed;
             canBeUsed = usable;
             rechargeState = recharching;
-            meshRenderer?.material.SetFloat("_TextureLerp", lerpValue);
+            timeNeededForRecharching = rechargeTimer;
+            if (meshRenderer != null)
+            {
+                meshRenderer.material.SetFloat("_TextureLerp", lerpValue);
+                meshRenderer.material.SetFloat("_EmissivePower", emissiveValue);
+                meshRenderer.material.SetFloat("_LightPower", lightValue);
+                meshRenderer.material.SetFloat("_HolographicPower", holographicValue);
+            }
             if (light != null)
                 light.intensity = lightIntensity;
+            if (IsOwner && isHeld && !isPocketed && originalUsable != canBeUsed)
+                SetControlTips();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void SyncCardStateServerRpc(ulong playerId)
+        {
+            if (canBeUsed || meshRenderer == null || light == null)
+                return;
+            var player = StartOfRound.Instance.allPlayerObjects[playerId].GetComponent<PlayerControllerB>();
+            var clientRpcParams = new ClientRpcParams() { Send = new ClientRpcSendParams() { TargetClientIds = new[] { player.OwnerClientId } } };
+            SyncCardStateClientRpc(canBeUsed, rechargeState, timeNeededForRecharching, rechargeTime, meshRenderer.material.GetFloat("_TextureLerp"),
+                meshRenderer.material.GetFloat("_EmissivePower"), meshRenderer.material.GetFloat("_LightPower"), meshRenderer.material.GetFloat("_HolographicPower"),
+                light.intensity, velocity0, velocity1, velocity2, velocity3, velocity4, clientRpcParams);
+        }
+
+        [ClientRpc]
+        private void SyncCardStateClientRpc(bool usable, bool recharching, float rechargeTimer, float actualRechargeTime,
+            float lerpValue, float emissiveValue, float lightValue, float holographicValue, float lightIntensity,
+            float vel0, float vel1, float vel2, float vel3, float vel4, ClientRpcParams clientRpcParams = default)
+        {
+            rechargeTime = actualRechargeTime;
+            velocity0 = vel0; velocity1 = vel1; velocity2 = vel2; velocity3 = vel3; velocity4 = vel4;
+            UpdateCardClientRpc(usable, recharching, rechargeTimer, lerpValue, emissiveValue, lightValue, holographicValue, lightIntensity);
         }
 
         [ServerRpc(RequireOwnership = false)]

@@ -7,7 +7,7 @@ namespace ChillaxScraps.CustomEffects
     internal class SuperSneakers : PhysicsProp
     {
         public bool jumpBoostActivated = false;
-        private float originalJumpForce;
+        private readonly float jumpBoostValue = 10f;
 
         public SuperSneakers()
         {
@@ -58,8 +58,7 @@ namespace ChillaxScraps.CustomEffects
                 if (!jumpBoostActivated && insertedBattery != null && insertedBattery.charge > 0)
                 {
                     AudioServerRpc(6, playerHeldBy.transform.position, 1f, 0.75f);
-                    originalJumpForce = playerHeldBy.jumpForce;
-                    playerHeldBy.jumpForce *= 2f;
+                    playerHeldBy.jumpForce += jumpBoostValue;
                     jumpBoostActivated = true;
                     isBeingUsed = true;
                     if (!isPocketed)
@@ -68,7 +67,7 @@ namespace ChillaxScraps.CustomEffects
                 else if (jumpBoostActivated)
                 {
                     AudioServerRpc(7, playerHeldBy.transform.position, 1f, 0.75f);
-                    playerHeldBy.jumpForce = originalJumpForce;
+                    playerHeldBy.jumpForce -= jumpBoostValue;
                     jumpBoostActivated = false;
                     isBeingUsed = false;
                     if (!isPocketed)

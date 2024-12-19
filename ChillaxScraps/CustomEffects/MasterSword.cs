@@ -9,7 +9,7 @@ namespace ChillaxScraps.CustomEffects
         public bool heroIsSelected = false;
         public ulong heroSteamId = 0;
         private bool firstTimeGrab = false;
-        private float unworthyWeight = 3f;
+        private readonly float unworthyWeight = 3f;
 
         public MasterSword() { }
 
