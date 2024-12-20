@@ -26,6 +26,8 @@ Compatible with v64/v65/v66/v67/v68/v69 of Lethal Company.
 
 ![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-uno.PNG)
 
+*If you enjoy watching all your relationships crumble, you should definitely try the special DX version of the card if you happen to find it. What does this one do you ask? Try it for yourself and see how many of your friends decide to go to a therapist.*
+
 ### Totem of Undying
 - This totem made of strange squares has the power to cheat death when you hold it in your hands, but it can only do so once.
 - Beware to not fall into a pit with this in your hand, or else you're going to spend the rest of the day stuck at the bottom of it...!
@@ -55,6 +57,7 @@ Compatible with v64/v65/v66/v67/v68/v69 of Lethal Company.
 ### Noisy items
 - **Eevee** can be used to make some cute sounds!
 - **Nokia**, this ancient phone will play even more ancient tunes, and you have absolutely no clue as to how it is still working after all these centuries.
+- **Freddy Fazbear**, this strange bear can play some cute sounds when used... but he can get a bit quirky, and not just at night.
 
 ![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-noisy.PNG)
 

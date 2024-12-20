@@ -7,7 +7,7 @@
         - This item has been fully reworked
         - Is now a bit dangerous...
     - Uno Reverse Card DX
-        - This item has been fully reworked
+        - Very different from the og Red Uno Card
         - You'll have to use it to see the new effect
     - Death Note
         - Unlucky effect will now be activated at 80% chance (previously it was 100%)

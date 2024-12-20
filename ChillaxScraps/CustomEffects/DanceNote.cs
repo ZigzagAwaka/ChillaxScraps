@@ -149,7 +149,7 @@ namespace ChillaxScraps.CustomEffects
             if (glowObj != null)
                 Destroy(glowObj.gameObject);
             Instantiate(glowboomPrefab, position, Quaternion.identity);
-            Landmine.SpawnExplosion(position + Vector3.up * 0.25f, false, 4.5f, 6f, 70, 5f);
+            Landmine.SpawnExplosion(position + Vector3.up * 0.25f, false, 4.5f, 6f, 60, 5f);
         }
 
         [ServerRpc(RequireOwnership = false)]
