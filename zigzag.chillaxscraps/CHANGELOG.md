@@ -1,3 +1,7 @@
+## 1.5.1
+- **Updated**
+    - Made the uno cards collider 2 times bigger so it's easier to grab
+
 # 1.5.0 New scraps
 - **Added**
     - Imported from the original ChillaxScraps mod: Freddy Fazbear
