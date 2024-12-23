@@ -15,6 +15,7 @@ namespace ChillaxScraps.CustomEffects
         public AudioSource? music;
         public BoxCollider? scanNode;
         public BoxCollider? grabArea;
+        private int invisibilityChance = 70;
 
         public Freddy()
         {
@@ -24,11 +25,12 @@ namespace ChillaxScraps.CustomEffects
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-            maxUsage = Random.Range(0, 7);
-            audio = GetComponent<AudioSource>();
+            maxUsage = Random.Range(3, 8);
+            audio = transform.GetChild(3).GetComponent<AudioSource>();
             music = transform.GetChild(2).GetComponent<AudioSource>();
             scanNode = transform.GetChild(0).GetComponent<BoxCollider>();
             grabArea = transform.GetComponent<BoxCollider>();
+            invisibilityChance = Plugin.config.freddyInvisibilityChance.Value;
             if ((IsHost || IsServer) && transform.position.y < -80f)
             {
                 StartCoroutine(StartBadThings());
@@ -44,9 +46,11 @@ namespace ChillaxScraps.CustomEffects
         public override void ItemActivate(bool used, bool buttonDown = true)
         {
             base.ItemActivate(used, buttonDown);
+            if (audio == null || audio.isPlaying)
+                return;
             if (StartOfRound.Instance.inShipPhase || usage <= maxUsage)
             {
-                AudioServerRpc(48, 1f, 0);
+                AudioServerRpc(Random.Range(0, 10) <= 2 ? 50 : 48, 1f, 0);
                 usage++;
             }
             else if (playerHeldBy != null)
@@ -55,7 +59,7 @@ namespace ChillaxScraps.CustomEffects
                 AudioServerRpc(49, 1.5f, 0);
                 StartCoroutine(DamagePlayer(player, player.health <= 20 ? 100 : player.health - 10));
                 Effects.DropItem(player.transform.position);
-                maxUsage = Random.Range(0, 7);
+                maxUsage = Random.Range(3, 8);
                 usage = 0;
             }
         }
@@ -69,7 +73,7 @@ namespace ChillaxScraps.CustomEffects
         private IEnumerator StartBadThings()
         {
             yield return new WaitForEndOfFrame();
-            if (Random.Range(0, 10) <= 6)  // 70%
+            if (Random.Range(0, 100) <= invisibilityChance - 1)
             {
                 bool freddyDoomTime = false;
                 InvisibilityServerRpc(true);

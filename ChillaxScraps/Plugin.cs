@@ -87,7 +87,7 @@ namespace ChillaxScraps
                 "New_Wave_Bossa_Nova_by_The_Indigo-gos.wav", "MM_Warp.wav", "ChargeItem.ogg", "DeathNoteL.wav",
                 "DanceNoteBassPractice.wav", "DanceNote1-Ching.wav", "DanceNote2-Giorno.wav", "DanceNote3-Nyan.wav",
                 "DanceNote4-Spectre.wav", "DanceNote5-Gucci.wav", "DanceNote6-Heyyeya.wav", "nokia1.wav", "nokia2.wav",
-                "nokia1-far.wav", "nokia2-far.wav", "toy.wav", "at_door.wav"
+                "nokia1-far.wav", "nokia2-far.wav", "toy.wav", "at_door.wav", "Freddy_Fazbear.wav"
             };
 
             foreach (string prefab in prefabs)
