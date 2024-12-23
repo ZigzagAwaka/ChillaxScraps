@@ -1,3 +1,12 @@
+## 1.5.2
+- **Updated**
+    - Dance Note will now kill players performing the vanilla "point" emote (yeah, it's not a dance!)
+    - Added a config to change the Freddy Fazbear chance of starting the invisibility phase
+    - Restored the *meme sound* of the original mod as a sound variation played by Freddy Fazbear during the normal phase
+- **Fixed**
+    - Grab collider of Freddy Fazbear is now disabled during the invisibility phase
+    - Optimized all "get players" effects (now faster and works in LAN)
+
 ## 1.5.1
 - **Updated**
     - Made the uno cards collider 2 times bigger so it's easier to grab
@@ -40,6 +49,12 @@
         - Will now play the famous Death Note music theme when a player opens the book
     - Misc
         - All new items have received some various fix (similarly to all previously imported scraps)
+
+##
+
+<details><summary>Old versions (click to reveal)</summary>
+
+###
 
 ## 1.3.4
 - **Added**
@@ -86,12 +101,6 @@
 - **Fixed**
     - The Ocarina animation got a rework, hopefully it's working great now
     - Fixed Ocarina still playing audio if you cancel it by using the ship's terminal or when you place it in the ship's cupboard
-
-##
-
-<details><summary>Old versions (click to reveal)</summary>
-
-###
 
 ## 1.2.4
 - **Fixed**

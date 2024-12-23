@@ -137,7 +137,7 @@ You can post some suggestions or issues in the mod release page in the [modding 
 
 - Free 3D models used are licensed under Creative Commons Attribution, all credits goes to their respective creators. Support them if you like this mod!
 
-    - [pedrohmm123](https://sketchfab.com/3d-models/death-note-anime-book-fanart-970248251f124cddbfc2b4999c43b713)
-    - [SandWich34](https://sketchfab.com/3d-models/uno-reverse-card-e15ee883deb14fbe8a476cce325c2983)
-    - [sMoKi](https://sketchfab.com/3d-models/nokia-3310-lowpoly-bed87049026640a59f3f8b5844614253)
-    - [Slepskiy](https://sketchfab.com/3d-models/czy-to-freddy-fazbear-831f3531aef44c24817b58effff570f3)
+    - Death Note anime book fanart: [pedrohmm123](https://sketchfab.com/3d-models/death-note-anime-book-fanart-970248251f124cddbfc2b4999c43b713)
+    - Uno Reverse Card: [SandWich34](https://sketchfab.com/3d-models/uno-reverse-card-e15ee883deb14fbe8a476cce325c2983)
+    - Nokia 3310 LowPoly: [sMoKi](https://sketchfab.com/3d-models/nokia-3310-lowpoly-bed87049026640a59f3f8b5844614253)
+    - czy to freddy fazbear: [Slepskiy](https://sketchfab.com/3d-models/czy-to-freddy-fazbear-831f3531aef44c24817b58effff570f3)

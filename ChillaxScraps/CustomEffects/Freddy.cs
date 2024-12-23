@@ -14,6 +14,7 @@ namespace ChillaxScraps.CustomEffects
         public AudioSource? audio;
         public AudioSource? music;
         public BoxCollider? scanNode;
+        public BoxCollider? grabArea;
 
         public Freddy()
         {
@@ -27,6 +28,7 @@ namespace ChillaxScraps.CustomEffects
             audio = GetComponent<AudioSource>();
             music = transform.GetChild(2).GetComponent<AudioSource>();
             scanNode = transform.GetChild(0).GetComponent<BoxCollider>();
+            grabArea = transform.GetComponent<BoxCollider>();
             if ((IsHost || IsServer) && transform.position.y < -80f)
             {
                 StartCoroutine(StartBadThings());
@@ -143,6 +145,8 @@ namespace ChillaxScraps.CustomEffects
             EnableItemMeshes(visibleFlag);
             if (scanNode != null)
                 scanNode.enabled = visibleFlag;
+            if (grabArea != null)
+                grabArea.enabled = visibleFlag;
             grabbable = visibleFlag;
             grabbableToEnemies = visibleFlag;
         }

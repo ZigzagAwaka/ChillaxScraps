@@ -119,9 +119,9 @@ namespace ChillaxScraps.CustomEffects
             {
                 if (player == null || player.isPlayerDead || actualTime >= danceTime)
                     break;
-                if (!player.performingEmote)
+                if (!player.performingEmote || player.playerBodyAnimator.GetInteger("emoteNumber") == 2)
                 {
-                    while (!player.grabbedObjectValidated)
+                    while (player.isGrabbingObjectAnimation)
                     {
                         yield return new WaitForEndOfFrame();
                     }
