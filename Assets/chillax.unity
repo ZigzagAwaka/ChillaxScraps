@@ -744,6 +744,11 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 3497009357
       objectReference: {fileID: 0}
+    - target: {fileID: 4543485880435029340, guid: 588953f152ebb924e9ebefd1f195524c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ac76eb1842ba2524bbe1fbb943e01846, type: 2}
     - target: {fileID: 7567581914558865849, guid: 588953f152ebb924e9ebefd1f195524c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1571,6 +1576,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5778819908411960897, guid: 271157a4d37846e4dbe8886ff13b3e84,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778819908411960897, guid: 271157a4d37846e4dbe8886ff13b3e84,
+        type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].time
+      value: 0.28454307
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778819908411960897, guid: 271157a4d37846e4dbe8886ff13b3e84,
+        type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[0].value
+      value: 0.8658562
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778819908411960897, guid: 271157a4d37846e4dbe8886ff13b3e84,
+        type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].value
+      value: 0.7054695
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778819908411960897, guid: 271157a4d37846e4dbe8886ff13b3e84,
+        type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[4].value
+      value: 0.00894165
+      objectReference: {fileID: 0}
     - target: {fileID: 8274456591751211032, guid: 271157a4d37846e4dbe8886ff13b3e84,
         type: 3}
       propertyPath: m_Name
@@ -1580,11 +1610,6 @@ PrefabInstance:
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 903830322
-      objectReference: {fileID: 0}
-    - target: {fileID: 9091695467298112132, guid: 271157a4d37846e4dbe8886ff13b3e84,
-        type: 3}
-      propertyPath: MaxDistance
-      value: 35
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1609,6 +1634,11 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 119663193
       objectReference: {fileID: 0}
+    - target: {fileID: 1202200862953580812, guid: 4b6595bdab214944aadde2376b0e4117,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 80881b4c21bf73d4291a429488315e6e, type: 2}
     - target: {fileID: 6108087069025927207, guid: 4b6595bdab214944aadde2376b0e4117,
         type: 3}
       propertyPath: m_LocalPosition.x

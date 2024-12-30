@@ -20,7 +20,7 @@ namespace ChillaxScraps
     {
         const string GUID = "zigzag.chillaxscraps";
         const string NAME = "ChillaxScraps";
-        const string VERSION = "1.5.2";
+        const string VERSION = "1.5.3";
 
         public static Plugin instance;
         public static List<AudioClip> audioClips = new List<AudioClip>();
@@ -87,7 +87,7 @@ namespace ChillaxScraps
                 "New_Wave_Bossa_Nova_by_The_Indigo-gos.wav", "MM_Warp.wav", "ChargeItem.ogg", "DeathNoteL.wav",
                 "DanceNoteBassPractice.wav", "DanceNote1-Ching.wav", "DanceNote2-Giorno.wav", "DanceNote3-Nyan.wav",
                 "DanceNote4-Spectre.wav", "DanceNote5-Gucci.wav", "DanceNote6-Heyyeya.wav", "nokia1.wav", "nokia2.wav",
-                "nokia1-far.wav", "nokia2-far.wav", "toy.wav", "at_door.wav", "Freddy_Fazbear.wav"
+                "nokia1-far.wav", "nokia2-far.wav", "toy.wav", "at_door.wav", "Freddy_Fazbear.wav", "OOT_Song_Correct.wav"
             };
 
             foreach (string prefab in prefabs)

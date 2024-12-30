@@ -13,17 +13,32 @@ namespace ChillaxScraps.CustomEffects
         public bool isOpened = false;
         public bool canKillEnemies = true;
         public bool punishInOrbit = true;
+        public int usageOnServer = 0;
+        public int usageOnServerMax = 1;
+        public bool inRechargeMode = false;
+        public float rechargeTime = 0f;
+        public float timeNeededForRecharching = 0f;
+        public float rechargeTimeMin = 10;
+        public float rechargeTimeMax = 20;
         public int musicToPlayID = -1;
-        public AudioSource musicSource;
         public List<PlayerControllerB> playerList;
         public List<EnemyAI> enemyList;
         public DarkBookCanvas canvas;
         public GameObject canvasPrefab;
+        public AudioSource? musicSource;
+        public MeshRenderer? meshRenderer;
+        public ScanNodeProperties? scanNode;
+        private readonly float smoothTime = 5f;
+        private float velocity;
 
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
             musicSource = GetComponent<AudioSource>();
+            meshRenderer = transform.GetChild(0).GetComponent<MeshRenderer>();
+            scanNode = transform.GetChild(1).GetComponent<ScanNodeProperties>();
+            if (!IsHost && !IsServer)
+                SyncBookStateServerRpc();
         }
 
         public override void ItemActivate(bool used, bool buttonDown = true)
@@ -55,6 +70,7 @@ namespace ChillaxScraps.CustomEffects
                             Effects.Message("Wow...", "That's one way of wasting death's powers.", true);
                             canUseDeathNote = false;
                             SetControlTips();
+                            UsedServerRpc();
                         }
                     }
                 }
@@ -90,6 +106,39 @@ namespace ChillaxScraps.CustomEffects
         {
         }
 
+        public override void Update()
+        {
+            base.Update();
+            if (inRechargeMode && timeNeededForRecharching != 0f)
+            {
+                rechargeTime += Time.deltaTime;
+                if (rechargeTime >= timeNeededForRecharching && meshRenderer != null)
+                {
+                    meshRenderer.material.SetFloat("_TextureLerp",
+                        Mathf.SmoothDamp(meshRenderer.material.GetFloat("_TextureLerp"), 1f, ref velocity, smoothTime));
+                    if (meshRenderer.material.GetFloat("_TextureLerp") + 0.03 >= 1f)
+                    {
+                        ResetDeathNote();
+                    }
+                }
+            }
+        }
+
+        public virtual void ResetDeathNote()
+        {
+            inRechargeMode = false;
+            meshRenderer?.material.SetFloat("_TextureLerp", 1f);
+            if (scanNode != null)
+                scanNode.headerText = itemProperties.itemName;
+            velocity = 0f;
+            rechargeTime = 0f;
+            timeNeededForRecharching = 0f;
+            usageOnServer = 0;
+            canUseDeathNote = true;
+            if (IsOwner && isHeld && !isPocketed)
+                SetControlTips();
+        }
+
         public override void EquipItem()
         {
             SetControlTips();
@@ -112,9 +161,16 @@ namespace ChillaxScraps.CustomEffects
 
         public void SetControlTips()
         {
-            string[] allLines = (canUseDeathNote ? new string[1] { "Write a name : [RMB]" } : new string[1] { "" });
+            string[] allLines;
+            if (inRechargeMode)
+                allLines = new string[1] { "Recharging..." };
+            else if (canUseDeathNote)
+                allLines = new string[1] { "Write a name : [RMB]" };
+            else
+                allLines = new string[1] { "" };
             if (IsOwner)
             {
+                HUDManager.Instance.ClearControlTips();
                 HUDManager.Instance.ChangeControlTipMultiple(allLines, holdingItem: true, itemProperties);
             }
         }
@@ -171,6 +227,53 @@ namespace ChillaxScraps.CustomEffects
             audio.loop = false;
             audio.volume = 1f;
             audio.clip = null;
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        public void UsedServerRpc()
+        {
+            SpecialEventOnServerUsage();
+            usageOnServer++;
+            if (usageOnServer >= usageOnServerMax && !inRechargeMode)
+            {
+                StartRechargeClientRpc(Random.Range(rechargeTimeMin, rechargeTimeMax));
+            }
+        }
+
+        public virtual void SpecialEventOnServerUsage()
+        {
+        }
+
+        [ClientRpc]
+        public void StartRechargeClientRpc(float rechargeTimer)
+        {
+            if (scanNode != null)
+                scanNode.headerText = itemProperties.itemName + " (notebook)";
+            meshRenderer?.material.SetFloat("_TextureLerp", 0f);
+            canUseDeathNote = false;
+            inRechargeMode = true;
+            timeNeededForRecharching = rechargeTimer;
+            if (IsOwner && isHeld && !isPocketed)
+                SetControlTips();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        public void SyncBookStateServerRpc()
+        {
+            if (!inRechargeMode || meshRenderer == null)
+                return;
+            SyncBookStateClientRpc(timeNeededForRecharching, rechargeTime, meshRenderer.material.GetFloat("_TextureLerp"), velocity);
+        }
+
+        [ClientRpc]
+        public void SyncBookStateClientRpc(float rechargeTimer, float actualRechargeTime, float lerp, float vel)
+        {
+            rechargeTime = actualRechargeTime;
+            velocity = vel;
+            canUseDeathNote = false;
+            timeNeededForRecharching = rechargeTimer;
+            meshRenderer?.material.SetFloat("_TextureLerp", lerp);
+            inRechargeMode = true;
         }
     }
 }

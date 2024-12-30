@@ -1,5 +1,5 @@
 ﻿using ChillaxScraps.Utils;
-using GameNetcodeStuff;
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -25,13 +25,27 @@ namespace ChillaxScraps.CustomEffects
 
         public UnoReverseDX() { }
 
+        internal class SwapInfo
+        {
+            public Vector3 position;
+            public (bool, bool, bool) positionFlags;
+            public ClientRpcParams rpcParams;
+
+            public SwapInfo(Vector3 pos, bool ship, bool exterior, bool interior, ClientRpcParams client)
+            {
+                position = pos;
+                positionFlags = (ship, exterior, interior);
+                rpcParams = client;
+            }
+        }
+
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
             meshRenderer = transform.GetChild(0).GetComponent<MeshRenderer>();
             light = transform.GetChild(2).GetComponent<Light>();
             if (!IsHost && !IsServer)
-                SyncCardStateServerRpc(GameNetworkManager.Instance.localPlayerController.playerClientId);
+                SyncCardStateServerRpc();
         }
 
         public override void EquipItem()
@@ -59,6 +73,7 @@ namespace ChillaxScraps.CustomEffects
             string[] allLines = (canBeUsed ? new string[2] { "Use the card : [RMB]", "Inspect: [Z]" } : new string[2] { "Recharging...", "Inspect: [Z]" });
             if (IsOwner)
             {
+                HUDManager.Instance.ClearControlTips();
                 HUDManager.Instance.ChangeControlTipMultiple(allLines, holdingItem: true, itemProperties);
             }
         }
@@ -113,6 +128,7 @@ namespace ChillaxScraps.CustomEffects
             var playerList = Effects.GetPlayers();
             if (playerList.Count <= 1)
                 return;
+            var swapInfo = new List<SwapInfo>();
             for (var i = 0; i < playerList.Count; i++)
             {
                 var player = playerList[i];
@@ -122,8 +138,10 @@ namespace ChillaxScraps.CustomEffects
                 bool ship = destination.isInHangarShipRoom && destination.isInElevator;
                 bool interior = destination.isInsideFactory;
                 bool exterior = !ship && !interior;
-                StartSwapClientRpc(position, ship, exterior, interior, clientParams);
+                swapInfo.Add(new SwapInfo(position, ship, exterior, interior, clientParams));
             }
+            foreach (var swap in swapInfo)
+                StartSwapClientRpc(swap.position, swap.positionFlags.Item1, swap.positionFlags.Item2, swap.positionFlags.Item3, swap.rpcParams);
             UpdateCardClientRpc(false, true, Random.Range(rechargeTimeMin, rechargeTimeMax), 0f, 0f, 0f, 0f, 0f);
         }
 
@@ -156,21 +174,19 @@ namespace ChillaxScraps.CustomEffects
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void SyncCardStateServerRpc(ulong playerId)
+        private void SyncCardStateServerRpc()
         {
             if (canBeUsed || meshRenderer == null || light == null)
                 return;
-            var player = StartOfRound.Instance.allPlayerObjects[playerId].GetComponent<PlayerControllerB>();
-            var clientRpcParams = new ClientRpcParams() { Send = new ClientRpcSendParams() { TargetClientIds = new[] { player.OwnerClientId } } };
             SyncCardStateClientRpc(canBeUsed, rechargeState, timeNeededForRecharching, rechargeTime, meshRenderer.material.GetFloat("_TextureLerp"),
                 meshRenderer.material.GetFloat("_EmissivePower"), meshRenderer.material.GetFloat("_LightPower"), meshRenderer.material.GetFloat("_HolographicPower"),
-                light.intensity, velocity0, velocity1, velocity2, velocity3, velocity4, clientRpcParams);
+                light.intensity, velocity0, velocity1, velocity2, velocity3, velocity4);
         }
 
         [ClientRpc]
         private void SyncCardStateClientRpc(bool usable, bool recharching, float rechargeTimer, float actualRechargeTime,
             float lerpValue, float emissiveValue, float lightValue, float holographicValue, float lightIntensity,
-            float vel0, float vel1, float vel2, float vel3, float vel4, ClientRpcParams clientRpcParams = default)
+            float vel0, float vel1, float vel2, float vel3, float vel4)
         {
             rechargeTime = actualRechargeTime;
             velocity0 = vel0; velocity1 = vel1; velocity2 = vel2; velocity3 = vel3; velocity4 = vel4;

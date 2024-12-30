@@ -1,3 +1,13 @@
+## 1.5.3
+- **Updated**
+    - Dance Note will now play a small sound for the local player to know when the dance is over
+    - Death Note and Dance Note will now enter a recharge state after beeing used a certain amount of time: during this state the texture of the book will become gray and it's going to slowly turn back to normal over time, after that it can be used again
+    - Adjusted Freddy Fazbear audio music curve during the invisibility phase
+- **Fixed**
+    - Fixed Uno Reverse Card DX sometimes teleporting players at the wrong position
+    - Fixed a `NullReferenceException` for Uno Reverse Card DX when it's trying to sync the state of the card for late join players
+    - Fixed item tool tips sometimes overlaping with other tool tips
+
 ## 1.5.2
 - **Updated**
     - Dance Note will now kill players performing the vanilla "point" emote (yeah, it's not a dance!)

@@ -11,8 +11,36 @@ namespace ChillaxScraps.CustomEffects
         public DeathNote()
         {
             useCooldown = 2;
+            usageOnServerMax = 5;
+            rechargeTimeMin = 30;
+            rechargeTimeMax = 60;
             musicToPlayID = 36;
             canvasPrefab = Plugin.gameObjects[0];
+        }
+
+        private void ClampUsageOnServerMax()
+        {
+            var nb = Effects.NbOfPlayers();
+            if (nb < usageOnServerMax)
+                usageOnServerMax = nb;
+        }
+
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+            ClampUsageOnServerMax();
+        }
+
+        public override void ResetDeathNote()
+        {
+            base.ResetDeathNote();
+            ClampUsageOnServerMax();
+        }
+
+        public override void SpecialEventOnServerUsage()
+        {
+            base.SpecialEventOnServerUsage();
+            ClampUsageOnServerMax();
         }
 
         public override void ActivateDeathNote(GameObject objectToKill)
@@ -34,6 +62,7 @@ namespace ChillaxScraps.CustomEffects
             if (flag)
             {
                 canUseDeathNote = false;
+                UsedServerRpc();
                 SetControlTips();
             }
         }

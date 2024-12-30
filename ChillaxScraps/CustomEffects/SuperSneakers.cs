@@ -46,6 +46,7 @@ namespace ChillaxScraps.CustomEffects
             string[] allLines = ((!jumpBoostActivated) ? new string[1] { "Jump boost : [RMB]" } : new string[1] { "Deactivate : [RMB]" });
             if (IsOwner)
             {
+                HUDManager.Instance.ClearControlTips();
                 HUDManager.Instance.ChangeControlTipMultiple(allLines, holdingItem: true, itemProperties);
             }
         }

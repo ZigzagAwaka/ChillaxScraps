@@ -107,6 +107,7 @@ namespace ChillaxScraps.CustomEffects
                 new string[3] { "Play sound : [RMB]", "Select audio : [Q]", ocarinaSongs[selectedSongID].title });
             if (IsOwner)
             {
+                HUDManager.Instance.ClearControlTips();
                 HUDManager.Instance.ChangeControlTipMultiple(allLines, holdingItem: true, itemProperties);
             }
         }

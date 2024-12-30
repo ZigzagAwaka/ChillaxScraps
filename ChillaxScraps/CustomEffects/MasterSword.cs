@@ -51,6 +51,7 @@ namespace ChillaxScraps.CustomEffects
             string[] allLines = (IsUnworthy() ? new string[1] { "" } : new string[1] { "Swing sword : [RMB]" });
             if (IsOwner)
             {
+                HUDManager.Instance.ClearControlTips();
                 HUDManager.Instance.ChangeControlTipMultiple(allLines, holdingItem: true, itemProperties);
             }
         }

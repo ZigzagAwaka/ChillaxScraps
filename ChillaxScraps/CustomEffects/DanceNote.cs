@@ -1,4 +1,5 @@
-﻿using GameNetcodeStuff;
+﻿using ChillaxScraps.Utils;
+using GameNetcodeStuff;
 using System.Collections;
 using System.Linq;
 using Unity.Netcode;
@@ -23,6 +24,9 @@ namespace ChillaxScraps.CustomEffects
             useCooldown = 2;
             canKillEnemies = false;
             punishInOrbit = false;
+            usageOnServerMax = musicClips.Length;
+            rechargeTimeMin = 90;
+            rechargeTimeMax = 120;
             musicToPlayID = 37;
             canvasPrefab = Plugin.gameObjects[3];
             warningPrefab = Plugin.gameObjects[4];
@@ -30,17 +34,29 @@ namespace ChillaxScraps.CustomEffects
             glowboomPrefab = Plugin.gameObjects[6];
         }
 
+        private void ShuffleMusic()
+        {
+            var rnd = new System.Random();
+            musicClips = musicClips.Select(i => (i, rnd.Next()))
+                .OrderBy(tuple => tuple.Item2).Select(tuple => tuple.i).ToArray();
+        }
+
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
             if (IsHost || IsServer)
-            {
-                var rnd = new System.Random();
-                musicClips = musicClips.Select(i => (i, rnd.Next()))
-                    .OrderBy(tuple => tuple.Item2).Select(tuple => tuple.i).ToArray();
-            }
+                ShuffleMusic();
             else
                 SyncDanceNoteServerRpc();
+        }
+
+        public override void ResetDeathNote()
+        {
+            base.ResetDeathNote();
+            usage = 0;
+            danceActivated = false;
+            if (IsHost || IsServer)
+                ShuffleMusic();
         }
 
         public override void ItemActivate(bool used, bool buttonDown = true)
@@ -62,6 +78,7 @@ namespace ChillaxScraps.CustomEffects
             if (flag)
             {
                 UpdateUsageServerRpc();
+                UsedServerRpc();
             }
         }
 
@@ -128,6 +145,8 @@ namespace ChillaxScraps.CustomEffects
                     KillInAreaDanceNoteServerRpc(player.playerClientId, player.transform.position);
                     break;
                 }
+                if (actualTime + 0.1f >= danceTime)
+                    Effects.Audio(51, 0.8f);  // play success sfx
                 yield return new WaitForSeconds(0.1f);
                 actualTime += 0.1f;
             }
