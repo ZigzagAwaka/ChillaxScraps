@@ -78,7 +78,7 @@ namespace ChillaxScraps.CustomEffects
                 Condition.IsOutsideAtLeastOneBaboonSpawned => !player.isInsideFactory && Effects.IsPlayerNearObject<BaboonBirdAI>(player, out _, 1000f),
                 Condition.IsPlayerInShipSpeakerNotPlaying => player.isInElevator && player.isInHangarShipRoom && !StartOfRound.Instance.speakerAudioSource.isPlaying,
                 Condition.IsPlayerNotInShip => !player.isInElevator && !player.isInHangarShipRoom,
-                Condition.IsPlayerInAltitude => player.transform.position.y - StartOfRound.Instance.middleOfShipNode.position.y >= 20f,
+                Condition.IsPlayerInAltitude => player.transform.position.y - StartOfRound.Instance.middleOfShipNode.position.y >= 9.9f,
                 _ => false
             };
         }
@@ -145,10 +145,6 @@ namespace ChillaxScraps.CustomEffects
                 else
                     return false;
             }
-            else
-            {
-                ocarina.ChargeAllItemsServerRpc();
-            }
             return true;
         }
 
@@ -167,7 +163,7 @@ namespace ChillaxScraps.CustomEffects
             if (variationId == 0)
             {
                 if (Verif(Condition.IsTimeNight, player))
-                    ocarina.ChangeTimeServerRpc(TimeOfDay.Instance.currentDayTime - 120);
+                    ocarina.ChangeTimeServerRpc(-120);
                 else
                     return false;
             }

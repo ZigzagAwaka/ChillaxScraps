@@ -13,6 +13,8 @@ using UnityEngine;
 namespace ChillaxScraps
 {
     [BepInPlugin(GUID, NAME, VERSION)]
+    [BepInDependency("AudioKnight.StarlancerAIFix", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("ShipInventory", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("zigzag.premiumscraps", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("mrov.WeatherRegistry", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(CodeRebirth.MyPluginInfo.PLUGIN_GUID, BepInDependency.DependencyFlags.SoftDependency)]
@@ -20,7 +22,7 @@ namespace ChillaxScraps
     {
         const string GUID = "zigzag.chillaxscraps";
         const string NAME = "ChillaxScraps";
-        const string VERSION = "1.5.3";
+        const string VERSION = "1.5.4";
 
         public static Plugin instance;
         public static List<AudioClip> audioClips = new List<AudioClip>();
@@ -33,6 +35,8 @@ namespace ChillaxScraps
             harmony.CreateClassProcessor(typeof(GetEnemies), true).Patch();  // getenemies patch
             harmony.CreateClassProcessor(typeof(TotemItemPlayerControllerBPatch), true).Patch();  // totem patch
             harmony.CreateClassProcessor(typeof(EnemyAIPatch), true).Patch();  // ocarina enemyai patch
+            if (Chainloader.PluginInfos.ContainsKey("ShipInventory"))
+                ShipInventoryConditions.Setup(Chainloader.PluginInfos.GetValueOrDefault("ShipInventory").Metadata);  // setup conditions for shipinventory
         }
 
         void LoadItemBehaviour(Item item, int behaviourId)

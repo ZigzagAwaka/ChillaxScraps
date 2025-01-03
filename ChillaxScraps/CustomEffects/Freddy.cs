@@ -50,7 +50,10 @@ namespace ChillaxScraps.CustomEffects
                 return;
             if (StartOfRound.Instance.inShipPhase || usage <= maxUsage)
             {
-                AudioServerRpc(Random.Range(0, 10) <= 2 ? 50 : 48, 1f, 0);
+                if (playerHeldBy != null && Effects.IsUnlucky(playerHeldBy.playerSteamId) && Random.Range(0, 10) < 8)  // 80% unlucky effect
+                    TheUnluckyServerRpc(playerHeldBy.transform.position);
+                else
+                    AudioServerRpc(Random.Range(0, 10) <= 2 ? 50 : 48, 1f, 0);
                 usage++;
             }
             else if (playerHeldBy != null)
@@ -170,6 +173,14 @@ namespace ChillaxScraps.CustomEffects
         {
             if (music != null)
                 music.Stop();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void TheUnluckyServerRpc(Vector3 position)
+        {
+            Effects.Spawn(GetEnemies.Landmine, position);
+            for (int i = 0; i < 4; i++)
+                Effects.Spawn(GetEnemies.Turret, position, i * 90);
         }
     }
 }

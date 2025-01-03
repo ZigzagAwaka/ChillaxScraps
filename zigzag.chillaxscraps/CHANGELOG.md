@@ -1,3 +1,13 @@
+## 1.5.4
+- **Updated**
+    - Removed the charging batteries effect of Ocarina's Sun's Song
+    - Buffed Ocarina's Sun's Song clearing weather effect so it can now be used with 2 times less altitude
+    - Greatly increased stamina regeneration by Cup Noodle
+    - Freddy Fazbear and Super Sneakers got some *special* upgrades when used by unlucky players
+- **Fixed**
+    - Changed how time is calculated when reversing time with Ocarina's Song of Time, should fix some issues
+    - Added a custom condition for [ShipInventory](https://thunderstore.io/c/lethal-company/p/WarperSan/ShipInventory/) to prevent certain items from being stored
+
 ## 1.5.3
 - **Updated**
     - Dance Note will now play a small sound for the local player to know when the dance is over
@@ -44,6 +54,12 @@
     - Fixed Dance Note sometimes not killing non-dancing players
     - Dance Note state is now synced for late join players
 
+##
+
+<details><summary>Old versions (click to reveal)</summary>
+
+###
+
 # 1.4.0 New scraps
 - **Added**
     - Imported from the original ChillaxScraps mod: Dance Note and Nokia
@@ -59,12 +75,6 @@
         - Will now play the famous Death Note music theme when a player opens the book
     - Misc
         - All new items have received some various fix (similarly to all previously imported scraps)
-
-##
-
-<details><summary>Old versions (click to reveal)</summary>
-
-###
 
 ## 1.3.4
 - **Added**

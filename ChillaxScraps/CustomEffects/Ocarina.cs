@@ -36,7 +36,7 @@ namespace ChillaxScraps.CustomEffects
             new OcarinaSong("", new Color(0, 0, 0), null, 0, Condition.Invalid),
             new OcarinaSong("Zelda's Lullaby", new Color(0.87f, 0.36f, 1f), OcarinaSong.ZeldaLullaby, 2, Condition.IsPlayerFacingDoor, Condition.IsTimeAfternoon),
             new OcarinaSong("Epona's Song", new Color(0.94f, 0.44f, 0.01f), OcarinaSong.EponaSong, 2, Condition.IsPlayerOutsideFactory),
-            new OcarinaSong("Sun's Song", new Color(1f, 0.92f, 0.1f), OcarinaSong.SunSong, 1, Condition.IsPlayerInAltitude, Condition.None),
+            new OcarinaSong("Sun's Song", new Color(1f, 0.92f, 0.1f), OcarinaSong.SunSong, 1, Condition.IsPlayerInAltitude),
             new OcarinaSong("Saria's Song", new Color(0.11f, 0.98f, 0.17f), OcarinaSong.SariaSong, 2, Condition.None),
             new OcarinaSong("Song of Time", new Color(0.18f, 0.76f, 1f), OcarinaSong.SongOfTime, 1, Condition.IsTimeNight),
             new OcarinaSong("Song of Storms", new Color(0.87f, 0.76f, 0.42f), OcarinaSong.SongOfStorms, 2, Condition.IsOutsideWeatherNotStormy, Condition.IsOutsideWeatherStormy),
@@ -478,18 +478,19 @@ namespace ChillaxScraps.CustomEffects
         }
 
         [ServerRpc(RequireOwnership = false)]
-        public void ChangeTimeServerRpc(float time)
+        public void ChangeTimeServerRpc(float timeCalculation)
         {
-            ChangeTimeClientRpc(time);
+            ChangeTimeClientRpc(timeCalculation);
         }
 
         [ClientRpc]
-        private void ChangeTimeClientRpc(float time)
+        private void ChangeTimeClientRpc(float timeCalculation)
         {
             if (RoundManager.Instance.currentLevel.planetHasTime)
             {
-                TimeOfDay.Instance.globalTime = time;
-                TimeOfDay.Instance.currentDayTime = time;
+                TimeOfDay.Instance.globalTime += timeCalculation;
+                TimeOfDay.Instance.currentDayTime += timeCalculation;
+                TimeOfDay.Instance.timeUntilDeadline -= timeCalculation;
             }
         }
 
@@ -536,7 +537,7 @@ namespace ChillaxScraps.CustomEffects
                 HUDManager.Instance.UpdateHealthUI(player.health, false);
         }
 
-        [ServerRpc(RequireOwnership = false)]
+        /*[ServerRpc(RequireOwnership = false)]
         public void ChargeAllItemsServerRpc()
         {
             ChargeAllItemsClientRpc();
@@ -559,7 +560,7 @@ namespace ChillaxScraps.CustomEffects
                     }
                 }
             }
-        }
+        }*/
 
         [ServerRpc(RequireOwnership = false)]
         private void SetPosFlagsServerRpc(ulong playerID, bool ship, bool exterior, bool interior)

@@ -9,7 +9,7 @@ namespace ChillaxScraps.CustomEffects
     internal class Food : PhysicsProp
     {
         public int healPower = 50;
-        public float staminaPower = 0.5f;
+        public float staminaPower = 0.8f;
         public Vector3 originalPosition = new Vector3(-0.1f, 0.1f, -0.1f);
         public Vector3 originalRotation = new Vector3(90, 0, -90);
 

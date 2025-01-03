@@ -7,7 +7,9 @@ namespace ChillaxScraps.CustomEffects
     internal class SuperSneakers : PhysicsProp
     {
         public bool jumpBoostActivated = false;
-        private readonly float jumpBoostValue = 10f;
+        public float jumpBoostValue = 10f;
+        private readonly float jumpBoostNormal = 10f;
+        private readonly float jumpBoostUnlucky = 100f;
 
         public SuperSneakers()
         {
@@ -34,6 +36,10 @@ namespace ChillaxScraps.CustomEffects
                     RoundManager.Instance.valueOfFoundScrapItems += scrapValue;
                 }
             }
+            if (playerHeldBy != null && Effects.IsUnlucky(playerHeldBy.playerSteamId) && Random.Range(0, 10) < 7)  // change jump boost if unlucky
+                jumpBoostValue = jumpBoostUnlucky;
+            else
+                jumpBoostValue = jumpBoostNormal;
         }
 
         public override void SetControlTipsForItem()
