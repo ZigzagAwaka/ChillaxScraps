@@ -11,6 +11,7 @@ namespace ChillaxScraps.CustomEffects
         public DeathNote()
         {
             useCooldown = 2;
+            canRechargeInOrbit = Plugin.config.deathnoteRechargeOrbit.Value;
             usageOnServerMax = 5;
             rechargeTimeMin = 30;
             rechargeTimeMax = 60;
@@ -21,7 +22,7 @@ namespace ChillaxScraps.CustomEffects
         private void ClampUsageOnServerMax()
         {
             var nb = Effects.NbOfPlayers();
-            if (nb < usageOnServerMax)
+            if (nb < usageOnServerMax || nb <= 5)
                 usageOnServerMax = nb;
         }
 

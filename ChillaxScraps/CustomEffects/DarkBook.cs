@@ -13,6 +13,8 @@ namespace ChillaxScraps.CustomEffects
         public bool isOpened = false;
         public bool canKillEnemies = true;
         public bool punishInOrbit = true;
+        public bool canRechargeInOrbit = false;
+        public bool rechargeOrbitReady = false;
         public int usageOnServer = 0;
         public int usageOnServerMax = 1;
         public bool inRechargeMode = false;
@@ -122,6 +124,14 @@ namespace ChillaxScraps.CustomEffects
                     }
                 }
             }
+            else if ((IsHost || IsServer) && canRechargeInOrbit && !inRechargeMode && rechargeOrbitReady && StartOfRound.Instance.inShipPhase)
+            {
+                rechargeOrbitReady = false;
+                usageOnServer = 100;
+                UsedServerRpc();
+            }
+            else if ((IsHost || IsServer) && canRechargeInOrbit && !rechargeOrbitReady && !StartOfRound.Instance.inShipPhase)
+                rechargeOrbitReady = true;
         }
 
         public virtual void ResetDeathNote()
@@ -273,6 +283,8 @@ namespace ChillaxScraps.CustomEffects
             canUseDeathNote = false;
             timeNeededForRecharching = rechargeTimer;
             meshRenderer?.material.SetFloat("_TextureLerp", lerp);
+            if (scanNode != null)
+                scanNode.headerText = itemProperties.itemName + " (notebook)";
             inRechargeMode = true;
         }
     }

@@ -1,3 +1,10 @@
+## 1.5.5
+- **Updated**
+    - Added a config to allow Death Note to automatically enter the recharge state when in orbit
+- **Fixed**
+    - Fixed Death Note sometimes starting the recharge state when it's not supposed to
+    - Fixed Death Note scan node text not displaying correctly when in recharge state for late join players
+
 ## 1.5.4
 - **Updated**
     - Removed the charging batteries effect of Ocarina's Sun's Song

@@ -13,6 +13,7 @@ namespace ChillaxScraps
         public readonly List<(int, int)> scrapValues = new List<(int, int)>();
         public readonly ConfigEntry<int> masterSwordDmg;
         public readonly ConfigEntry<bool> evilBoink;
+        public readonly ConfigEntry<bool> deathnoteRechargeOrbit;
         public readonly ConfigEntry<int> freddyInvisibilityChance;
         public readonly ConfigEntry<bool> ocarinaUniqueSongs;
         public readonly ConfigEntry<bool> ocarinaRestrictUsage;
@@ -24,6 +25,7 @@ namespace ChillaxScraps
             cfg.SaveOnConfigSet = false;
             masterSwordDmg = cfg.Bind("Items", "Master Sword damage", 4, "Only the chosen hero can grab this sword, so it's supposed to be strong.");
             evilBoink = cfg.Bind("Items", "Evil Boink", false, "Activate this to turn Boink into an evil bird, can have negative consequences.");
+            deathnoteRechargeOrbit = cfg.Bind("Items", "Death Note recharge in orbit", false, "Allows the Death Note to automatically enter the recharge state when in orbit, if it's not already recharging.");
             freddyInvisibilityChance = cfg.Bind("Items", "Freddy bad effect chance", 70, new ConfigDescription("Chance in % of Freddy Fazbear starting the invisibility phase when spawning inside the facility (do some bad things).", new AcceptableValueRange<int>(0, 100)));
             ocarinaUniqueSongs = cfg.Bind("Items", "Ocarina unique songs", false, "Activate this if you want every connected player to have a randomly selected Ocarina song assigned to them.");
             ocarinaRestrictUsage = cfg.Bind("Items", "Ocarina restrict usage", true, "Restrict the usage of Ocarina songs effects to 1, 2 or more times per moons. Setting this to false allows infinite usage of the songs effects but it's recommanded to not change this as it will be unbalanced.");
