@@ -25,7 +25,7 @@ namespace ChillaxScraps.CustomEffects
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-            maxUsage = Random.Range(3, 8);
+            maxUsage = Random.Range(3, 6);
             audio = transform.GetChild(3).GetComponent<AudioSource>();
             music = transform.GetChild(2).GetComponent<AudioSource>();
             scanNode = transform.GetChild(0).GetComponent<BoxCollider>();
@@ -50,8 +50,8 @@ namespace ChillaxScraps.CustomEffects
                 return;
             if (StartOfRound.Instance.inShipPhase || usage <= maxUsage)
             {
-                if (playerHeldBy != null && Effects.IsUnlucky(playerHeldBy.playerSteamId) && Random.Range(0, 10) < 8)  // 80% unlucky effect
-                    TheUnluckyServerRpc(playerHeldBy.transform.position);
+                if (playerHeldBy != null && Effects.IsUnlucky(playerHeldBy.playerSteamId) && Random.Range(0, 10) < 8 && !StartOfRound.Instance.inShipPhase)
+                    TheUnluckyServerRpc(playerHeldBy.transform.position);  // 80% unlucky effect
                 else
                     AudioServerRpc(Random.Range(0, 10) <= 2 ? 50 : 48, 1f, 0);
                 usage++;

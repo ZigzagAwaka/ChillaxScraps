@@ -1,3 +1,10 @@
+## 1.5.6
+- **Updated**
+    - Reduced Dance Note dance time just a little bit
+    - Reduced Dance Note explosion range just a little bit
+- **Fixed**
+    - Removed Freddy Fazbear special unlucky effect when in orbit
+
 ## 1.5.5
 - **Updated**
     - Added a config to allow Death Note to automatically enter the recharge state when in orbit

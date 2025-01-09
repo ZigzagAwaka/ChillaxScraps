@@ -88,7 +88,7 @@ Each item has a low/medium spawn chance on all moons, you will not find them eas
 ### Feedback
 You can post some suggestions or issues in the mod release page in the [modding discord](https://discord.com/invite/lcmod) or as a [github](https://github.com/ZigzagAwaka/ChillaxScraps) issue.
 
-### ToDo
+### Infos
 - This updated Chillax Scraps mod is now complete. But I may add new items in the future.
 - Rubber Ducks scraps will be imported in a separate mod.
 

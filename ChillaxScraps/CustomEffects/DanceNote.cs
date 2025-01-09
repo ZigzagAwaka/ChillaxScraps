@@ -11,7 +11,7 @@ namespace ChillaxScraps.CustomEffects
     {
         public bool danceActivated = false;
         public float transitionTime = 3.5f;
-        public float danceTime = 6.5f;
+        public float danceTime = 6f;
         public int usage = 0;
         public readonly GameObject warningPrefab;
         public readonly GameObject glowPrefab;
@@ -116,7 +116,7 @@ namespace ChillaxScraps.CustomEffects
                 player.itemAudio.Stop();
             player.itemAudio.PlayOneShot(Plugin.audioClips[realMusicID], 1.2f);
             glowObj = Instantiate(glowPrefab, player.transform.position + Vector3.up, Quaternion.identity, player.transform);
-            Destroy(glowObj.gameObject, transitionTime + danceTime);
+            Destroy(glowObj.gameObject, transitionTime + danceTime + 0.1f);
         }
 
         [ClientRpc]
@@ -168,7 +168,7 @@ namespace ChillaxScraps.CustomEffects
             if (glowObj != null)
                 Destroy(glowObj.gameObject);
             Instantiate(glowboomPrefab, position, Quaternion.identity);
-            Landmine.SpawnExplosion(position + Vector3.up * 0.25f, false, 4.5f, 6f, 60, 5f);
+            Landmine.SpawnExplosion(position + Vector3.up * 0.25f, false, 3f, 6f, 60, 5f);
         }
 
         [ServerRpc(RequireOwnership = false)]
