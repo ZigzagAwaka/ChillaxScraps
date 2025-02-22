@@ -9,6 +9,9 @@ namespace ChillaxScraps.CustomEffects
         public bool heroIsSelected = false;
         public ulong heroSteamId = 0;
         private bool firstTimeGrab = false;
+        private bool checkedDeadHero = false;
+        private ulong heroPlayerIdOnServer = 0;
+        private readonly int chanceForRejectingDeadHero = 40;
         private readonly float unworthyWeight = 3f;
 
         public MasterSword() { }
@@ -24,6 +27,36 @@ namespace ChillaxScraps.CustomEffects
             shovelHitForce = Plugin.config.masterSwordDmg.Value;
             if (!heroIsSelected)
                 SelectHeroServerRpc();
+        }
+
+        public override void Update()
+        {
+            base.Update();
+            if (GameNetworkManager.Instance == null)
+                return;
+            if (heroIsSelected && !checkedDeadHero)
+            {
+                var player = GameNetworkManager.Instance.localPlayerController;
+                if (player == null || IsUnworthy())
+                    return;
+                if (player.isPlayerDead && Random.Range(0, 100) <= chanceForRejectingDeadHero)
+                {
+                    checkedDeadHero = true;
+                    heroIsSelected = false;
+                    ResetHeroServerRpc();
+                }
+            }
+            if (StartOfRound.Instance.inShipPhase)
+                checkedDeadHero = false;
+            if (IsServer && heroIsSelected)
+            {
+                var player = StartOfRound.Instance.allPlayerScripts[heroPlayerIdOnServer];
+                if (player == null || !player.IsSpawned || !player.isPlayerControlled || player.disconnectedMidGame)
+                {
+                    heroIsSelected = false;
+                    ResetHeroServerRpc();
+                }
+            }
         }
 
         public override void EquipItem()
@@ -93,6 +126,13 @@ namespace ChillaxScraps.CustomEffects
         }
 
         [ServerRpc(RequireOwnership = false)]
+        private void ResetHeroServerRpc()
+        {
+            heroIsSelected = false;
+            SelectHeroServerRpc();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
         private void SelectHeroServerRpc()
         {
             if (!heroIsSelected)
@@ -100,6 +140,7 @@ namespace ChillaxScraps.CustomEffects
                 var playersList = Effects.GetPlayers(includeDead: true);
                 if (playersList.Count == 0) return;
                 var hero = playersList[Random.Range(0, playersList.Count)];
+                heroPlayerIdOnServer = hero.playerClientId;
                 SelectHeroClientRpc(hero.playerSteamId);
             }
             else

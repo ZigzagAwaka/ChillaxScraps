@@ -182,7 +182,7 @@ namespace ChillaxScraps.CustomEffects
         {
             danceActivated = danceFlag;
             usage = usageNb;
-            if (usage >= musicClips.Length)
+            if (usage >= usageOnServerMax)
                 canUseDeathNote = false;
         }
 

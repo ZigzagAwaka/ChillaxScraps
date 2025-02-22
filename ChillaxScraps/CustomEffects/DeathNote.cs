@@ -8,19 +8,25 @@ namespace ChillaxScraps.CustomEffects
 {
     internal class DeathNote : DarkBook
     {
+        public bool noLimit;
+
         public DeathNote()
         {
             useCooldown = 2;
             canRechargeInOrbit = Plugin.config.deathnoteRechargeOrbit.Value;
-            usageOnServerMax = 5;
-            rechargeTimeMin = 30;
-            rechargeTimeMax = 60;
+            noLimit = Plugin.config.deathnoteNoLimit.Value;
+            punishInOrbit = !noLimit;
+            usageOnServerMax = noLimit ? 3 : 5;
+            rechargeTimeMin = noLimit ? 120 : 30;
+            rechargeTimeMax = noLimit ? 130 : 60;
             musicToPlayID = 36;
             canvasPrefab = Plugin.gameObjects[0];
         }
 
         private void ClampUsageOnServerMax()
         {
+            if (noLimit)
+                return;
             var nb = Effects.NbOfPlayers();
             if (nb < usageOnServerMax || nb <= 5)
                 usageOnServerMax = nb;
@@ -62,7 +68,8 @@ namespace ChillaxScraps.CustomEffects
                 flag = false;
             if (flag)
             {
-                canUseDeathNote = false;
+                if (!noLimit)
+                    canUseDeathNote = false;
                 UsedServerRpc();
                 SetControlTips();
             }
@@ -71,15 +78,14 @@ namespace ChillaxScraps.CustomEffects
         [ServerRpc(RequireOwnership = false)]
         private void KillPlayerDeathNoteServerRpc(ulong playerId, ulong clientId)
         {
-            var player = StartOfRound.Instance.allPlayerObjects[playerId].GetComponent<PlayerControllerB>();
             var clientRpcParams = new ClientRpcParams() { Send = new ClientRpcSendParams() { TargetClientIds = new[] { clientId } } };
-            KillPlayerDeathNoteClientRpc(player.playerClientId, clientRpcParams);
+            KillPlayerDeathNoteClientRpc(playerId, clientRpcParams);
         }
 
         [ClientRpc]
         private void KillPlayerDeathNoteClientRpc(ulong playerId, ClientRpcParams clientRpcParams = default)
         {
-            var player = StartOfRound.Instance.allPlayerObjects[playerId].GetComponent<PlayerControllerB>();
+            var player = StartOfRound.Instance.allPlayerScripts[playerId];
             StartCoroutine(DeathNoteKill(player));
         }
 

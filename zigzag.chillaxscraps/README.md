@@ -14,11 +14,15 @@ Compatible with v64/v65/v66/v67/v68/v69 of Lethal Company.
 
 ![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-deathnote.PNG)
 
+- *The Death Note behaviour can be configured in the config file.*
+
 ### Ocarina
 - This instrument will play emblematic tunes from Zelda !
 - Playing this instrument might activate a special effect like opening a locked door, teleporting you somewhere, calling "Epona"...
 
 ![Preview](https://raw.githubusercontent.com/ZigzagAwaka/ChillaxScraps/main/Images/chillaxscraps-ocarina.png)
+
+- *For a list of all songs effects (spoiler warning!): [click here](https://docs.google.com/spreadsheets/d/1SQ838HnpXKaiC1NUTi1dbDs0yOdbif-me_sHjmWocwY/edit?usp=sharing)*
 
 ### Uno Reverse Card
 - The thing that turns your friends into your haters, can swap your position with that of a random player.

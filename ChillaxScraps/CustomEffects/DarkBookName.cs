@@ -26,7 +26,7 @@ namespace ChillaxScraps.CustomEffects
             }
             else if (objectToKill.transform.TryGetComponent(out EnemyAI enemy))
             {
-                nameText.text = enemy.enemyType.ToString();
+                nameText.text = enemy.enemyType.enemyName;
             }
 
             killButton.onClick.AddListener(Kill);

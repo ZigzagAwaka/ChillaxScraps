@@ -1,3 +1,10 @@
+## 1.5.7
+- **Updated**
+    - Death Note will now display enemies names instead of enemy types names
+    - Added a config `Death Note no limit` that removes the 'one use per players' condition for the Death Note, false by default. This mode allows the Death Note to be used 3 times max before starting the recharge phase
+    - The Master Sword will now select a new hero when the actual hero disconnects from the game
+    - The Master Sword now has 40% chance of selecting a new hero when the actual hero is dead (if this chance does not hit, then the actual hero will be able to use the sword again on the next moon)
+
 ## 1.5.6
 - **Updated**
     - Reduced Dance Note dance time just a little bit
