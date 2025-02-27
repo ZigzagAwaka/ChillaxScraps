@@ -90,18 +90,23 @@ namespace ChillaxScraps.CustomEffects
                 StopMusicServerRpc();
         }
 
-        public override void PocketItem()
-        {
-            base.PocketItem();
-            if (canvas != null)
-                canvas.Close();
-        }
-
         public override void DiscardItem()
         {
             if (canvas != null)
                 canvas.Close();
             base.DiscardItem();
+        }
+
+        public static bool PreventPocket(PlayerControllerB player)  // used by harmony patch
+        {
+            if (player != null && !player.isPlayerDead && player.currentlyHeldObjectServer != null)
+            {
+                var heldObject = player.currentlyHeldObjectServer;
+                if ((heldObject.itemProperties.name == "DeathNoteItem" || heldObject.itemProperties.name == "DanceNoteItem")
+                    && heldObject is DarkBook darkBook && darkBook.isOpened)
+                    return false;
+            }
+            return true;
         }
 
         public virtual void ActivateDeathNote(GameObject objectToKill)

@@ -16,13 +16,14 @@ namespace ChillaxScraps
     [BepInDependency("AudioKnight.StarlancerAIFix", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("ShipInventory", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("zigzag.premiumscraps", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("zigzag.SelfSortingStorage", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("mrov.WeatherRegistry", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(CodeRebirth.MyPluginInfo.PLUGIN_GUID, BepInDependency.DependencyFlags.SoftDependency)]
     public class Plugin : BaseUnityPlugin
     {
         const string GUID = "zigzag.chillaxscraps";
         const string NAME = "ChillaxScraps";
-        const string VERSION = "1.5.7";
+        const string VERSION = "1.5.8";
 
         public static Plugin instance;
         public static List<AudioClip> audioClips = new List<AudioClip>();
@@ -33,10 +34,12 @@ namespace ChillaxScraps
         void HarmonyPatchAll()
         {
             harmony.CreateClassProcessor(typeof(GetEnemies), true).Patch();  // getenemies patch
-            harmony.CreateClassProcessor(typeof(TotemItemPlayerControllerBPatch), true).Patch();  // totem patch
+            harmony.CreateClassProcessor(typeof(ChillaxPlayerControllerBPatch), true).Patch();  // totem and darkbook patches
             harmony.CreateClassProcessor(typeof(EnemyAIPatch), true).Patch();  // ocarina enemyai patch
             if (Chainloader.PluginInfos.ContainsKey("ShipInventory"))
                 ShipInventoryConditions.Setup(Chainloader.PluginInfos.GetValueOrDefault("ShipInventory").Metadata);  // setup conditions for shipinventory
+            if (Chainloader.PluginInfos.ContainsKey("zigzag.SelfSortingStorage"))
+                SSSConditions.Setup(Chainloader.PluginInfos.GetValueOrDefault("zigzag.SelfSortingStorage").Metadata);  // setup conditions for SSS
         }
 
         void LoadItemBehaviour(Item item, int behaviourId)

@@ -9,7 +9,7 @@ namespace ChillaxScraps.CustomEffects
         public bool jumpBoostActivated = false;
         public float jumpBoostValue = 10f;
         private readonly float jumpBoostNormal = 10f;
-        private readonly float jumpBoostUnlucky = 100f;
+        private readonly float jumpBoostUnlucky = 80f;
 
         public SuperSneakers()
         {

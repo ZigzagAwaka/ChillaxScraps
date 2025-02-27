@@ -5,7 +5,7 @@ using UnityEngine;
 namespace ChillaxScraps.Utils
 {
     [HarmonyPatch(typeof(PlayerControllerB))]
-    internal class TotemItemPlayerControllerBPatch
+    internal class ChillaxPlayerControllerBPatch
     {
         [HarmonyPrefix]
         [HarmonyPatch("DamagePlayer")]
@@ -35,6 +35,13 @@ namespace ChillaxScraps.Utils
         public static void KillPlayerTotemPostPatch(PlayerControllerB __instance)
         {
             CustomEffects.TotemOfUndying.TryDestroyItem(__instance);
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch("ScrollMouse_performed")]
+        public static bool ScrollMouse_performedDarkBookPatch(PlayerControllerB __instance)
+        {
+            return CustomEffects.DarkBook.PreventPocket(__instance);
         }
     }
 

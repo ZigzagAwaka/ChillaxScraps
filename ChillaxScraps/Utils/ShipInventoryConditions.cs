@@ -14,7 +14,7 @@ namespace ChillaxScraps.Utils
             }
         }
 
-        private static bool ChillaxScrapsCondition(PlayerControllerB player)
+        public static bool ChillaxScrapsCondition(PlayerControllerB player)
         {
             var item = player.currentlyHeldObjectServer;
             if (((item.itemProperties.name == "DeathNoteItem" || item.itemProperties.name == "DanceNoteItem") && item is DarkBook) ||

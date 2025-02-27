@@ -1,3 +1,9 @@
+## 1.5.8
+- **Updated**
+    - Added a custom condition for [SelfSortingStorage](https://thunderstore.io/c/lethal-company/p/Zigzag/SelfSortingStorage/) to prevent certain items from being stored, this is the same condition as the ShipInventory one (and some item conditions were improved)
+    - Super Sneakers unlucky effect is a bit less dangerous now
+    - You can FINALLY scroll the Death Note / Dance Note list with your mouse
+
 ## 1.5.7
 - **Updated**
     - Death Note will now display enemies names instead of enemy types names
