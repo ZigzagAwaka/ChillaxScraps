@@ -14,7 +14,7 @@ namespace ChillaxScraps
 {
     [BepInPlugin(GUID, NAME, VERSION)]
     [BepInDependency("AudioKnight.StarlancerAIFix", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInDependency("ShipInventory", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("ShipInventoryUpdated", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("zigzag.premiumscraps", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("zigzag.SelfSortingStorage", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("mrov.WeatherRegistry", BepInDependency.DependencyFlags.SoftDependency)]
@@ -36,8 +36,8 @@ namespace ChillaxScraps
             harmony.CreateClassProcessor(typeof(GetEnemies), true).Patch();  // getenemies patch
             harmony.CreateClassProcessor(typeof(ChillaxPlayerControllerBPatch), true).Patch();  // totem and darkbook patches
             harmony.CreateClassProcessor(typeof(EnemyAIPatch), true).Patch();  // ocarina enemyai patch
-            if (Chainloader.PluginInfos.ContainsKey("ShipInventory"))
-                ShipInventoryConditions.Setup(Chainloader.PluginInfos.GetValueOrDefault("ShipInventory").Metadata);  // setup conditions for shipinventory
+            if (Chainloader.PluginInfos.ContainsKey("ShipInventoryUpdated"))
+                ShipInventoryConditions.Setup(Chainloader.PluginInfos.GetValueOrDefault("ShipInventoryUpdated").Metadata);  // setup conditions for shipinventory
             if (Chainloader.PluginInfos.ContainsKey("zigzag.SelfSortingStorage"))
                 SSSConditions.Setup(Chainloader.PluginInfos.GetValueOrDefault("zigzag.SelfSortingStorage").Metadata);  // setup conditions for SSS
         }

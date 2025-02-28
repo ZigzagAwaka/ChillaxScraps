@@ -1,8 +1,10 @@
 ## 1.5.8
 - **Updated**
     - Added a custom condition for [SelfSortingStorage](https://thunderstore.io/c/lethal-company/p/Zigzag/SelfSortingStorage/) to prevent certain items from being stored, this is the same condition as the ShipInventory one (and some item conditions were improved)
-    - Super Sneakers unlucky effect is a bit less dangerous now
-    - You can FINALLY scroll the Death Note / Dance Note list with your mouse
+    - Updated ShipInventory soft dependency to now target [ShipInventoryUpdated](https://thunderstore.io/c/lethal-company/p/LethalCompanyModding/ShipInventoryUpdated/)
+    - Super Sneakers unlucky effect is a little bit less dangerous now
+- **Fixed**
+    - You can FINALLY scroll the Death Note / Dance Note list with the mouse wheel
 
 ## 1.5.7
 - **Updated**
