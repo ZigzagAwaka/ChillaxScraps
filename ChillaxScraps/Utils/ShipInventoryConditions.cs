@@ -14,15 +14,17 @@ namespace ChillaxScraps.Utils
             }
         }
 
-        public static bool ChillaxScrapsCondition(PlayerControllerB player)
+        private static bool ChillaxScrapsCondition(PlayerControllerB player)
         {
             var item = player.currentlyHeldObjectServer;
             if (((item.itemProperties.name == "DeathNoteItem" || item.itemProperties.name == "DanceNoteItem") && item is DarkBook) ||
                 (item.itemProperties.name == "MasterSwordItem" && item is MasterSword) ||
                 (item.itemProperties.name == "NokiaItem" && item is Nokia) ||
-                (item.itemProperties.name == "OcarinaItem" && item is Ocarina ocarina && (ocarina.isPlaying || !StartOfRound.Instance.inShipPhase)) ||
-                (item.itemProperties.name == "TotemOfUndyingItem" && item is TotemOfUndying totemofundying && totemofundying.used) ||
-                (item.itemProperties.name == "UnoReverseCardDXItem" && item is UnoReverseDX unoreversedx && !unoreversedx.canBeUsed))
+                (item.itemProperties.name == "OcarinaItem" && item is Ocarina) ||
+                (item.itemProperties.name == "TotemOfUndyingItem" && item is TotemOfUndying) ||
+                (item.itemProperties.name == "UnoReverseCardDXItem" && item is UnoReverseDX) ||
+                (item.itemProperties.name == "FreddyFazbearItem" && item is Freddy) ||
+                (item.itemProperties.name == "UnoReverseCardItem" && item is UnoReverse))
                 return false;
             return true;
         }
