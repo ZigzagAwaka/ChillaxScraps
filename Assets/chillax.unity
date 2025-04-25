@@ -721,6 +721,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boink
       objectReference: {fileID: 0}
+    - target: {fileID: 6395671044408789595, guid: 1745e01bea6920d45aa2cffa85ebbd85,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6395671044408789595, guid: 1745e01bea6920d45aa2cffa85ebbd85,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -812,65 +822,15 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1056743415813002902, guid: b04b15a99e5d0ad42853bb26903f4cdf,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 30.000002
-      objectReference: {fileID: 0}
-    - target: {fileID: 1056743415813002902, guid: b04b15a99e5d0ad42853bb26903f4cdf,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 30.000002
-      objectReference: {fileID: 0}
-    - target: {fileID: 1056743415813002902, guid: b04b15a99e5d0ad42853bb26903f4cdf,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 30.000002
-      objectReference: {fileID: 0}
-    - target: {fileID: 1056743415813002902, guid: b04b15a99e5d0ad42853bb26903f4cdf,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.243
-      objectReference: {fileID: 0}
     - target: {fileID: 1218503571935057684, guid: b04b15a99e5d0ad42853bb26903f4cdf,
         type: 3}
       propertyPath: m_Name
       value: TotemOfUndying
       objectReference: {fileID: 0}
-    - target: {fileID: 2182301448808161035, guid: b04b15a99e5d0ad42853bb26903f4cdf,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.43897176
-      objectReference: {fileID: 0}
-    - target: {fileID: 2182301448808161035, guid: b04b15a99e5d0ad42853bb26903f4cdf,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.4765857
-      objectReference: {fileID: 0}
-    - target: {fileID: 2182301448808161035, guid: b04b15a99e5d0ad42853bb26903f4cdf,
-        type: 3}
-      propertyPath: m_Center.x
-      value: 0.0065635443
-      objectReference: {fileID: 0}
-    - target: {fileID: 2182301448808161035, guid: b04b15a99e5d0ad42853bb26903f4cdf,
-        type: 3}
-      propertyPath: m_Center.y
-      value: 0.23416317
-      objectReference: {fileID: 0}
     - target: {fileID: 3320211804499255978, guid: b04b15a99e5d0ad42853bb26903f4cdf,
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 2025106223
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232742763802961567, guid: b04b15a99e5d0ad42853bb26903f4cdf,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.2866
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232742763802961567, guid: b04b15a99e5d0ad42853bb26903f4cdf,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.028
       objectReference: {fileID: 0}
     - target: {fileID: 8862405607749611012, guid: b04b15a99e5d0ad42853bb26903f4cdf,
         type: 3}
@@ -1179,41 +1139,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2452742748167766654, guid: 19894e7abf78502499d6523a84e4c893,
-        type: 3}
-      propertyPath: MaxDistance
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 2452742748167766654, guid: 19894e7abf78502499d6523a84e4c893,
-        type: 3}
-      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].time
-      value: 0.37764013
-      objectReference: {fileID: 0}
-    - target: {fileID: 2452742748167766654, guid: 19894e7abf78502499d6523a84e4c893,
-        type: 3}
-      propertyPath: rolloffCustomCurve.m_Curve.Array.data[2].time
-      value: 0.45741946
-      objectReference: {fileID: 0}
-    - target: {fileID: 2452742748167766654, guid: 19894e7abf78502499d6523a84e4c893,
-        type: 3}
-      propertyPath: rolloffCustomCurve.m_Curve.Array.data[2].value
-      value: 0.8011043
-      objectReference: {fileID: 0}
-    - target: {fileID: 2452742748167766654, guid: 19894e7abf78502499d6523a84e4c893,
-        type: 3}
-      propertyPath: rolloffCustomCurve.m_Curve.Array.data[3].inSlope
-      value: -1.509368
-      objectReference: {fileID: 0}
-    - target: {fileID: 2452742748167766654, guid: 19894e7abf78502499d6523a84e4c893,
-        type: 3}
-      propertyPath: rolloffCustomCurve.m_Curve.Array.data[3].inWeight
-      value: 0.15846494
-      objectReference: {fileID: 0}
-    - target: {fileID: 2452742748167766654, guid: 19894e7abf78502499d6523a84e4c893,
-        type: 3}
-      propertyPath: rolloffCustomCurve.m_Curve.Array.data[3].outSlope
-      value: -1.509368
-      objectReference: {fileID: 0}
     - target: {fileID: 3714669640515956621, guid: 19894e7abf78502499d6523a84e4c893,
         type: 3}
       propertyPath: m_Name
@@ -1368,22 +1293,17 @@ PrefabInstance:
     - target: {fileID: 3985692056081863376, guid: 94a61fdf90c5eac48815eae144955df8,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: -1.0913583e-24
-      objectReference: {fileID: 0}
-    - target: {fileID: 3985692056081863376, guid: 94a61fdf90c5eac48815eae144955df8,
-        type: 3}
-      propertyPath: m_BoundingSphereOverride.x
-      value: 0
+      value: 1.68e-43
       objectReference: {fileID: 0}
     - target: {fileID: 3985692056081863376, guid: 94a61fdf90c5eac48815eae144955df8,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: -16008440
+      value: 1.1e-44
       objectReference: {fileID: 0}
     - target: {fileID: 3985692056081863376, guid: 94a61fdf90c5eac48815eae144955df8,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 7.36e-43
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7842536255761714223, guid: 94a61fdf90c5eac48815eae144955df8,
         type: 3}
@@ -1576,30 +1496,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5778819908411960897, guid: 271157a4d37846e4dbe8886ff13b3e84,
+    - target: {fileID: 4758424813550285595, guid: 271157a4d37846e4dbe8886ff13b3e84,
         type: 3}
-      propertyPath: m_Volume
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778819908411960897, guid: 271157a4d37846e4dbe8886ff13b3e84,
-        type: 3}
-      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].time
-      value: 0.28454307
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778819908411960897, guid: 271157a4d37846e4dbe8886ff13b3e84,
-        type: 3}
-      propertyPath: rolloffCustomCurve.m_Curve.Array.data[0].value
-      value: 0.8658562
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778819908411960897, guid: 271157a4d37846e4dbe8886ff13b3e84,
-        type: 3}
-      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].value
-      value: 0.7054695
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778819908411960897, guid: 271157a4d37846e4dbe8886ff13b3e84,
-        type: 3}
-      propertyPath: rolloffCustomCurve.m_Curve.Array.data[4].value
-      value: 0.00894165
+      propertyPath: LightsModule.light
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8274456591751211032, guid: 271157a4d37846e4dbe8886ff13b3e84,
         type: 3}
@@ -1839,11 +1739,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3171598409691331362, guid: 833667e4dfcd6ca47a591c820225a87b,
-        type: 3}
-      propertyPath: MaxDistance
-      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 4418288726979722954, guid: 833667e4dfcd6ca47a591c820225a87b,
         type: 3}

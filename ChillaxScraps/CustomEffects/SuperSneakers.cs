@@ -10,10 +10,13 @@ namespace ChillaxScraps.CustomEffects
         public float jumpBoostValue = 10f;
         private readonly float jumpBoostNormal = 10f;
         private readonly float jumpBoostUnlucky = 80f;
+        private readonly GameObject jumpEffectPrefab;
+        private bool isPlayingJumpEffect = false;
 
         public SuperSneakers()
         {
             useCooldown = 2;
+            jumpEffectPrefab = Plugin.gameObjects[7];
         }
 
         public override void OnNetworkSpawn()
@@ -83,6 +86,25 @@ namespace ChillaxScraps.CustomEffects
             }
         }
 
+        public override void Update()
+        {
+            base.Update();
+            if (isHeld && playerHeldBy != null && GameNetworkManager.Instance.localPlayerController.playerClientId == playerHeldBy.playerClientId)
+            {
+                if (playerHeldBy.isJumping && jumpBoostActivated && isBeingUsed && !isPlayingJumpEffect)
+                {
+                    PlayJumpEffectServerRpc();
+                    isPlayingJumpEffect = true;
+                }
+                else if (!playerHeldBy.isJumping && isPlayingJumpEffect)
+                {
+                    isPlayingJumpEffect = false;
+                }
+            }
+            if (!isHeld && !jumpBoostActivated)
+                isPlayingJumpEffect = false;
+        }
+
         public override void UseUpBatteries()
         {
             if (jumpBoostActivated)
@@ -114,6 +136,19 @@ namespace ChillaxScraps.CustomEffects
         private void AudioClientRpc(int audioID, Vector3 clientPosition, float hostVolume, float clientVolume)
         {
             Effects.Audio(audioID, clientPosition, hostVolume, clientVolume, playerHeldBy);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void PlayJumpEffectServerRpc()
+        {
+            PlayJumpEffectClientRpc();
+        }
+
+        [ClientRpc]
+        private void PlayJumpEffectClientRpc()
+        {
+            if (playerHeldBy != null && !playerHeldBy.isPlayerDead)
+                Instantiate(jumpEffectPrefab, playerHeldBy.transform.position, Quaternion.Euler(-90f, 0f, 0f));
         }
     }
 }

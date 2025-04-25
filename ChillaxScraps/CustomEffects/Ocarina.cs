@@ -34,9 +34,9 @@ namespace ChillaxScraps.CustomEffects
 
         private readonly OcarinaSong[] ocarinaSongs = new OcarinaSong[14] {
             new OcarinaSong("", new Color(0, 0, 0), null, 0, Condition.Invalid),
-            new OcarinaSong("Zelda's Lullaby", new Color(0.87f, 0.36f, 1f), OcarinaSong.ZeldaLullaby, 2, Condition.IsPlayerFacingDoor, Condition.IsTimeAfternoon),
+            new OcarinaSong("Zelda's Lullaby", new Color(0.87f, 0.36f, 1f), OcarinaSong.ZeldaLullaby, 3, Condition.IsPlayerFacingDoor, Condition.IsTimeAfternoon),
             new OcarinaSong("Epona's Song", new Color(0.94f, 0.44f, 0.01f), OcarinaSong.EponaSong, 2, Condition.IsPlayerOutsideFactory),
-            new OcarinaSong("Sun's Song", new Color(1f, 0.92f, 0.1f), OcarinaSong.SunSong, 1, Condition.IsPlayerInAltitude),
+            new OcarinaSong("Sun's Song", new Color(1f, 0.92f, 0.1f), OcarinaSong.SunSong, 1, Condition.IsOutsideWeatherNotMajora),
             new OcarinaSong("Saria's Song", new Color(0.11f, 0.98f, 0.17f), OcarinaSong.SariaSong, 2, Condition.None),
             new OcarinaSong("Song of Time", new Color(0.18f, 0.76f, 1f), OcarinaSong.SongOfTime, 1, Condition.IsTimeNight),
             new OcarinaSong("Song of Storms", new Color(0.87f, 0.76f, 0.42f), OcarinaSong.SongOfStorms, 2, Condition.IsOutsideWeatherNotStormy, Condition.IsOutsideWeatherStormy),
@@ -46,7 +46,7 @@ namespace ChillaxScraps.CustomEffects
             new OcarinaSong("Goron Lullaby", new Color(1f, 0.41f, 0.54f), OcarinaSong.GoronLullaby, 2, Condition.IsOutsideAtLeastOneBaboonSpawned, Condition.IsInsideTimeAfternoon),
             new OcarinaSong("New Wave Bossa Nova", new Color(0.03f, 0.09f, 1f), OcarinaSong.NewWaveBossaNova, 1, Condition.IsPlayerInShipSpeakerNotPlaying),
             new OcarinaSong("Elegy of Emptiness", new Color(0.85f, 0.53f, 0.33f), OcarinaSong.ElegyOfEmptiness, 3, Condition.None),
-            new OcarinaSong("Oath to Order", new Color(1f, 1f, 1f), OcarinaSong.OathToOrder, 1, Condition.IsOutsideTimeNight)
+            new OcarinaSong("Oath to Order", new Color(1f, 1f, 1f), OcarinaSong.OathToOrder, 1, Condition.IsOutsideTimeNight, Condition.IsOutsideFinalHours)
         };
 
         public Ocarina()
@@ -466,15 +466,20 @@ namespace ChillaxScraps.CustomEffects
         }
 
         [ServerRpc(RequireOwnership = false)]
-        public void ChangeWeatherServerRpc(LevelWeatherType weather)
+        public void ChangeWeatherServerRpc(LevelWeatherType weather, bool combined = false)
         {
-            ChangeWeatherClientRpc(weather);
+            ChangeWeatherClientRpc(weather, combined);
         }
 
         [ClientRpc]
-        private void ChangeWeatherClientRpc(LevelWeatherType weather)
+        private void ChangeWeatherClientRpc(LevelWeatherType weather, bool combined)
         {
-            Effects.ChangeWeather(weather);
+            if (!combined || !Plugin.config.WeatherRegistery)
+            {
+                Effects.ChangeWeather(weather);
+                return;
+            }
+            Effects.AddCombinedWeatherWR(weather);
         }
 
         [ServerRpc(RequireOwnership = false)]
@@ -721,14 +726,14 @@ namespace ChillaxScraps.CustomEffects
             yield return new WaitForEndOfFrame();
             if (GetEnemies.Tornado != null)
                 SpawnSpecialEnemyServerRpc(98, RoundManager.Instance.outsideAINodes[Random.Range(0, RoundManager.Instance.outsideAINodes.Length - 1)].transform.position);
-            while (!StartOfRound.Instance.inShipPhase && !StartOfRound.Instance.shipIsLeaving && StartOfRound.Instance.currentLevel.currentWeather == LevelWeatherType.Stormy)
+            while (!StartOfRound.Instance.inShipPhase && !StartOfRound.Instance.shipIsLeaving && Effects.IsWeatherEffectPresent(LevelWeatherType.Stormy))
             {
                 for (int i = 0; i < Random.Range(1, 5); i++)
                 {
                     var boltPosition = RoundManager.Instance.outsideAINodes[Random.Range(0, RoundManager.Instance.outsideAINodes.Length - 1)].transform.position;
                     EffectAtPositionServerRpc(0, boltPosition);
                 }
-                yield return new WaitForSeconds(Random.Range(0.1f, 3.5f));
+                yield return new WaitForSeconds(Random.Range(0.1f, 2.0f));
             }
             if (GetEnemies.Tornado != null && tornadoRefs.Count != 0)
                 StopTornadoServerRpc();

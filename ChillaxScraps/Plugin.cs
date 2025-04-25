@@ -18,12 +18,13 @@ namespace ChillaxScraps
     [BepInDependency("zigzag.premiumscraps", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("zigzag.SelfSortingStorage", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("mrov.WeatherRegistry", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("zigzag.legendweathers", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(CodeRebirth.MyPluginInfo.PLUGIN_GUID, BepInDependency.DependencyFlags.SoftDependency)]
     public class Plugin : BaseUnityPlugin
     {
         const string GUID = "zigzag.chillaxscraps";
         const string NAME = "ChillaxScraps";
-        const string VERSION = "1.5.8";
+        const string VERSION = "1.5.9";
 
         public static Plugin instance;
         public static List<AudioClip> audioClips = new List<AudioClip>();
@@ -80,7 +81,7 @@ namespace ChillaxScraps
 
             var prefabs = new string[] { "DeathNote/DeathNoteCanvas.prefab", "EmergencyMeeting/EmergencyMeetingCanvas.prefab",
                 "Ocarina/ElegyOfEmptiness.prefab", "DanceNote/DanceNoteCanvas.prefab", "DanceNote/WarningCanvas.prefab",
-                "DanceNote/Glow.prefab", "DanceNote/GlowBoom.prefab"
+                "DanceNote/Glow.prefab", "DanceNote/GlowBoom.prefab", "SuperSneakers/JumpBoostEffect.prefab"
             };
 
             var audios = new string[] { "Page_Turn_Sound_Effect.wav", "Death_Note_Heart_Attack_Sound_Effect.wav",

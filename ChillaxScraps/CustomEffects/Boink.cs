@@ -9,6 +9,7 @@ namespace ChillaxScraps.CustomEffects
         public bool isActive = false;
         public float elapsedTime = 0f;
         public Vector3 force;
+        private ParticleSystem? boingParticles;
 
         public Boink()
         {
@@ -20,6 +21,7 @@ namespace ChillaxScraps.CustomEffects
             base.OnNetworkSpawn();
             if (insertedBattery != null)
                 insertedBattery.charge = 1;
+            boingParticles = transform.GetChild(2).GetComponent<ParticleSystem>();
         }
 
         public override void ItemActivate(bool used, bool buttonDown = true)
@@ -83,6 +85,7 @@ namespace ChillaxScraps.CustomEffects
                 isActive = true;
             }
             Effects.Audio(audioID, clientPosition, hostVolume, clientVolume, playerHeldBy);
+            boingParticles?.Play();
         }
     }
 }

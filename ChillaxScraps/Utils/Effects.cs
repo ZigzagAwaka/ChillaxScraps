@@ -1,5 +1,6 @@
 ﻿using DigitalRuby.ThunderAndLightning;
 using GameNetcodeStuff;
+using LegendWeathers.Weathers;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -276,6 +277,71 @@ namespace ChillaxScraps.Utils
         {
             if (GameNetworkManager.Instance.localPlayerController.IsHost)
                 WeatherRegistry.WeatherController.SetWeatherEffects(weather);
+        }
+
+        public static void AddCombinedWeatherWR(string weatherNameResolvable)
+        {
+            AddCombinedWeatherWR(new WeatherRegistry.WeatherNameResolvable(weatherNameResolvable).WeatherType);
+        }
+
+        public static void AddCombinedWeatherWR(LevelWeatherType weather)
+        {
+            WeatherRegistry.WeatherManager.GetWeather(weather).Effect.EffectEnabled = true;
+            WeatherRegistry.Patches.SunAnimator.OverrideSunAnimator(weather);
+        }
+
+        public static bool IsWeatherEffectPresent(string weatherNameResolvable)
+        {
+            if (Plugin.config.WeatherRegistery)
+                return IsWeatherEffectPresentWR(weatherNameResolvable);
+            return false;
+        }
+
+        public static bool IsWeatherEffectPresent(LevelWeatherType weatherType)
+        {
+            if (Plugin.config.WeatherRegistery)
+                return IsWeatherEffectPresentWR(weatherType);
+            return StartOfRound.Instance.currentLevel.currentWeather == weatherType;
+        }
+
+        public static bool IsWeatherEffectPresentWR(string weatherNameResolvable)
+        {
+            return IsWeatherEffectPresentWR(new WeatherRegistry.WeatherNameResolvable(weatherNameResolvable).WeatherType);
+        }
+
+        public static bool IsWeatherEffectPresentWR(LevelWeatherType weatherType)
+        {
+            for (int i = 0; i < WeatherRegistry.WeatherManager.CurrentEffectTypes.Count; i++)
+            {
+                if (WeatherRegistry.WeatherManager.CurrentEffectTypes[i] == weatherType)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsMajoraFinalHours()
+        {
+            if (!Plugin.config.WeatherRegistery || !IsWeatherEffectPresent("majoramoon"))
+                return false;
+            return IsMajoraFinalHoursLW();
+        }
+
+        public static bool IsMajoraFinalHoursLW()
+        {
+            var majoraMoon = Object.FindObjectOfType<MajoraMoon>();
+            if (majoraMoon == null)
+                return false;
+            return majoraMoon.finalHoursDisplayingTimer && !majoraMoon.finalHoursFinishing && !majoraMoon.oathToOrderStopingMoon;
+        }
+
+        public static void StopMajora()
+        {
+            var majoraMoon = Object.FindObjectOfType<MajoraMoon>();
+            if (majoraMoon == null)
+                return;
+            majoraMoon.StopMoonCrash();
         }
 
         public static NetworkObjectReference Spawn(SpawnableEnemyWithRarity enemy, Vector3 position, float yRot = 0f)

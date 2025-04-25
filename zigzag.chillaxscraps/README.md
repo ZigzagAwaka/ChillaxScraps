@@ -94,7 +94,7 @@ You can post some suggestions or issues in the mod release page in the [modding 
 
 ### Infos
 - This updated Chillax Scraps mod is now complete. But I may add new items in the future.
-- Rubber Ducks scraps will be imported in a separate mod.
+- Rubber Ducks scraps from the original mod are still planned but will be imported in a future release for a complete rework.
 
 ###
 

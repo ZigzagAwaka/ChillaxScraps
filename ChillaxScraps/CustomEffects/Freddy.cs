@@ -16,6 +16,7 @@ namespace ChillaxScraps.CustomEffects
         public BoxCollider? scanNode;
         public BoxCollider? grabArea;
         private int invisibilityChance = 70;
+        private ParticleSystem? hurtParticles;
 
         public Freddy()
         {
@@ -30,6 +31,7 @@ namespace ChillaxScraps.CustomEffects
             music = transform.GetChild(2).GetComponent<AudioSource>();
             scanNode = transform.GetChild(0).GetComponent<BoxCollider>();
             grabArea = transform.GetComponent<BoxCollider>();
+            hurtParticles = transform.GetChild(4).GetComponent<ParticleSystem>();
             invisibilityChance = Plugin.config.freddyInvisibilityChance.Value;
             if ((IsHost || IsServer) && transform.position.y < -80f)
             {
@@ -138,6 +140,8 @@ namespace ChillaxScraps.CustomEffects
                 audio.PlayOneShot(Plugin.audioClips[audioID], volume);
             else if (sourceID == 1 && music != null)
                 music.Play();
+            if (audioID == 49)
+                hurtParticles?.Play();
         }
 
         [ServerRpc(RequireOwnership = false)]

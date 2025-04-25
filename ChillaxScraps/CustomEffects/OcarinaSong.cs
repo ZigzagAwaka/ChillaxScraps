@@ -22,7 +22,9 @@ namespace ChillaxScraps.CustomEffects
         IsOutsideAtLeastOneBaboonSpawned,
         IsPlayerInShipSpeakerNotPlaying,
         IsPlayerNotInShip,
-        IsPlayerInAltitude
+        IsPlayerInAltitude,
+        IsOutsideWeatherNotMajora,
+        IsOutsideFinalHours
     }
 
     internal class OcarinaSong
@@ -70,8 +72,8 @@ namespace ChillaxScraps.CustomEffects
                 Condition.IsTimeAfternoon => TimeOfDay.Instance.currentDayTime >= 360,
                 Condition.IsTimeNight => TimeOfDay.Instance.currentDayTime >= 720,
                 Condition.IsOutsideTimeNight => !player.isInsideFactory && TimeOfDay.Instance.currentDayTime >= 720,
-                Condition.IsOutsideWeatherNotStormy => !player.isInsideFactory && StartOfRound.Instance.currentLevel.currentWeather != LevelWeatherType.Stormy,
-                Condition.IsOutsideWeatherStormy => !player.isInsideFactory && StartOfRound.Instance.currentLevel.currentWeather == LevelWeatherType.Stormy,
+                Condition.IsOutsideWeatherNotStormy => !player.isInsideFactory && !Effects.IsWeatherEffectPresent(LevelWeatherType.Stormy),
+                Condition.IsOutsideWeatherStormy => !player.isInsideFactory && Effects.IsWeatherEffectPresent(LevelWeatherType.Stormy),
                 Condition.IsPlayerNearOldBirdNest => Effects.IsPlayerNearObject<EnemyAINestSpawnObject>(player, out components.birdNest, 10f) && components.birdNest.enemyType == GetEnemies.OldBird.enemyType,
                 Condition.IsPlayerInShip => player.isInElevator && player.isInHangarShipRoom,
                 Condition.IsInsideTimeAfternoon => player.isInsideFactory && TimeOfDay.Instance.currentDayTime >= 360,
@@ -79,6 +81,8 @@ namespace ChillaxScraps.CustomEffects
                 Condition.IsPlayerInShipSpeakerNotPlaying => player.isInElevator && player.isInHangarShipRoom && !StartOfRound.Instance.speakerAudioSource.isPlaying,
                 Condition.IsPlayerNotInShip => !player.isInElevator && !player.isInHangarShipRoom,
                 Condition.IsPlayerInAltitude => player.transform.position.y - StartOfRound.Instance.middleOfShipNode.position.y >= 9.9f,
+                Condition.IsOutsideWeatherNotMajora => !player.isInsideFactory && !Effects.IsWeatherEffectPresent("majoramoon"),
+                Condition.IsOutsideFinalHours => !player.isInsideFactory && Effects.IsMajoraFinalHours(),
                 _ => false
             };
         }
@@ -140,7 +144,7 @@ namespace ChillaxScraps.CustomEffects
         {
             if (variationId == 0)
             {
-                if (Verif(Condition.IsPlayerInAltitude, player))
+                if (Verif(Condition.IsOutsideWeatherNotMajora, player))
                     ocarina.ChangeWeatherServerRpc(LevelWeatherType.None);
                 else
                     return false;
@@ -175,7 +179,7 @@ namespace ChillaxScraps.CustomEffects
             if (variationId == 0)
             {
                 if (Verif(Condition.IsOutsideWeatherNotStormy, player))
-                    ocarina.ChangeWeatherServerRpc(LevelWeatherType.Stormy);
+                    ocarina.ChangeWeatherServerRpc(LevelWeatherType.Stormy, true);
                 else
                     return false;
             }
@@ -268,6 +272,16 @@ namespace ChillaxScraps.CustomEffects
             {
                 if (Verif(Condition.IsOutsideTimeNight, player))
                     ocarina.StartCoroutine(ocarina.SpawnZeldaEnemy(1, player.transform.position));
+                else
+                    return false;
+            }
+            else
+            {
+                if (Verif(Condition.IsOutsideFinalHours, player))
+                {
+                    ocarina.StartCoroutine(ocarina.SpawnZeldaEnemy(1, player.transform.position));
+                    Effects.StopMajora();
+                }
                 else
                     return false;
             }

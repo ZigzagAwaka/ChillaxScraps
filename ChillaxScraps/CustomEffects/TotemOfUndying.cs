@@ -9,8 +9,15 @@ namespace ChillaxScraps.CustomEffects
     internal class TotemOfUndying : PhysicsProp
     {
         public bool used = false;
+        private ParticleSystem? popTotem;
 
         public TotemOfUndying() { }
+
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+            popTotem = transform.GetChild(2).GetComponent<ParticleSystem>();
+        }
 
         public static void TrySavePlayer(PlayerControllerB player)  // used by harmony patch
         {
@@ -67,6 +74,7 @@ namespace ChillaxScraps.CustomEffects
         private void AudioClientRpc(int audioID, Vector3 clientPosition, float hostVolume, float clientVolume)
         {
             Effects.Audio(audioID, clientPosition, hostVolume, clientVolume, playerHeldBy);
+            popTotem?.Play();
         }
 
         [ServerRpc(RequireOwnership = false)]
