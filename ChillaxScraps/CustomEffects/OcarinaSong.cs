@@ -82,7 +82,7 @@ namespace ChillaxScraps.CustomEffects
                 Condition.IsPlayerNotInShip => !player.isInElevator && !player.isInHangarShipRoom,
                 Condition.IsPlayerInAltitude => player.transform.position.y - StartOfRound.Instance.middleOfShipNode.position.y >= 9.9f,
                 Condition.IsOutsideWeatherNotMajora => !player.isInsideFactory && !Effects.IsWeatherEffectPresent("majoramoon"),
-                Condition.IsOutsideFinalHours => !player.isInsideFactory && Effects.IsMajoraFinalHours(),
+                Condition.IsOutsideFinalHours => !player.isInsideFactory && player.transform.position.y - StartOfRound.Instance.middleOfShipNode.position.y >= 9.9f && Effects.IsMajoraActiveAndFinalHours(),
                 _ => false
             };
         }
@@ -280,7 +280,7 @@ namespace ChillaxScraps.CustomEffects
                 if (Verif(Condition.IsOutsideFinalHours, player))
                 {
                     ocarina.StartCoroutine(ocarina.SpawnZeldaEnemy(1, player.transform.position));
-                    Effects.StopMajora();
+                    ocarina.StopMajoraServerRpc();
                 }
                 else
                     return false;

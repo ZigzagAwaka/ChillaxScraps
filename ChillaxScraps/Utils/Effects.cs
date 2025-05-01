@@ -321,14 +321,14 @@ namespace ChillaxScraps.Utils
             return false;
         }
 
-        public static bool IsMajoraFinalHours()
+        public static bool IsMajoraActiveAndFinalHours()
         {
             if (!Plugin.config.WeatherRegistery || !IsWeatherEffectPresent("majoramoon"))
                 return false;
-            return IsMajoraFinalHoursLW();
+            return IsMajoraFinalHours();
         }
 
-        public static bool IsMajoraFinalHoursLW()
+        public static bool IsMajoraFinalHours()
         {
             var majoraMoon = Object.FindObjectOfType<MajoraMoon>();
             if (majoraMoon == null)

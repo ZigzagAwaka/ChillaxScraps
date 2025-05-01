@@ -579,6 +579,18 @@ namespace ChillaxScraps.CustomEffects
             Effects.SetPosFlags(playerID, ship, exterior, interior);
         }
 
+        [ServerRpc(RequireOwnership = false)]
+        public void StopMajoraServerRpc()
+        {
+            StopMajoraClientRpc();
+        }
+
+        [ClientRpc]
+        private void StopMajoraClientRpc()
+        {
+            Effects.StopMajora();
+        }
+
         public IEnumerator OpenDoorZeldaStyle(DoorLock door)
         {
             EffectsAudioServerRpc(12, 1f, door.transform.position);
@@ -733,7 +745,7 @@ namespace ChillaxScraps.CustomEffects
                     var boltPosition = RoundManager.Instance.outsideAINodes[Random.Range(0, RoundManager.Instance.outsideAINodes.Length - 1)].transform.position;
                     EffectAtPositionServerRpc(0, boltPosition);
                 }
-                yield return new WaitForSeconds(Random.Range(0.1f, 2.0f));
+                yield return new WaitForSeconds(Random.Range(0.1f, 2.5f));
             }
             if (GetEnemies.Tornado != null && tornadoRefs.Count != 0)
                 StopTornadoServerRpc();

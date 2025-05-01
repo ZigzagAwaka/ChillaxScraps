@@ -1290,21 +1290,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ocarina
       objectReference: {fileID: 0}
-    - target: {fileID: 3985692056081863376, guid: 94a61fdf90c5eac48815eae144955df8,
-        type: 3}
-      propertyPath: m_BoundingSphereOverride.w
-      value: 1.68e-43
-      objectReference: {fileID: 0}
-    - target: {fileID: 3985692056081863376, guid: 94a61fdf90c5eac48815eae144955df8,
-        type: 3}
-      propertyPath: m_BoundingSphereOverride.y
-      value: 1.1e-44
-      objectReference: {fileID: 0}
-    - target: {fileID: 3985692056081863376, guid: 94a61fdf90c5eac48815eae144955df8,
-        type: 3}
-      propertyPath: m_BoundingSphereOverride.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7842536255761714223, guid: 94a61fdf90c5eac48815eae144955df8,
         type: 3}
       propertyPath: m_LocalPosition.x

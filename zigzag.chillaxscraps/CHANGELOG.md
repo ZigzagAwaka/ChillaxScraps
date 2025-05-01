@@ -1,11 +1,11 @@
 ## 1.5.9
-- **Ocarina**
+- **Ocarina update**
     - Added 1 more allowed usage for Zelda's Lullaby (for a total of 3 max per moons)
     - Sun's Song can now be used by simply playing it outside, there is no need to be in altitude anymore
     - Sun's Song will now fail if you try to play it during the [Majora Moon weather](https://thunderstore.io/c/lethal-company/p/Zigzag/LegendWeathers/)
     - Song of Storms weather change is now a combined weather effect if you have [WeatherRegistry](https://thunderstore.io/c/lethal-company/p/mrov/WeatherRegistry/) installed
     - Song of Storms "super stormy" effect is now more dangerous
-    - Added a new variation effect for Oath to Order when the [Majora Moon weather](https://thunderstore.io/c/lethal-company/p/Zigzag/LegendWeathers/) is active, use it during the final hours to destroy Majora
+    - Added a new variation effect for Oath to Order when the [Majora Moon weather](https://thunderstore.io/c/lethal-company/p/Zigzag/LegendWeathers/) is active, use it in altitude when the moon is about to crash to destroy Majora
 - **Updated**
     - Added particle effect when using Boink
     - Added particle effect and sound when jumping with Super Sneakers

@@ -86,7 +86,7 @@ Each item has a low/medium spawn chance on all moons, you will not find them eas
 ### Compatible mods
 
 - You should check [PremiumScraps](https://thunderstore.io/c/lethal-company/p/Zigzag/PremiumScraps/), it pairs well with ChillaxScraps!
-- There is some compatible effects with [CodeRebirth](https://thunderstore.io/c/lethal-company/p/XuXiaolan/CodeRebirth/).
+- There is some compatible effects with [CodeRebirth](https://thunderstore.io/c/lethal-company/p/XuXiaolan/CodeRebirth/) and [LegendWeathers](https://thunderstore.io/c/lethal-company/p/Zigzag/LegendWeathers/).
 - Some Ocarina songs effects will not work properly when played at the Company Building, but you can install the mods [StarlancerAIFix](https://thunderstore.io/c/lethal-company/p/AudioKnight/StarlancerAIFix/) and [NavMeshInCompany](https://thunderstore.io/c/lethal-company/p/Kittenji/NavMeshInCompany/) to make them work !
 
 ### Feedback
