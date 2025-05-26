@@ -1,3 +1,7 @@
+## 1.5.10
+- **Updated**
+    - You can now kill [Ogopogo enemies](https://thunderstore.io/c/lethal-company/p/super_fucking_cool_and_badass_team/Biodiversity/) with the Death Note
+
 ## 1.5.9
 - **Ocarina update**
     - Added 1 more allowed usage for Zelda's Lullaby (for a total of 3 max per moons)

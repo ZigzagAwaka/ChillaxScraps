@@ -25,6 +25,7 @@ namespace ChillaxScraps.CustomEffects
         public int musicToPlayID = -1;
         public List<PlayerControllerB> playerList;
         public List<EnemyAI> enemyList;
+        public List<string> keepEnemiesList;
         public DarkBookCanvas canvas;
         public GameObject canvasPrefab;
         public AudioSource? musicSource;
@@ -39,6 +40,8 @@ namespace ChillaxScraps.CustomEffects
             musicSource = GetComponent<AudioSource>();
             meshRenderer = transform.GetChild(0).GetComponent<MeshRenderer>();
             scanNode = transform.GetChild(1).GetComponent<ScanNodeProperties>();
+            if (canKillEnemies)
+                keepEnemiesList = new List<string> { "Ogopogo" };
             if (!IsHost && !IsServer)
                 SyncBookStateServerRpc();
         }
@@ -55,7 +58,7 @@ namespace ChillaxScraps.CustomEffects
                         AudioServerRpc(0, playerHeldBy.transform.position, 1f, 0.75f);  // page audio
                         playerList = Effects.GetPlayers();
                         if (canKillEnemies)
-                            enemyList = Effects.GetEnemies(excludeDaytime: true);
+                            enemyList = Effects.GetEnemies(excludeDaytime: true, keepSpecificEnemiesList: keepEnemiesList);
                         canvas = Instantiate(canvasPrefab, transform).GetComponent<DarkBookCanvas>();
                         canvas.Initialize(this);  // open death note
                         isOpened = true;

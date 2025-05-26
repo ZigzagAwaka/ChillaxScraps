@@ -50,7 +50,7 @@ namespace ChillaxScraps.Utils
             return updatedList;
         }
 
-        public static List<EnemyAI> GetEnemies(bool includeDead = false, bool includeCanDie = false, bool excludeDaytime = false)
+        public static List<EnemyAI> GetEnemies(bool includeDead = false, bool includeImmortal = false, bool excludeDaytime = false, List<string>? keepSpecificEnemiesList = null)
         {
             List<EnemyAI> rawList = Object.FindObjectsOfType<EnemyAI>().ToList();
             List<EnemyAI> updatedList = new List<EnemyAI>(rawList);
@@ -58,9 +58,10 @@ namespace ChillaxScraps.Utils
                 return updatedList;
             foreach (var e in rawList)
             {
-                if (!e.IsSpawned || e.isEnemyDead || (!includeCanDie && !e.enemyType.canDie) || (excludeDaytime && e.enemyType.isDaytimeEnemy))
+                if (!e.IsSpawned || e.isEnemyDead || (!includeImmortal && !e.enemyType.canDie) || (excludeDaytime && e.enemyType.isDaytimeEnemy))
                 {
-                    updatedList.Remove(e);
+                    if (keepSpecificEnemiesList == null || keepSpecificEnemiesList.Count() == 0 || !keepSpecificEnemiesList.Contains(e.enemyType.enemyName))
+                        updatedList.Remove(e);
                 }
             }
             return updatedList;
