@@ -1,6 +1,5 @@
 ﻿using DigitalRuby.ThunderAndLightning;
 using GameNetcodeStuff;
-using LegendWeathers.Weathers;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -331,7 +330,7 @@ namespace ChillaxScraps.Utils
 
         public static bool IsMajoraFinalHours()
         {
-            var majoraMoon = Object.FindObjectOfType<MajoraMoon>();
+            var majoraMoon = Object.FindObjectOfType<LegendWeathers.Weathers.MajoraMoon>();
             if (majoraMoon == null)
                 return false;
             return majoraMoon.finalHoursDisplayingTimer && !majoraMoon.finalHoursFinishing && !majoraMoon.oathToOrderStopingMoon;
@@ -339,10 +338,18 @@ namespace ChillaxScraps.Utils
 
         public static void StopMajora()
         {
-            var majoraMoon = Object.FindObjectOfType<MajoraMoon>();
+            var majoraMoon = Object.FindObjectOfType<LegendWeathers.Weathers.MajoraMoon>();
             if (majoraMoon == null)
                 return;
             majoraMoon.StopMoonCrash();
+        }
+
+        public static void ReplaceRedwoodSfxCR(GameObject enemy)
+        {
+            var giantAI = enemy.GetComponent<CodeRebirth.src.Content.Enemies.RedwoodTitanAI>();
+            giantAI.roarSound = null;
+            giantAI.spawnSound = Plugin.audioClips[23];
+            giantAI.eatenSound = Plugin.audioClips[24];
         }
 
         public static NetworkObjectReference Spawn(SpawnableEnemyWithRarity enemy, Vector3 position, float yRot = 0f)

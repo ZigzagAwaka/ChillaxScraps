@@ -1,3 +1,9 @@
+## 1.5.11
+- **Updated**
+    - Improved audio loading
+- **Fixed**
+    - Fixed some Ocarina effects not working properly when CodeRebirth was not installed
+
 ## 1.5.10
 - **Updated**
     - You can now kill [Ogopogo enemies](https://thunderstore.io/c/lethal-company/p/super_fucking_cool_and_badass_team/Biodiversity/) with the Death Note

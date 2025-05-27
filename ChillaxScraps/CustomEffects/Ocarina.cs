@@ -385,7 +385,7 @@ namespace ChillaxScraps.CustomEffects
                     SpawnSpecialEnemyClientRpc(id, netRef);
                 }
                 else
-                    Effects.Spawn(GetEnemies.RedwoodGiant != null ? GetEnemies.RedwoodGiant : GetEnemies.ForestKeeper, position);
+                    Effects.Spawn(GetEnemies.RedwoodGiant ?? GetEnemies.ForestKeeper, position);
             }
             else if (id == 2)
                 Effects.SpawnMaskedOfPlayer(playerId, position);
@@ -425,10 +425,8 @@ namespace ChillaxScraps.CustomEffects
             }
             else if (id == 1)
             {
-                var giantAI = enemy.GetComponent<CodeRebirth.src.Content.Enemies.RedwoodTitanAI>();
-                giantAI.roarSound = null;
-                giantAI.spawnSound = Plugin.audioClips[23];
-                giantAI.eatenSound = Plugin.audioClips[24];
+                if (GetEnemies.RedwoodTitan != null)  // CR soft dependency
+                    Effects.ReplaceRedwoodSfxCR(enemy);
             }
             else if (id == 3)
             {
