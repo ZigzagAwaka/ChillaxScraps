@@ -1,3 +1,7 @@
+## 1.5.12
+- **Updated**
+    - Recompiled for v70
+
 ## 1.5.11
 - **Updated**
     - Improved audio loading
