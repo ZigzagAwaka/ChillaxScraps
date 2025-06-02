@@ -41,7 +41,7 @@ namespace ChillaxScraps.CustomEffects
             meshRenderer = transform.GetChild(0).GetComponent<MeshRenderer>();
             scanNode = transform.GetChild(1).GetComponent<ScanNodeProperties>();
             if (canKillEnemies)
-                keepEnemiesList = new List<string> { "Ogopogo" };
+                keepEnemiesList = new List<string> { "GiantKiwi", "Ogopogo" };
             if (!IsHost && !IsServer)
                 SyncBookStateServerRpc();
         }

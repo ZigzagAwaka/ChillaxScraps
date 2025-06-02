@@ -1,6 +1,7 @@
 ## 1.5.12
 - **Updated**
     - Recompiled for v70
+    - You can now kill GiantKiwi enemies with the Death Note
 
 ## 1.5.11
 - **Updated**
