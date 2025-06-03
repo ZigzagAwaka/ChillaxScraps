@@ -1,3 +1,7 @@
+## 1.5.13
+- **Fixed**
+    - Updated compatibility with the latest version of [WeatherRegistry](https://thunderstore.io/c/lethal-company/p/mrov/WeatherRegistry/)
+
 ## 1.5.12
 - **Updated**
     - Recompiled for v70

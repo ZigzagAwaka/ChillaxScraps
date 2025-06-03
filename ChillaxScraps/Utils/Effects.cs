@@ -286,8 +286,8 @@ namespace ChillaxScraps.Utils
 
         public static void AddCombinedWeatherWR(LevelWeatherType weather)
         {
-            WeatherRegistry.WeatherManager.GetWeather(weather).Effect.EffectEnabled = true;
-            WeatherRegistry.Patches.SunAnimator.OverrideSunAnimator(weather);
+            WeatherRegistry.WeatherController.AddWeatherEffect(weather);
+            //WeatherRegistry.Patches.SunAnimator.OverrideSunAnimator(weather);
         }
 
         public static bool IsWeatherEffectPresent(string weatherNameResolvable)
