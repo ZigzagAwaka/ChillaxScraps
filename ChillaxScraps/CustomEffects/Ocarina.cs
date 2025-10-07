@@ -39,7 +39,7 @@ namespace ChillaxScraps.CustomEffects
             new OcarinaSong("Sun's Song", new Color(1f, 0.92f, 0.1f), OcarinaSong.SunSong, 1, Condition.IsOutsideWeatherNotMajora),
             new OcarinaSong("Saria's Song", new Color(0.11f, 0.98f, 0.17f), OcarinaSong.SariaSong, 2, Condition.None),
             new OcarinaSong("Song of Time", new Color(0.18f, 0.76f, 1f), OcarinaSong.SongOfTime, 1, Condition.IsTimeNight),
-            new OcarinaSong("Song of Storms", new Color(0.87f, 0.76f, 0.42f), OcarinaSong.SongOfStorms, 2, Condition.IsOutsideWeatherNotStormy, Condition.IsOutsideWeatherStormy),
+            new OcarinaSong("Song of Storms", new Color(0.87f, 0.76f, 0.42f), OcarinaSong.SongOfStorms, 2, Condition.IsOutsideWeatherNotStormy, Condition.IsOutsideWeatherStormy, Condition.IsOutsideWeatherBloodMoon),
             new OcarinaSong("Song of Healing", new Color(1f, 0.22f, 0.09f), OcarinaSong.SongOfHealing, 1, Condition.None),
             new OcarinaSong("Song of Soaring", new Color(0.5f, 0.8f, 1f), OcarinaSong.SongOfSoaring, 5, Condition.IsPlayerNotInShip),
             new OcarinaSong("Sonata of Awakening", new Color(0.12f, 1f, 0.45f), OcarinaSong.SonataOfAwakening, 4, Condition.IsPlayerNearOldBirdNest),
@@ -461,6 +461,23 @@ namespace ChillaxScraps.CustomEffects
         {
             if (GetEnemies.Tornado != null)
                 tornadoRefs.Clear();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        public void ChangeWeatherServerRpc(string weatherNameResolvable, bool combined = false)
+        {
+            ChangeWeatherClientRpc(weatherNameResolvable, combined);
+        }
+
+        [ClientRpc]
+        private void ChangeWeatherClientRpc(string weatherNameResolvable, bool combined)
+        {
+            if (!Plugin.config.WeatherRegistery)
+                return;
+            if (!combined)
+                Effects.ChangeWeatherWR(weatherNameResolvable);
+            else
+                Effects.AddCombinedWeatherWR(weatherNameResolvable);
         }
 
         [ServerRpc(RequireOwnership = false)]

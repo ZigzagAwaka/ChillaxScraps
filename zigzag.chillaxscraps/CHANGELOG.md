@@ -1,3 +1,10 @@
+## 1.6.0
+- **Updated**
+    - Updated networking to work for v73 of Lethal Company
+- **Ocarina**
+    - Added a new variation effect for Song of Storms when the [Blood Moon weather](https://thunderstore.io/c/lethal-company/p/Zigzag/LegendWeathers/) is active, use it outside to spawn a disturbing blood rain [requires [Wesleys_Weathers](https://thunderstore.io/c/lethal-company/p/Magic_Wesley/Wesleys_Weathers/)]
+    - When this effect is triggered, the Song of Storms will not be able to be used again until the weather is cleared and if the number of allowed usage was not already exceeded
+
 ## 1.5.13
 - **Fixed**
     - Updated compatibility with the latest version of [WeatherRegistry](https://thunderstore.io/c/lethal-company/p/mrov/WeatherRegistry/)

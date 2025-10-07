@@ -273,6 +273,11 @@ namespace ChillaxScraps.Utils
             }
         }
 
+        public static void ChangeWeatherWR(string weatherNameResolvable)
+        {
+            ChangeWeatherWR(new WeatherRegistry.WeatherNameResolvable(weatherNameResolvable).WeatherType);
+        }
+
         public static void ChangeWeatherWR(LevelWeatherType weather)
         {
             if (GameNetworkManager.Instance.localPlayerController.IsHost)
@@ -319,6 +324,18 @@ namespace ChillaxScraps.Utils
                 }
             }
             return false;
+        }
+
+        public static bool IsModdedWeatherRegistered(string weatherName)
+        {
+            if (Plugin.config.WeatherRegistery)
+                return IsModdedWeatherRegisteredWR(weatherName);
+            return false;
+        }
+
+        public static bool IsModdedWeatherRegisteredWR(string weatherName)
+        {
+            return WeatherRegistry.WeatherManager.RegisteredWeathers.Any(w => w.Name.Equals(weatherName));
         }
 
         public static bool IsMajoraActiveAndFinalHours()

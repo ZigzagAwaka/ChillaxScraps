@@ -16,6 +16,7 @@ namespace ChillaxScraps.CustomEffects
         IsOutsideTimeNight,
         IsOutsideWeatherNotStormy,
         IsOutsideWeatherStormy,
+        IsOutsideWeatherBloodMoon,
         IsPlayerNearOldBirdNest,
         IsPlayerInShip,
         IsInsideTimeAfternoon,
@@ -72,8 +73,9 @@ namespace ChillaxScraps.CustomEffects
                 Condition.IsTimeAfternoon => TimeOfDay.Instance.currentDayTime >= 360,
                 Condition.IsTimeNight => TimeOfDay.Instance.currentDayTime >= 720,
                 Condition.IsOutsideTimeNight => !player.isInsideFactory && TimeOfDay.Instance.currentDayTime >= 720,
-                Condition.IsOutsideWeatherNotStormy => !player.isInsideFactory && !Effects.IsWeatherEffectPresent(LevelWeatherType.Stormy),
-                Condition.IsOutsideWeatherStormy => !player.isInsideFactory && Effects.IsWeatherEffectPresent(LevelWeatherType.Stormy),
+                Condition.IsOutsideWeatherNotStormy => !player.isInsideFactory && !Effects.IsWeatherEffectPresent(LevelWeatherType.Stormy) && !Effects.IsWeatherEffectPresent("bloodmoon"),
+                Condition.IsOutsideWeatherStormy => !player.isInsideFactory && Effects.IsWeatherEffectPresent(LevelWeatherType.Stormy) && !Effects.IsWeatherEffectPresent("bloodmoon"),
+                Condition.IsOutsideWeatherBloodMoon => !player.isInsideFactory && Effects.IsWeatherEffectPresent("bloodmoon") && !Effects.IsWeatherEffectPresent("forsaken"),
                 Condition.IsPlayerNearOldBirdNest => Effects.IsPlayerNearObject<EnemyAINestSpawnObject>(player, out components.birdNest, 10f) && components.birdNest.enemyType == GetEnemies.OldBird.enemyType,
                 Condition.IsPlayerInShip => player.isInElevator && player.isInHangarShipRoom,
                 Condition.IsInsideTimeAfternoon => player.isInsideFactory && TimeOfDay.Instance.currentDayTime >= 360,
@@ -183,10 +185,22 @@ namespace ChillaxScraps.CustomEffects
                 else
                     return false;
             }
-            else
+            else if (variationId == 1)
             {
                 if (Verif(Condition.IsOutsideWeatherStormy, player))
                     ocarina.StartCoroutine(ocarina.SpawnSuperStormy());
+                else
+                    return false;
+            }
+            else
+            {
+                if (Verif(Condition.IsOutsideWeatherBloodMoon, player))
+                {
+                    if (Effects.IsModdedWeatherRegistered("Forsaken"))
+                        ocarina.ChangeWeatherServerRpc("forsaken", true);
+                    else
+                        ocarina.ChangeWeatherServerRpc(LevelWeatherType.Stormy, true);
+                }
                 else
                     return false;
             }
