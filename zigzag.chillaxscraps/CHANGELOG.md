@@ -1,3 +1,7 @@
+## 1.6.1
+- **Fixed**
+    - Fixed soft dependencies management
+
 ## 1.6.0
 - **Updated**
     - Updated networking to work for v73 of Lethal Company

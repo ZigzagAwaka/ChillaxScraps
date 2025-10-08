@@ -335,7 +335,14 @@ namespace ChillaxScraps.Utils
 
         public static bool IsModdedWeatherRegisteredWR(string weatherName)
         {
-            return WeatherRegistry.WeatherManager.RegisteredWeathers.Any(w => w.Name.Equals(weatherName));
+            var weathers = WeatherRegistry.WeatherManager.RegisteredWeathers;
+            // can't use Any() because of WeatherRegistry being a soft dependency
+            for (int i = 0; i < weathers.Count; i++)
+            {
+                if (weathers[i].Name.Equals(weatherName))
+                    return true;
+            }
+            return false;
         }
 
         public static bool IsMajoraActiveAndFinalHours()
