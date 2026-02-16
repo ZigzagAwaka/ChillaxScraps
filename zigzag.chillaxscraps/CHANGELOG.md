@@ -4,6 +4,7 @@
     - New *harmless* unlucky effect for Moai Statue
 - **Fixed**
     - Fixed Ocarina, Emergency meeting, Uno Reverse Card and Uno Reverse Card DX all having teleportation effects only being half synced for other players
+    - Fixed Dance Note 'warning UI' blocking other UI interactions
 
 ## 1.6.1
 - **Fixed**
