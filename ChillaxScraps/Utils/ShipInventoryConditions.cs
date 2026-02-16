@@ -10,7 +10,7 @@ namespace ChillaxScraps.Utils
         {
             if (new System.Version("1.2.2").CompareTo(inventoryMetadata.Version) <= 0)
             {
-                ShipInventory.Helpers.InteractionHelper.AddCondition(ChillaxScrapsCondition, "[Item not allowed]");
+                ShipInventoryUpdated.Helpers.API.InteractionHelper.AddCondition(ChillaxScrapsCondition, "[Item not allowed]");
             }
         }
 
