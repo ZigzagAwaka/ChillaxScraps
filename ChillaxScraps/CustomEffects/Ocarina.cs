@@ -583,14 +583,15 @@ namespace ChillaxScraps.CustomEffects
         }*/
 
         [ServerRpc(RequireOwnership = false)]
-        private void SetPosFlagsServerRpc(ulong playerID, bool ship, bool exterior, bool interior)
+        private void TeleportationServerRpc(ulong playerID, Vector3 position, bool ship, bool exterior, bool interior)
         {
-            SetPosFlagsClientRpc(playerID, ship, exterior, interior);
+            TeleportationClientRpc(playerID, position, ship, exterior, interior);
         }
 
         [ClientRpc]
-        private void SetPosFlagsClientRpc(ulong playerID, bool ship, bool exterior, bool interior)
+        private void TeleportationClientRpc(ulong playerID, Vector3 position, bool ship, bool exterior, bool interior)
         {
+            Effects.TeleportationLocal(StartOfRound.Instance.allPlayerScripts[playerID], position);
             Effects.SetPosFlags(playerID, ship, exterior, interior);
         }
 
@@ -629,8 +630,7 @@ namespace ChillaxScraps.CustomEffects
             {
                 var origin = player.transform.position;
                 yield return new WaitForEndOfFrame();
-                Effects.Teleportation(player, position);
-                SetPosFlagsServerRpc(player.playerClientId, false, false, true);
+                TeleportationServerRpc(player.playerClientId, position, false, false, true);
                 EffectsAudioServerRpc(14, 1f, player.playerClientId);
                 EffectsAudioServerRpc(14, 1f, origin);
             }
@@ -642,8 +642,7 @@ namespace ChillaxScraps.CustomEffects
                 yield return new WaitForSeconds(3.2f);
                 if (!player.isPlayerDead)
                 {
-                    Effects.Teleportation(player, position);
-                    SetPosFlagsServerRpc(player.playerClientId, true, false, false);
+                    TeleportationServerRpc(player.playerClientId, position, true, false, false);
                     EffectsAudioServerRpc(13, 0.9f, player.playerClientId);
                 }
             }

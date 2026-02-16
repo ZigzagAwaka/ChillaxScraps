@@ -66,19 +66,19 @@ namespace ChillaxScraps.CustomEffects
         private void EmergencyMeetingClientRpc(Vector3 position, bool ship, bool exterior, bool interior, ClientRpcParams clientRpcParams = default)
         {
             MeetingEffect();
-            Effects.Teleportation(StartOfRound.Instance.localPlayerController, position);
-            SetPosFlagsServerRpc(StartOfRound.Instance.localPlayerController.playerClientId, ship, exterior, interior);
+            TeleportationServerRpc(StartOfRound.Instance.localPlayerController.playerClientId, position, ship, exterior, interior);
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void SetPosFlagsServerRpc(ulong playerID, bool ship, bool exterior, bool interior)
+        private void TeleportationServerRpc(ulong playerID, Vector3 position, bool ship, bool exterior, bool interior)
         {
-            SetPosFlagsClientRpc(playerID, ship, exterior, interior);
+            TeleportationClientRpc(playerID, position, ship, exterior, interior);
         }
 
         [ClientRpc]
-        private void SetPosFlagsClientRpc(ulong playerID, bool ship, bool exterior, bool interior)
+        private void TeleportationClientRpc(ulong playerID, Vector3 position, bool ship, bool exterior, bool interior)
         {
+            Effects.TeleportationLocal(StartOfRound.Instance.allPlayerScripts[playerID], position);
             Effects.SetPosFlags(playerID, ship, exterior, interior);
         }
 

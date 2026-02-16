@@ -3,7 +3,7 @@
     - Changed [ShipInventoryUpdated](https://thunderstore.io/c/lethal-company/p/LethalCompanyModding/ShipInventoryUpdated/) soft dependency detection to be compatible with the latest update
     - New *harmless* unlucky effect for Moai Statue
 - **Fixed**
-    - Fixed Scroll of Town Portal teleportation effect only being half synced for other players, and fixed the small light wrongly remaining on the ground after the destruction of the item
+    - Fixed Ocarina, Emergency meeting, Uno Reverse Card and Uno Reverse Card DX all having teleportation effects only being half synced for other players
 
 ## 1.6.1
 - **Fixed**
