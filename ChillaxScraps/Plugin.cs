@@ -62,6 +62,7 @@ namespace ChillaxScraps
                 case 11: script = item.spawnPrefab.AddComponent<Nokia>(); SetupScript.Copy((WalkieTalkie)script, item); break;
                 case 12: script = item.spawnPrefab.AddComponent<Freddy>(); break;
                 case 13: script = item.spawnPrefab.AddComponent<UnoReverseDX>(); break;
+                case 14: script = item.spawnPrefab.AddComponent<Moyai>(); break;
                 default: return;
             }
             script.grabbable = true;
@@ -96,7 +97,8 @@ namespace ChillaxScraps
                 "New_Wave_Bossa_Nova_by_The_Indigo-gos.wav", "MM_Warp.wav", "ChargeItem.ogg", "DeathNoteL.wav",
                 "DanceNoteBassPractice.wav", "DanceNote1-Ching.wav", "DanceNote2-Giorno.wav", "DanceNote3-Nyan.wav",
                 "DanceNote4-Spectre.wav", "DanceNote5-Gucci.wav", "DanceNote6-Heyyeya.wav", "nokia1.wav", "nokia2.wav",
-                "nokia1-far.wav", "nokia2-far.wav", "toy.wav", "at_door.wav", "Freddy_Fazbear.wav", "OOT_Song_Correct.wav"
+                "nokia1-far.wav", "nokia2-far.wav", "toy.wav", "at_door.wav", "Freddy_Fazbear.wav", "OOT_Song_Correct.wav",
+                "moyai.wav"
             };
 
             foreach (string prefab in prefabs)
@@ -114,7 +116,7 @@ namespace ChillaxScraps
                 new Scrap("Boink/BoinkItem.asset", 11, 2),
                 new Scrap("Eevee/EeveeItem.asset", 10),
                 new Scrap("CupNoodle/CupNoodleItem.asset", 12, 3),
-                new Scrap("Moai/MoaiItem.asset", 9),
+                new Scrap("Moai/MoaiItem.asset", 9, 14),
                 new Scrap("UnoReverseCard/UnoReverseCardItem.asset", 10, 4),
                 new Scrap("FroggyChair/FroggyChairItem.asset", 10),
                 new Scrap("EmergencyMeeting/EmergencyMeetingItem.asset", 6, 5),
