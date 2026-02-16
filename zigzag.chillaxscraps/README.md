@@ -109,7 +109,7 @@ You can post some suggestions or issues in the mod release page in the [modding 
 - Froggy Chair
 - Emergency meeting
 - Super Sneakers
-- The Master Sword
+- Master Sword
 - Ocarina
 - Totem of Undying
 - Dance Note
@@ -123,11 +123,11 @@ You can post some suggestions or issues in the mod release page in the [modding 
 
 # Credits
 
-- Thanks [BogBog](https://twitter.com/benbogbog) for letting me taking over the ChillaxScraps mod ! All credits goes to him, you can check his link tree here : https://linktr.ee/benbogbog
+- Thanks [BogBog](https://bsky.app/profile/benbogbog.bsky.social) for letting me taking over the ChillaxScraps mod ! All credits goes to him, you can check his link tree here : https://linktr.ee/benbogbog
 
-- The original developers for the ChillaxScraps mod : [BogBog](https://twitter.com/benbogbog), [Namsom](https://twitter.com/NamsomXD) and [OptimusGorilla](https://twitter.com/DanielSuPery)
+- The original developers for the ChillaxScraps mod : [BogBog](https://bsky.app/profile/benbogbog.bsky.social), [Namsom](https://twitter.com/NamsomXD) and [OptimusGorilla](https://twitter.com/DanielSuPery)
 
-- Thanks [Mrov](https://thunderstore.io/c/lethal-company/p/mrov/), [XyphireTV](https://www.twitch.tv/xyphiretv), [Zeldahu](https://thunderstore.io/c/lethal-company/p/Zeldahu/) and [TheHylianMonster](https://www.instagram.com/lucas_tripier/) for helping with some parts of this mod!
+- Thanks [Mrov](https://thunderstore.io/c/lethal-company/p/mrov/), [XyphireTV](https://www.twitch.tv/xyphiretv), [Zeldahu](https://thunderstore.io/c/lethal-company/p/Zeldahu/) and [Zeycla](https://www.twitch.tv/zeycla) for helping with some parts of this mod!
 
 - Thanks [A Glitched Npc](https://www.twitch.tv/a_glitched_npc) for testing, bug reports and some ideas!
 
