@@ -8,12 +8,22 @@ namespace ChillaxScraps.CustomEffects
     internal class Moyai : PhysicsProp
     {
         public AudioSource? itemAudio;
+        public AudioSource? jiggleAudio;
         public Coroutine? audioCoroutine;
 
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
             itemAudio = transform.GetComponent<AudioSource>();
+            jiggleAudio = transform.GetChild(1).GetComponent<AudioSource>();
+        }
+
+        public override void JiggleItemEffect(float audioVolume)
+        {
+            if (itemProperties.clinkAudios != null && itemProperties.clinkAudios.Length != 0)
+            {
+                RoundManager.PlayRandomClip(jiggleAudio, itemProperties.clinkAudios, randomize: true, 0.8f, -1);
+            }
         }
 
         public override void DiscardItem()

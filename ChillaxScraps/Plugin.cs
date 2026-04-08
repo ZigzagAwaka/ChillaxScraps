@@ -25,7 +25,7 @@ namespace ChillaxScraps
     {
         const string GUID = "zigzag.chillaxscraps";
         const string NAME = "ChillaxScraps";
-        const string VERSION = "1.6.2";
+        const string VERSION = "1.6.3";
 
         public static Plugin instance;
         public static List<AudioClip> audioClips = new List<AudioClip>();
@@ -142,7 +142,6 @@ namespace ChillaxScraps
                 if (config.scrapValues[i].Item1 != -1) { item.minValue = config.scrapValues[i].Item1; item.maxValue = config.scrapValues[i].Item2; }
                 if (scrap.behaviourId != 0) LoadItemBehaviour(item, scrap.behaviourId);
                 NetworkPrefabs.RegisterNetworkPrefab(item.spawnPrefab);
-                Utilities.FixMixerGroups(item.spawnPrefab);
                 Items.RegisterScrap(item, config.entries[i++].Value, Levels.LevelTypes.All);
             }
 

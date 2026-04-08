@@ -1,3 +1,8 @@
+## 1.6.3
+- **Updated**
+    - Updated to now be compatible with v81 of the game
+    - Added jiggle audios to Moai Statue (small sounds while walking with the item in hands)
+
 ## 1.6.2
 - **Updated**
     - Changed [ShipInventoryUpdated](https://thunderstore.io/c/lethal-company/p/LethalCompanyModding/ShipInventoryUpdated/) soft dependency detection to be compatible with the latest update

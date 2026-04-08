@@ -17,7 +17,9 @@ MonoBehaviour:
   spawnPositionTypes: []
   twoHanded: 1
   twoHandedAnimation: 1
+  disableHandsOnWall: 0
   canBeGrabbedBeforeGameStart: 1
+  disallowUtilitySlot: 0
   weight: 1.87
   itemIsTrigger: 0
   holdButtonUse: 0
@@ -69,5 +71,9 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 556a391547f7b5d4c9a1466c85a07488, type: 2}
   - {fileID: 2100000, guid: 7e3f8b17b47242c44996225925882c1e, type: 2}
   - {fileID: 2100000, guid: 7e3f8b17b47242c44996225925882c1e, type: 2}
+  clinkAudios:
+  - {fileID: 8300000, guid: e47cd36fff5e257409601035c17a931b, type: 3}
+  - {fileID: 8300000, guid: 7d3628ad216aa8e418a27d6610f33f72, type: 3}
+  - {fileID: 8300000, guid: 252954ee2c6346a40aa76fbf74b259a3, type: 3}
   usableInSpecialAnimations: 0
   canBeInspected: 0

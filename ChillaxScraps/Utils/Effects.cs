@@ -238,7 +238,7 @@ namespace ChillaxScraps.Utils
                 return;
             }
             RoundManager.Instance.SetToCurrentLevelWeather();
-            TimeOfDay.Instance.SetWeatherBasedOnVariables();
+            TimeOfDay.Instance.SetWeatherBasedOnVariables(StartOfRound.Instance.currentLevel.randomWeathers.Where(w => w.weatherType == weather).First());
             if (GameNetworkManager.Instance.localPlayerController.isInsideFactory)
                 return;
             ActivateWeatherEffect(original);
