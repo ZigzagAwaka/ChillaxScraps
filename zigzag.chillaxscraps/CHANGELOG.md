@@ -1,3 +1,7 @@
+## 1.6.4
+- **Updated**
+    - Made the uno cards collider bigger so it's easier to grab (again)
+
 ## 1.6.3
 - **Updated**
     - Updated to now be compatible with v81 of the game
