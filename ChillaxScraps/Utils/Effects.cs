@@ -238,7 +238,14 @@ namespace ChillaxScraps.Utils
                 return;
             }
             RoundManager.Instance.SetToCurrentLevelWeather();
-            TimeOfDay.Instance.SetWeatherBasedOnVariables(StartOfRound.Instance.currentLevel.randomWeathers.Where(w => w.weatherType == weather).First());
+            for (int i = 0; i < StartOfRound.Instance.currentLevel.randomWeathers.Length; i++)
+            {
+                if (StartOfRound.Instance.currentLevel.randomWeathers[i].weatherType != StartOfRound.Instance.currentLevel.currentWeather)
+                {
+                    continue;
+                }
+                TimeOfDay.Instance.SetWeatherBasedOnVariables(StartOfRound.Instance.currentLevel.randomWeathers[i]);
+            }
             if (GameNetworkManager.Instance.localPlayerController.isInsideFactory)
                 return;
             ActivateWeatherEffect(original);
@@ -251,10 +258,8 @@ namespace ChillaxScraps.Utils
                 var effect = TimeOfDay.Instance.effects[i];
                 var enabled = (int)StartOfRound.Instance.currentLevel.currentWeather == i;
                 effect.effectEnabled = enabled;
-                if (effect.effectPermanentObject != null)
-                    effect.effectPermanentObject.SetActive(enabled);
-                if (effect.effectObject != null)
-                    effect.effectObject.SetActive(enabled);
+                effect.effectPermanentObject?.SetActive(enabled);
+                effect.effectObject?.SetActive(enabled);
                 if (TimeOfDay.Instance.sunAnimator != null)
                 {
                     if (enabled && !string.IsNullOrEmpty(effect.sunAnimatorBool))

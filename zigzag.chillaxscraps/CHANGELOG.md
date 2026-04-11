@@ -1,3 +1,7 @@
+## 1.6.5
+- **Fixed**
+    - Fixed weather related code if [WeatherRegistry](https://thunderstore.io/c/lethal-company/p/mrov/WeatherRegistry/) is not installed (soft dependency)
+
 ## 1.6.4
 - **Updated**
     - Made the uno cards collider bigger so it's easier to grab (again)
