@@ -1,3 +1,7 @@
+## 1.6.6
+- **Fixed**
+    - Fixed Freddy Fazbear not activating the bad effect at all since 1.6.3
+
 ## 1.6.5
 - **Fixed**
     - Fixed weather related code if [WeatherRegistry](https://thunderstore.io/c/lethal-company/p/mrov/WeatherRegistry/) is not installed (soft dependency)

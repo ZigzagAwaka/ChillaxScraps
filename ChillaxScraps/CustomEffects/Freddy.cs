@@ -85,7 +85,7 @@ namespace ChillaxScraps.CustomEffects
                 yield return new WaitForSeconds(1);
                 while (true)  // wait for a player to be at least 30s inside the facility
                 {
-                    if (StartOfRound.Instance.shipIsLeaving || StartOfRound.Instance.inShipPhase)
+                    if (StartOfRound.Instance.shipIsLeaving)
                         break;
                     var players = Effects.GetPlayers(excludeOutsideFactory: true);
                     if (players == null || players.Count == 0)
@@ -94,7 +94,7 @@ namespace ChillaxScraps.CustomEffects
                         continue;
                     }
                     yield return new WaitForSeconds(30);
-                    if (StartOfRound.Instance.shipIsLeaving || StartOfRound.Instance.inShipPhase)
+                    if (StartOfRound.Instance.shipIsLeaving)
                         break;
                     players = Effects.GetPlayers(excludeOutsideFactory: true);
                     if (players == null || players.Count == 0)
